@@ -1,6 +1,7 @@
 WicketFullCalendar provides an integration between FullCalendar javascript library and Wicket
 
 FullCalendar: http://arshaw.com/fullcalendar
+
 Wicket: http://wicket.apache.org
 
 #### Features
