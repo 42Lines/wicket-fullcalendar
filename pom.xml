@@ -13,6 +13,11 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
+	<scm>
+		<connection>scm:git:git://github.com/42Lines/wicket-fullcalendar.git</connection>
+		<developerConnection>scm:git:ssh://github.com:42Lines/wicket-fullcalendar.git</developerConnection>
+		<url>https://github.com/42Lines/wicket-fullcalendar</url>
+	</scm> 
 	<modules>
 		<module>wicket-fullcalendar-core</module>
 		<module>wicket-fullcalendar-examples</module>
