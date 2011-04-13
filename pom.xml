@@ -162,6 +162,7 @@
 						<exclude>**/fullcalendar.print.css</exclude>
 						<exclude>**/src/main/webapp/**</exclude>
 						<exclude>eclipse-formatter.xml</exclude>
+						<exclude>checkout/**</exclude>
 					</excludes>
 					<header>license-header.txt</header>
 				</configuration>
