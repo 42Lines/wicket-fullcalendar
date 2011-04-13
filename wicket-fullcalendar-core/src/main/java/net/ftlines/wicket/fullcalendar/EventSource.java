@@ -1,15 +1,13 @@
 /**
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package net.ftlines.wicket.fullcalendar;
@@ -21,7 +19,8 @@ import java.util.Map;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 
-public class EventSource implements Serializable {
+public class EventSource implements Serializable
+{
 
 	private String color;
 	private String backgroundColor;
@@ -37,133 +36,161 @@ public class EventSource implements Serializable {
 
 	private EventProvider eventProvider;
 
-	public String getColor() {
+	public String getColor()
+	{
 		return color;
 	}
 
-	public EventSource setColor(String color) {
+	public EventSource setColor(String color)
+	{
 		this.color = color;
 		return this;
 	}
 
-	public String getBackgroundColor() {
+	public String getBackgroundColor()
+	{
 		return backgroundColor;
 	}
 
-	public EventSource setBackgroundColor(String backgroundColor) {
+	public EventSource setBackgroundColor(String backgroundColor)
+	{
 		this.backgroundColor = backgroundColor;
 		return this;
 	}
 
-	public String getBorderColor() {
+	public String getBorderColor()
+	{
 		return borderColor;
 	}
 
-	public EventSource setBorderColor(String borderColor) {
+	public EventSource setBorderColor(String borderColor)
+	{
 		this.borderColor = borderColor;
 		return this;
 	}
 
-	public String getTextColor() {
+	public String getTextColor()
+	{
 		return textColor;
 	}
 
-	public EventSource setTextColor(String textColor) {
+	public EventSource setTextColor(String textColor)
+	{
 		this.textColor = textColor;
 		return this;
 	}
 
-	public String getClassName() {
+	public String getClassName()
+	{
 		return className;
 	}
 
-	public EventSource setClassName(String className) {
+	public EventSource setClassName(String className)
+	{
 		this.className = className;
 		return this;
 	}
 
-	public Boolean isEditable() {
+	public Boolean isEditable()
+	{
 		return editable;
 	}
 
-	public EventSource setEditable(Boolean editable) {
+	public EventSource setEditable(Boolean editable)
+	{
 		this.editable = editable;
 		return this;
 	}
 
-	public Boolean isAllDayDefault() {
+	public Boolean isAllDayDefault()
+	{
 		return allDayDefault;
 	}
 
-	public EventSource setAllDayDefault(Boolean allDayDefault) {
+	public EventSource setAllDayDefault(Boolean allDayDefault)
+	{
 		this.allDayDefault = allDayDefault;
 		return this;
 	}
 
-	public Boolean isIgnoreTimezone() {
+	public Boolean isIgnoreTimezone()
+	{
 		return ignoreTimezone;
 	}
 
-	public EventSource setIgnoreTimezone(Boolean ignoreTimezone) {
+	public EventSource setIgnoreTimezone(Boolean ignoreTimezone)
+	{
 		this.ignoreTimezone = ignoreTimezone;
 		return this;
 	}
 
-	public String getError() {
+	public String getError()
+	{
 		return error;
 	}
 
-	public EventSource setError(String error) {
+	public EventSource setError(String error)
+	{
 		this.error = error;
 		return this;
 	}
 
 	@JsonIgnore
-	public EventProvider getEventProvider() {
+	public EventProvider getEventProvider()
+	{
 		return eventProvider;
 	}
 
-	public EventSource setEventsProvider(EventProvider eventsProvider) {
+	public EventSource setEventsProvider(EventProvider eventsProvider)
+	{
 		this.eventProvider = eventsProvider;
 		return this;
 	}
 
-	public Map<String, Object> getData() {
+	public Map<String, Object> getData()
+	{
 		return data;
 	}
 
 	@JsonProperty
-	String getUrl() {
+	String getUrl()
+	{
 		return url;
 	}
 
-	void setUrl(String url) {
+	void setUrl(String url)
+	{
 		this.url = url;
 	}
 
-	
-	public EventSource setTitle(String title) {
+
+	public EventSource setTitle(String title)
+	{
 		data.put(Const.TITLE, title);
 		return this;
 	}
 
 	@JsonIgnore
-	public String getTitle() {
+	public String getTitle()
+	{
 		return (String)data.get(Const.TITLE);
 	}
-	
+
 	@JsonIgnore
-	public String getUuid() {
+	public String getUuid()
+	{
 		return (String)data.get(Const.UUID);
 	}
-	
-	
-	public EventSource setUuid(String uuid) {
+
+
+	public EventSource setUuid(String uuid)
+	{
 		data.put(Const.UUID, uuid);
 		return this;
 	}
 
-	public static class Const {
+	public static class Const
+	{
 		public static final String TITLE = "fcxTitle";
 		public static final String UUID = "fcxUuid";
 	}

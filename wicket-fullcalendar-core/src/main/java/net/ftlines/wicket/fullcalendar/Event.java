@@ -1,15 +1,13 @@
 /**
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package net.ftlines.wicket.fullcalendar;
@@ -17,7 +15,8 @@ package net.ftlines.wicket.fullcalendar;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Event implements Serializable {
+public class Event implements Serializable
+{
 
 	private String id;
 
@@ -43,110 +42,134 @@ public class Event implements Serializable {
 
 	private String textColor;
 
-	public String getId() {
+	public String getId()
+	{
 		return id;
 	}
 
-	public Event setId(String id) {
+	public Event setId(String id)
+	{
 		this.id = id;
 		return this;
 	}
 
-	public String getTitle() {
+	public String getTitle()
+	{
 		return title;
 	}
 
-	public Event setTitle(String title) {
+	public Event setTitle(String title)
+	{
 		this.title = title;
 		return this;
 	}
 
-	public boolean isAllDay() {
+	public boolean isAllDay()
+	{
 		return allDay;
 	}
 
-	public Event setAllDay(boolean allDay) {
+	public Event setAllDay(boolean allDay)
+	{
 		this.allDay = allDay;
 		return this;
 	}
 
-	public Date getStart() {
+	public Date getStart()
+	{
 		return start;
 	}
 
-	public Event setStart(Date start) {
+	public Event setStart(Date start)
+	{
 		this.start = start;
 		return this;
 	}
 
-	public Date getEnd() {
+	public Date getEnd()
+	{
 		return end;
 	}
 
-	public Event setEnd(Date end) {
+	public Event setEnd(Date end)
+	{
 		this.end = end;
 		return this;
 	}
 
-	public String getUrl() {
+	public String getUrl()
+	{
 		return url;
 	}
 
-	public Event setUrl(String url) {
+	public Event setUrl(String url)
+	{
 		this.url = url;
 		return this;
 	}
 
-	public String getClassName() {
+	public String getClassName()
+	{
 		return className;
 	}
 
-	public Event setClassName(String className) {
+	public Event setClassName(String className)
+	{
 		this.className = className;
 		return this;
 	}
 
-	public Boolean isEditable() {
+	public Boolean isEditable()
+	{
 		return editable;
 	}
 
-	public Event setEditable(Boolean editable) {
+	public Event setEditable(Boolean editable)
+	{
 		this.editable = editable;
 		return this;
 	}
 
-	public String getColor() {
+	public String getColor()
+	{
 		return color;
 	}
 
-	public Event setColor(String color) {
+	public Event setColor(String color)
+	{
 		this.color = color;
 		return this;
 	}
 
-	public String getBackgroundColor() {
+	public String getBackgroundColor()
+	{
 		return backgroundColor;
 	}
 
-	public Event setBackgroundColor(String backgroundColor) {
+	public Event setBackgroundColor(String backgroundColor)
+	{
 		this.backgroundColor = backgroundColor;
 		return this;
 	}
 
-	public String getBorderColor() {
+	public String getBorderColor()
+	{
 		return borderColor;
 	}
 
-	public Event setBorderColor(String borderColor) {
+	public Event setBorderColor(String borderColor)
+	{
 		this.borderColor = borderColor;
 		return this;
 	}
 
-	public String getTextColor() {
+	public String getTextColor()
+	{
 		return textColor;
 	}
 
-	public Event setTextColor(String textColor) {
+	public Event setTextColor(String textColor)
+	{
 		this.textColor = textColor;
 		return this;
 	}
