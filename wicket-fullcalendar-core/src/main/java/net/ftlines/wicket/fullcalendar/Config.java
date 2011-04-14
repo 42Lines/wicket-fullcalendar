@@ -126,17 +126,4 @@ public class Config implements Serializable
 		this.select = select;
 	}
 
-	@JsonIgnore
-	public EventSource getEventSourceForUuid(String uuid) throws EventSourceNotFoundException
-	{
-		for (EventSource source : eventSources)
-		{
-			if (Objects.equal(uuid, source.getUuid()))
-			{
-				return source;
-			}
-		}
-		throw new EventSourceNotFoundException("Event source with uuid: " + uuid + " not found");
-	}
-
 }

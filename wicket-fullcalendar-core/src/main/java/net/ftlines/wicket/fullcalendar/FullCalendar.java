@@ -16,6 +16,9 @@ import java.util.Date;
 import java.util.Map;
 import java.util.UUID;
 
+import net.ftlines.wicket.fullcalendar.callback.EventDroppedCallback;
+import net.ftlines.wicket.fullcalendar.callback.EventResizedCallback;
+
 import org.apache.wicket.Request;
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
@@ -28,15 +31,23 @@ public class FullCalendar extends AbstractFullCalendar
 {
 
 	private final Config config;
-	private final EventDropCallback eventDrop;
-	private final EventResizeCallback eventResize;
+	private EventDroppedCallback eventDropped;
+	private EventResizedCallback eventResized;
 
 	public FullCalendar(String id, Config config)
 	{
 		super(id);
 		this.config = config;
-		add(eventDrop = new EventDropCallback());
-		add(eventResize = new EventResizeCallback());
+	}
+
+	public Config getConfig()
+	{
+		return config;
+	}
+
+	public EventManager getEventManager()
+	{
+		return new EventManager(this);
 	}
 
 	@Override
@@ -58,14 +69,36 @@ public class FullCalendar extends AbstractFullCalendar
 
 		if (Strings.isEmpty(config.getEventDrop()))
 		{
-			config.setEventDrop("function(event, dayDelta, minuteDelta, allDay, revertFunc) { " +
-				eventDrop.getCallbackScript(true) + "}");
+			add(eventDropped = new EventDroppedCallback()
+			{
+
+				@Override
+				protected boolean onEventDropped(EventSource source, Event event, int dayDelta, int minuteDelta,boolean allDay,
+					AjaxRequestTarget target)
+				{
+					return FullCalendar.this.onEventDropped(source, event, dayDelta, minuteDelta, allDay,target);
+				}
+
+			});
+
+			config.setEventDrop(eventDropped.getHandlerScript());
 		}
 
 		if (Strings.isEmpty(config.getEventResize()))
 		{
-			config.setEventResize("function(event, dayDelta, minuteDelta,  revertFunc) { " +
-				eventResize.getCallbackScript(true) + "}");
+			add(eventResized = new EventResizedCallback()
+			{
+
+				@Override
+				protected boolean onEventResized(EventSource source, Event event, int dayDelta, int minuteDelta,
+					AjaxRequestTarget target)
+				{
+					return FullCalendar.this.onEventResized(source, event, dayDelta, minuteDelta, target);
+				}
+
+			});
+
+			config.setEventResize(eventResized.getHandlerScript());
 		}
 
 	}
@@ -79,6 +112,7 @@ public class FullCalendar extends AbstractFullCalendar
 			source.setUrl(getActionUrl(Const.ACT_GET_EVENTS, params));
 		}
 	}
+
 
 	@Override
 	protected void onAction(String action, Request request, AjaxRequestTarget target)
@@ -115,7 +149,7 @@ public class FullCalendar extends AbstractFullCalendar
 		Date end = new Date(Long.valueOf(request.getParameter("end")) * 1000);
 		String sourceId = request.getParameter(EventSource.Const.UUID);
 
-		EventSource source = config.getEventSourceForUuid(sourceId);
+		EventSource source = getEventManager().getEventSource(sourceId);
 		EventProvider provider = source.getEventProvider();
 
 		String response = Json.toJson(provider.getEvents(start, end));
@@ -134,22 +168,18 @@ public class FullCalendar extends AbstractFullCalendar
 		response.renderOnLoadJavascript(configuration);
 	}
 
-	protected boolean onEventDrop(EventSource source, Event event, int dayDelta, int minuteDelta, boolean allDay,
+	protected boolean onEventDropped(EventSource source, Event event, int dayDelta, int minuteDelta, boolean allDay,
 		AjaxRequestTarget target)
 	{
 		return false;
 	}
 
-	protected boolean onEventResize(EventSource source, Event event, int dayDelta, int minuteDelta,
+	protected boolean onEventResized(EventSource source, Event event, int dayDelta, int minuteDelta,
 		AjaxRequestTarget target)
 	{
 		return false;
 	}
 
-	public Config getConfig()
-	{
-		return config;
-	}
 
 	private static class Const
 	{
@@ -157,110 +187,5 @@ public class FullCalendar extends AbstractFullCalendar
 		private static final String ACT_ON_SELECT = "fcxOnSelect";
 	}
 
-	private class EventDropCallback extends AbstractDefaultAjaxBehavior
-	{
-
-		private String uuid = "uuid" + UUID.randomUUID().toString().replace("-", "");
-
-		@Override
-		public CharSequence getCallbackUrl(boolean onlyTargetActivePage)
-		{
-			return super.getCallbackUrl(onlyTargetActivePage) + "<PLACEHOLDER>";
-		}
-
-		@Override
-		protected CharSequence getCallbackScript(boolean onlyTargetActivePage)
-		{
-			String script = super.getCallbackScript(onlyTargetActivePage).toString();
-			script = script.replace("<PLACEHOLDER>", "&eventId='+event.id+'&sourceId='+event.source.data." +
-				EventSource.Const.UUID + "+'&dayDelta='+dayDelta+'&minuteDelta='+minuteDelta+'&allDay='+allDay+'");
-
-			script = "console.log(event);" + script;
-
-			return script;
-		}
-
-		@Override
-		protected void respond(AjaxRequestTarget target)
-		{
-			Request r = getRequest();
-			String eventId = r.getParameter("eventId");
-			String sourceId = r.getParameter("sourceId");
-
-			EventSource source = config.getEventSourceForUuid(sourceId);
-			Event event = source.getEventProvider().getEventForId(eventId);
-
-			int dayDelta = Integer.valueOf(r.getParameter("dayDelta"));
-			int minuteDelta = Integer.valueOf(r.getParameter("minuteDelta"));
-			boolean allDay = Boolean.valueOf(r.getParameter("allDay"));
-			boolean result = onEventDrop(source, event, dayDelta, minuteDelta, allDay, target);
-			target.prependJavascript("$.data(document, \"" + uuid + "\", " + result + ");");
-		}
-
-		@Override
-		protected CharSequence getFailureScript()
-		{
-			return "revertFunc();";
-		}
-
-		@Override
-		protected CharSequence getSuccessScript()
-		{
-			return ("if (false===$.data(document, \"" + uuid + "\")) {revertFunc();} $.removeData(document, \"" + uuid + "\");");
-		}
-
-	}
-
-	private class EventResizeCallback extends AbstractDefaultAjaxBehavior
-	{
-		private String uuid = "uuid" + UUID.randomUUID().toString().replace("-", "");
-
-		@Override
-		public CharSequence getCallbackUrl(boolean onlyTargetActivePage)
-		{
-			return super.getCallbackUrl(onlyTargetActivePage) + "<PLACEHOLDER>";
-		}
-
-		@Override
-		protected CharSequence getCallbackScript(boolean onlyTargetActivePage)
-		{
-			String script = super.getCallbackScript(onlyTargetActivePage).toString();
-			script = script.replace("<PLACEHOLDER>", "&eventId='+event.id+'&sourceId='+event.source.data." +
-				EventSource.Const.UUID + "+'&dayDelta='+dayDelta+'&minuteDelta='+minuteDelta+'");
-
-			script = "console.log(event);" + script;
-
-			return script;
-		}
-
-		@Override
-		protected void respond(AjaxRequestTarget target)
-		{
-			Request r = getRequest();
-			String eventId = r.getParameter("eventId");
-			String sourceId = r.getParameter("sourceId");
-
-			EventSource source = config.getEventSourceForUuid(sourceId);
-			Event event = source.getEventProvider().getEventForId(eventId);
-
-			int dayDelta = Integer.valueOf(r.getParameter("dayDelta"));
-			int minuteDelta = Integer.valueOf(r.getParameter("minuteDelta"));
-			boolean result = onEventResize(source, event, dayDelta, minuteDelta, target);
-			target.prependJavascript("$.data(document, \"" + uuid + "\", " + result + ");");
-		}
-
-		@Override
-		protected CharSequence getFailureScript()
-		{
-			return "revertFunc();";
-		}
-
-		@Override
-		protected CharSequence getSuccessScript()
-		{
-			return ("if (false===$.data(document, \"" + uuid + "\")) {revertFunc();} $.removeData(document, \"" + uuid + "\");");
-		}
-
-	}
 
 }

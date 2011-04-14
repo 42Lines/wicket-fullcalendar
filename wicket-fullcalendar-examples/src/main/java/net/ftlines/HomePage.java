@@ -86,7 +86,7 @@ public class HomePage extends WebPage
 			}
 
 			@Override
-			protected boolean onEventDrop(EventSource source, Event event, int dayDelta, int minuteDelta,
+			protected boolean onEventDropped(EventSource source, Event event, int dayDelta, int minuteDelta,
 				boolean allDay, AjaxRequestTarget target)
 			{
 				info("Event drop. eventId: " + event.getId() + " sourceId: " + source.getUuid() + " dayDelta: " +
@@ -96,7 +96,7 @@ public class HomePage extends WebPage
 			}
 
 			@Override
-			protected boolean onEventResize(EventSource source, Event event, int dayDelta, int minuteDelta,
+			protected boolean onEventResized(EventSource source, Event event, int dayDelta, int minuteDelta,
 				AjaxRequestTarget target)
 			{
 				info("Event resized. eventId: " + event.getId() + " sourceId: " + source.getUuid() + " dayDelta: " +
