@@ -18,8 +18,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.wicket.util.lang.Objects;
-import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonRawValue;
 
 public class Config implements Serializable
@@ -30,8 +28,10 @@ public class Config implements Serializable
 	private Boolean editable;
 	private String eventDrop;
 	private String eventResize;
+	private String eventClick;
 	private Boolean selectable;
 	private Boolean selectHelper;
+
 
 	/** A callback that will fire after a selection is made */
 	private String select;
@@ -125,5 +125,17 @@ public class Config implements Serializable
 	{
 		this.select = select;
 	}
+
+	@JsonRawValue
+	public String getEventClick()
+	{
+		return eventClick;
+	}
+
+	public void setEventClick(String eventClick)
+	{
+		this.eventClick = eventClick;
+	}
+
 
 }

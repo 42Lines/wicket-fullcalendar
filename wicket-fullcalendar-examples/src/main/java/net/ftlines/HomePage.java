@@ -16,7 +16,6 @@ import java.security.SecureRandom;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -103,6 +102,13 @@ public class HomePage extends WebPage
 					dayDelta + " minuteDelta: " + minuteDelta);
 				target.addComponent(feedback);
 				return false;
+			}
+
+			@Override
+			protected void onEventClicked(EventSource source, Event event, AjaxRequestTarget target)
+			{
+				info("Event clicked. eventId: " + event.getId() + ", sourceId: " + source.getUuid());
+				target.addComponent(feedback);
 			}
 		};
 		calendar.setMarkupId("calendar");

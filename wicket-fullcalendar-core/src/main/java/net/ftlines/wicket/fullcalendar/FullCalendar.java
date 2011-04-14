@@ -16,14 +16,13 @@ import java.util.Date;
 import java.util.UUID;
 
 import net.ftlines.wicket.fullcalendar.callback.DateRangeSelectedCallback;
+import net.ftlines.wicket.fullcalendar.callback.EventClickedCallback;
 import net.ftlines.wicket.fullcalendar.callback.EventDroppedCallback;
 import net.ftlines.wicket.fullcalendar.callback.EventResizedCallback;
 import net.ftlines.wicket.fullcalendar.callback.GetEventsCallback;
 
-import org.apache.wicket.Request;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.request.target.basic.StringRequestTarget;
 import org.apache.wicket.util.string.Strings;
 
 public class FullCalendar extends AbstractFullCalendar
@@ -34,6 +33,7 @@ public class FullCalendar extends AbstractFullCalendar
 	private EventResizedCallback eventResized;
 	private GetEventsCallback getEvents;
 	private DateRangeSelectedCallback dateRangeSelected;
+	private EventClickedCallback eventClicked;
 
 	public FullCalendar(String id, Config config)
 	{
@@ -68,6 +68,19 @@ public class FullCalendar extends AbstractFullCalendar
 			source.setUrl(getEvents.getUrl(source));
 		}
 
+		if (Strings.isEmpty(config.getEventClick()))
+		{
+			add(eventClicked = new EventClickedCallback()
+			{
+				@Override
+				protected void onClicked(EventSource source, Event event, AjaxRequestTarget target)
+				{
+					onEventClicked(source, event, target);
+				}
+			});
+			config.setEventClick(eventClicked.getHandlerScript());
+		}
+
 		if (Strings.isEmpty(config.getSelect()))
 		{
 			add(dateRangeSelected = new DateRangeSelectedCallback()
@@ -92,9 +105,7 @@ public class FullCalendar extends AbstractFullCalendar
 				{
 					return FullCalendar.this.onEventDropped(source, event, dayDelta, minuteDelta, allDay, target);
 				}
-
 			});
-
 			config.setEventDrop(eventDropped.getHandlerScript());
 		}
 
@@ -143,6 +154,11 @@ public class FullCalendar extends AbstractFullCalendar
 	}
 
 	protected void onDateRangeSelected(Date start, Date end, boolean allDay, AjaxRequestTarget target)
+	{
+
+	}
+
+	protected void onEventClicked(EventSource source, Event event, AjaxRequestTarget target)
 	{
 
 	}
