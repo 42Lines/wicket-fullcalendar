@@ -32,11 +32,8 @@ import org.codehaus.jackson.map.SerializerProvider;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.codehaus.jackson.map.module.SimpleModule;
 
-public class Json
+class Json
 {
-	private static final String CODE_START = "ycaBQm9T8UPT---";
-	private static final String CODE_END = "---1IRJDEPhW";
-
 	private Json()
 	{
 
@@ -93,38 +90,6 @@ public class Json
 		}
 		return json;
 	}
-
-	// private static Gson newGson() {
-	// return new GsonBuilder()
-	// .registerTypeAdapter(Date.class,
-	// new UnixTimestampDateSerializer())
-	// .registerTypeAdapter(Script.class, new CodeSerializer())
-	// .excludeFieldsWithoutExposeAnnotation().setPrettyPrinting()
-	// .create();
-	// }
-	//
-	// private static class CodeSerializer implements JsonSerializer<Script> {
-	//
-	// @Override
-	// public JsonElement serialize(Script src, Type typeOfSrc,
-	// JsonSerializationContext context) {
-	//
-	// return new JsonPrimitive(CODE_START + src.getDeclaration()
-	// + CODE_END);
-	// }
-	// }
-	//
-	// private static class UnixTimestampDateSerializer implements
-	// JsonSerializer<Date> {
-	//
-	// @Override
-	// public JsonElement serialize(Date src, Type typeOfSrc,
-	// JsonSerializationContext context) {
-	//
-	// return new JsonPrimitive(src.getTime() / 1000L);
-	// }
-	//
-	// }
 
 	public static class DateSerializer extends JsonSerializer<Date>
 	{
