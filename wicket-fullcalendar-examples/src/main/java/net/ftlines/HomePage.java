@@ -79,7 +79,7 @@ public class HomePage extends WebPage
 		FullCalendar calendar = new FullCalendar("cal", config)
 		{
 			@Override
-			protected void onSelect(Date start, Date end, boolean allDay, AjaxRequestTarget target)
+			protected void onDateRangeSelected(Date start, Date end, boolean allDay, AjaxRequestTarget target)
 			{
 				info("Selected region: " + start + " - " + end + " / allDay: " + allDay);
 				target.addComponent(feedback);

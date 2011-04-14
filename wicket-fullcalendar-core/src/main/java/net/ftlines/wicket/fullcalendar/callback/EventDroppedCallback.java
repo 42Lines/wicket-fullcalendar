@@ -20,7 +20,7 @@ import net.ftlines.wicket.fullcalendar.EventSource;
 import org.apache.wicket.Request;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
-public abstract class EventDroppedCallback extends AbstractCallbackWithClientsideRevert
+public abstract class EventDroppedCallback extends AbstractAjaxCallbackWithClientsideRevert implements CallbackWithHandler
 {
 	@Override
 	protected String configureCallbackScript(String script, String urlTail)
