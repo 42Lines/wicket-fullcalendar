@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import net.ftlines.wicket.fullcalendar.CalendarResponse;
 import net.ftlines.wicket.fullcalendar.Config;
 import net.ftlines.wicket.fullcalendar.Event;
 import net.ftlines.wicket.fullcalendar.EventNotFoundException;
@@ -78,7 +79,8 @@ public class HomePage extends WebPage
 		FullCalendar calendar = new FullCalendar("cal", config)
 		{
 			@Override
-			protected void onDateRangeSelected(Date start, Date end, boolean allDay, AjaxRequestTarget target)
+			protected void onDateRangeSelected(Date start, Date end, boolean allDay, AjaxRequestTarget target,
+				CalendarResponse response)
 			{
 				info("Selected region: " + start + " - " + end + " / allDay: " + allDay);
 				target.addComponent(feedback);
@@ -86,7 +88,7 @@ public class HomePage extends WebPage
 
 			@Override
 			protected boolean onEventDropped(EventSource source, Event event, int dayDelta, int minuteDelta,
-				boolean allDay, AjaxRequestTarget target)
+				boolean allDay, AjaxRequestTarget target, CalendarResponse response)
 			{
 				info("Event drop. eventId: " + event.getId() + " sourceId: " + source.getUuid() + " dayDelta: " +
 					dayDelta + " minuteDelta: " + minuteDelta + " allDay: " + allDay);
@@ -96,7 +98,7 @@ public class HomePage extends WebPage
 
 			@Override
 			protected boolean onEventResized(EventSource source, Event event, int dayDelta, int minuteDelta,
-				AjaxRequestTarget target)
+				AjaxRequestTarget target, CalendarResponse response)
 			{
 				info("Event resized. eventId: " + event.getId() + " sourceId: " + source.getUuid() + " dayDelta: " +
 					dayDelta + " minuteDelta: " + minuteDelta);
@@ -105,9 +107,11 @@ public class HomePage extends WebPage
 			}
 
 			@Override
-			protected void onEventClicked(EventSource source, Event event, AjaxRequestTarget target)
+			protected void onEventClicked(EventSource source, Event event, AjaxRequestTarget target,
+				CalendarResponse response)
 			{
 				info("Event clicked. eventId: " + event.getId() + ", sourceId: " + source.getUuid());
+				response.refetchEvents();
 				target.addComponent(feedback);
 			}
 		};

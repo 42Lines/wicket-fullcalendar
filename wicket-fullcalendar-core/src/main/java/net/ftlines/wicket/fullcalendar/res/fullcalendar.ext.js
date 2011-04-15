@@ -93,7 +93,7 @@ $.fn.generateId = function() {
 					}
 				}
 				
-				function toggleSource(owner, uuid, val) {
+				function _toggleSource(owner, uuid, val) {
 					var source=findSource(uuid);
 					val=val||!source.data.fcxEnabled;
 					if (val&&!source.data.fcxEnabled) {
@@ -115,13 +115,17 @@ $.fn.generateId = function() {
 						
 						var checkbox=$("<input type='checkbox'/>");
 						if (this.data.fcxEnabled) { checkbox.attr("checked","checked"); }
-						checkbox.bind("click", function() { toggleSource(owner, sourceUuid, this.checked); });
+						checkbox.bind("click", function() { _toggleSource(owner, sourceUuid, this.checked); });
 						checkbox.generateId();
 						var li=$("<li></li>");
 						checkbox.appendTo(li);
 						$("<label for='"+checkbox.attr("id")+"'>"+this.data.fcxTitle+"</label>").appendTo(li);
 						li.appendTo(ul);					
 					});
+				}
+				
+				ext.toggleSource=function(sourceId, enabled) {
+					_toggleSource(owner, sourceId, enabled); 
 				}
 			
 				return ext;

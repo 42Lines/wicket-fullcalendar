@@ -12,13 +12,16 @@
 
 package net.ftlines.wicket.fullcalendar.callback;
 
+import net.ftlines.wicket.fullcalendar.CalendarResponse;
 import net.ftlines.wicket.fullcalendar.Event;
 import net.ftlines.wicket.fullcalendar.EventSource;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 
-public abstract class EventResizedCallback extends AbstractAjaxCallbackWithClientsideRevert implements CallbackWithHandler
+public abstract class EventResizedCallback extends AbstractAjaxCallbackWithClientsideRevert
+	implements
+		CallbackWithHandler
 {
 	@Override
 	protected String configureCallbackScript(String script, String urlTail)
@@ -46,12 +49,12 @@ public abstract class EventResizedCallback extends AbstractAjaxCallbackWithClien
 		int dayDelta = Integer.valueOf(r.getParameter("dayDelta"));
 		int minuteDelta = Integer.valueOf(r.getParameter("minuteDelta"));
 
-		return onEventResized(source, event, dayDelta, minuteDelta, target);
+		return onEventResized(source, event, dayDelta, minuteDelta, target, new CalendarResponse(getCalendar(), target));
 
 	}
 
 	protected abstract boolean onEventResized(EventSource source, Event event, int dayDelta, int minuteDelta,
-		AjaxRequestTarget target);
+		AjaxRequestTarget target, CalendarResponse response);
 
 	@Override
 	protected String getRevertScript()

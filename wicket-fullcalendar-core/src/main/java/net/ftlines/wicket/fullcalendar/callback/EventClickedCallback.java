@@ -12,6 +12,7 @@
 
 package net.ftlines.wicket.fullcalendar.callback;
 
+import net.ftlines.wicket.fullcalendar.CalendarResponse;
 import net.ftlines.wicket.fullcalendar.Event;
 import net.ftlines.wicket.fullcalendar.EventSource;
 
@@ -44,11 +45,11 @@ public abstract class EventClickedCallback extends AbstractAjaxCallback implemen
 		EventSource source = getCalendar().getEventManager().getEventSource(sourceId);
 		Event event = source.getEventProvider().getEventForId(eventId);
 
-		onClicked(source, event, target);
+		onClicked(source, event, target, new CalendarResponse(getCalendar(), target));
 	}
 
 
-	protected abstract void onClicked(EventSource source, Event event, AjaxRequestTarget target);
+	protected abstract void onClicked(EventSource source, Event event, AjaxRequestTarget target, CalendarResponse response);
 
 
 }
