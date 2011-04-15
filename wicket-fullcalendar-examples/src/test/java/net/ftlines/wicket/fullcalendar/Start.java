@@ -10,7 +10,7 @@
  * the License.
  */
 
-package net.ftlines;
+package net.ftlines.wicket.fullcalendar;
 
 import org.mortbay.jetty.Connector;
 import org.mortbay.jetty.Server;

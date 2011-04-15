@@ -21,7 +21,7 @@
  		<filter-class>org.apache.wicket.protocol.http.WicketFilter</filter-class>
 		<init-param>
 			<param-name>applicationClassName</param-name>
-			<param-value>net.ftlines.WicketApplication</param-value>
+			<param-value>net.ftlines.wicket.fullcalendar.WicketApplication</param-value>
  		</init-param>
  	</filter>
 

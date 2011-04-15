@@ -10,7 +10,7 @@
  * the License.
  */
 
-package net.ftlines;
+package net.ftlines.wicket.fullcalendar;
 
 import java.security.SecureRandom;
 import java.util.Collection;
