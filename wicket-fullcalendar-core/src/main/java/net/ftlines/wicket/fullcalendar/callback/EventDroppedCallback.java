@@ -50,12 +50,12 @@ public abstract class EventDroppedCallback extends AbstractAjaxCallbackWithClien
 		int minuteDelta = Integer.valueOf(r.getParameter("minuteDelta"));
 		boolean allDay = Boolean.valueOf(r.getParameter("allDay"));
 
-		return onEventDropped(source, event, dayDelta, minuteDelta, allDay, target, new CalendarResponse(getCalendar(),
+		return onEventDropped(source, event, dayDelta, minuteDelta, allDay, new CalendarResponse(getCalendar(),
 			target));
 	}
 
 	protected abstract boolean onEventDropped(EventSource source, Event event, int dayDelta, int minuteDelta,
-		boolean allDay, AjaxRequestTarget target, CalendarResponse response);
+		boolean allDay, CalendarResponse response);
 
 	@Override
 	protected String getRevertScript()

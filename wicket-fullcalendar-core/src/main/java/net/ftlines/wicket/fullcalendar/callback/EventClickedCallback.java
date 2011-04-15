@@ -45,11 +45,11 @@ public abstract class EventClickedCallback extends AbstractAjaxCallback implemen
 		EventSource source = getCalendar().getEventManager().getEventSource(sourceId);
 		Event event = source.getEventProvider().getEventForId(eventId);
 
-		onClicked(source, event, target, new CalendarResponse(getCalendar(), target));
+		onClicked(source, event, new CalendarResponse(getCalendar(), target));
 	}
 
 
-	protected abstract void onClicked(EventSource source, Event event, AjaxRequestTarget target, CalendarResponse response);
+	protected abstract void onClicked(EventSource source, Event event, CalendarResponse response);
 
 
 }

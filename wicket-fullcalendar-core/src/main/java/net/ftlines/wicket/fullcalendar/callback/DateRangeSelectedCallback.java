@@ -41,10 +41,10 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 		Date start = new Date(Long.valueOf(r.getParameter("startDate")));
 		Date end = new Date(Long.valueOf(r.getParameter("endDate")));
 		boolean allDay = Boolean.valueOf(r.getParameter("allDay"));
-		onSelect(start, end, allDay, target, new CalendarResponse(getCalendar(), target));
+		onSelect(start, end, allDay, new CalendarResponse(getCalendar(), target));
 
 	}
 
-	protected abstract void onSelect(Date start, Date end, boolean allDay, AjaxRequestTarget target, CalendarResponse response);
+	protected abstract void onSelect(Date start, Date end, boolean allDay, CalendarResponse response);
 
 }

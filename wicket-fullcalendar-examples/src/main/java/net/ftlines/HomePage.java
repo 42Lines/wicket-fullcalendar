@@ -29,7 +29,6 @@ import net.ftlines.wicket.fullcalendar.FullCalendar;
 import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
 
 import org.apache.wicket.PageParameters;
-import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.util.time.Duration;
@@ -79,40 +78,38 @@ public class HomePage extends WebPage
 		FullCalendar calendar = new FullCalendar("cal", config)
 		{
 			@Override
-			protected void onDateRangeSelected(Date start, Date end, boolean allDay, AjaxRequestTarget target,
-				CalendarResponse response)
+			protected void onDateRangeSelected(Date start, Date end, boolean allDay, CalendarResponse response)
 			{
 				info("Selected region: " + start + " - " + end + " / allDay: " + allDay);
-				target.addComponent(feedback);
+				response.getTarget().addComponent(feedback);
 			}
 
 			@Override
 			protected boolean onEventDropped(EventSource source, Event event, int dayDelta, int minuteDelta,
-				boolean allDay, AjaxRequestTarget target, CalendarResponse response)
+				boolean allDay, CalendarResponse response)
 			{
 				info("Event drop. eventId: " + event.getId() + " sourceId: " + source.getUuid() + " dayDelta: " +
 					dayDelta + " minuteDelta: " + minuteDelta + " allDay: " + allDay);
-				target.addComponent(feedback);
+				response.getTarget().addComponent(feedback);
 				return false;
 			}
 
 			@Override
 			protected boolean onEventResized(EventSource source, Event event, int dayDelta, int minuteDelta,
-				AjaxRequestTarget target, CalendarResponse response)
+				CalendarResponse response)
 			{
 				info("Event resized. eventId: " + event.getId() + " sourceId: " + source.getUuid() + " dayDelta: " +
 					dayDelta + " minuteDelta: " + minuteDelta);
-				target.addComponent(feedback);
+				response.getTarget().addComponent(feedback);
 				return false;
 			}
 
 			@Override
-			protected void onEventClicked(EventSource source, Event event, AjaxRequestTarget target,
-				CalendarResponse response)
+			protected void onEventClicked(EventSource source, Event event, CalendarResponse response)
 			{
 				info("Event clicked. eventId: " + event.getId() + ", sourceId: " + source.getUuid());
 				response.refetchEvents();
-				target.addComponent(feedback);
+				response.getTarget().addComponent(feedback);
 			}
 		};
 		calendar.setMarkupId("calendar");

@@ -30,7 +30,7 @@ public class CalendarResponse
 		// for now we have an unoptimized implementation
 		// later we can replace this by searching for the affected event in the clientside buffer
 		// and refetching it
-		
+
 		return refetchEvents(source);
 	}
 
@@ -38,6 +38,11 @@ public class CalendarResponse
 	public CalendarResponse toggleEventSource(EventSource source, boolean enabled)
 	{
 		return execute(q("toggleSource"), q(source.getUuid()), String.valueOf(enabled));
+	}
+
+	public AjaxRequestTarget getTarget()
+	{
+		return target;
 	}
 
 	private CalendarResponse execute(String... args)
