@@ -93,6 +93,9 @@ public class HomePage extends WebPage
 				info("Event drop. eventId: " + event.getEvent().getId() + " sourceId: " + event.getSource().getUuid() +
 					" dayDelta: " + event.getDaysDelta() + " minuteDelta: " + event.getMinutesDelta() + " allDay: " +
 					event.isAllDay());
+				info("Original start time: " + event.getEvent().getStart() + ", original end time: " +
+					event.getEvent().getEnd());
+				info("New start time: " + event.getNewStartTime() + ", new end time: " + event.getNewEndTime());
 				response.getTarget().addComponent(feedback);
 				return false;
 			}
