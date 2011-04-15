@@ -12,14 +12,17 @@
 
 package net.ftlines.wicket.fullcalendar;
 
-import java.util.Date;
 import java.util.UUID;
 
+import net.ftlines.wicket.fullcalendar.callback.ClickedEvent;
 import net.ftlines.wicket.fullcalendar.callback.DateRangeSelectedCallback;
+import net.ftlines.wicket.fullcalendar.callback.DroppedEvent;
 import net.ftlines.wicket.fullcalendar.callback.EventClickedCallback;
 import net.ftlines.wicket.fullcalendar.callback.EventDroppedCallback;
 import net.ftlines.wicket.fullcalendar.callback.EventResizedCallback;
 import net.ftlines.wicket.fullcalendar.callback.GetEventsCallback;
+import net.ftlines.wicket.fullcalendar.callback.ResizedEvent;
+import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
 
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.util.string.Strings;
@@ -72,9 +75,9 @@ public class FullCalendar extends AbstractFullCalendar
 			add(eventClicked = new EventClickedCallback()
 			{
 				@Override
-				protected void onClicked(EventSource source, Event event, CalendarResponse response)
+				protected void onClicked(ClickedEvent event, CalendarResponse response)
 				{
-					onEventClicked(source, event, response);
+					onEventClicked(event, response);
 				}
 			});
 			config.setEventClick(eventClicked.getHandlerScript());
@@ -85,9 +88,9 @@ public class FullCalendar extends AbstractFullCalendar
 			add(dateRangeSelected = new DateRangeSelectedCallback()
 			{
 				@Override
-				protected void onSelect(Date start, Date end, boolean allDay, CalendarResponse response)
+				protected void onSelect(SelectedRange range, CalendarResponse response)
 				{
-					FullCalendar.this.onDateRangeSelected(start, end, allDay, response);
+					FullCalendar.this.onDateRangeSelected(range, response);
 				}
 			});
 			config.setSelect(dateRangeSelected.getHandlerScript());
@@ -99,10 +102,9 @@ public class FullCalendar extends AbstractFullCalendar
 			{
 
 				@Override
-				protected boolean onEventDropped(EventSource source, Event event, int dayDelta, int minuteDelta,
-					boolean allDay, CalendarResponse response)
+				protected boolean onEventDropped(DroppedEvent event, CalendarResponse response)
 				{
-					return FullCalendar.this.onEventDropped(source, event, dayDelta, minuteDelta, allDay, response);
+					return FullCalendar.this.onEventDropped(event, response);
 				}
 			});
 			config.setEventDrop(eventDropped.getHandlerScript());
@@ -114,10 +116,9 @@ public class FullCalendar extends AbstractFullCalendar
 			{
 
 				@Override
-				protected boolean onEventResized(EventSource source, Event event, int dayDelta, int minuteDelta,
-					CalendarResponse response)
+				protected boolean onEventResized(ResizedEvent event, CalendarResponse response)
 				{
-					return FullCalendar.this.onEventResized(source, event, dayDelta, minuteDelta, response);
+					return FullCalendar.this.onEventResized(event, response);
 				}
 
 			});
@@ -140,24 +141,22 @@ public class FullCalendar extends AbstractFullCalendar
 		response.renderOnLoadJavascript(configuration);
 	}
 
-	protected boolean onEventDropped(EventSource source, Event event, int dayDelta, int minuteDelta, boolean allDay,
-		CalendarResponse response)
+	protected boolean onEventDropped(DroppedEvent event, CalendarResponse response)
 	{
 		return false;
 	}
 
-	protected boolean onEventResized(EventSource source, Event event, int dayDelta, int minuteDelta,
-		CalendarResponse response)
+	protected boolean onEventResized(ResizedEvent event, CalendarResponse response)
 	{
 		return false;
 	}
 
-	protected void onDateRangeSelected(Date start, Date end, boolean allDay, CalendarResponse response)
+	protected void onDateRangeSelected(SelectedRange range, CalendarResponse response)
 	{
 
 	}
 
-	protected void onEventClicked(EventSource source, Event event, CalendarResponse response)
+	protected void onEventClicked(ClickedEvent event, CalendarResponse response)
 	{
 
 	}

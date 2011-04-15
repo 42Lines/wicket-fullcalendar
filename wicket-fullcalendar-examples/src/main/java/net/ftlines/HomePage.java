@@ -26,6 +26,10 @@ import net.ftlines.wicket.fullcalendar.EventNotFoundException;
 import net.ftlines.wicket.fullcalendar.EventProvider;
 import net.ftlines.wicket.fullcalendar.EventSource;
 import net.ftlines.wicket.fullcalendar.FullCalendar;
+import net.ftlines.wicket.fullcalendar.callback.ClickedEvent;
+import net.ftlines.wicket.fullcalendar.callback.DroppedEvent;
+import net.ftlines.wicket.fullcalendar.callback.ResizedEvent;
+import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
 import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
 
 import org.apache.wicket.PageParameters;
@@ -78,36 +82,37 @@ public class HomePage extends WebPage
 		FullCalendar calendar = new FullCalendar("cal", config)
 		{
 			@Override
-			protected void onDateRangeSelected(Date start, Date end, boolean allDay, CalendarResponse response)
+			protected void onDateRangeSelected(SelectedRange range, CalendarResponse response)
 			{
-				info("Selected region: " + start + " - " + end + " / allDay: " + allDay);
+				info("Selected region: " + range.getStart() + " - " + range.getEnd() + " / allDay: " + range.isAllDay());
 				response.getTarget().addComponent(feedback);
 			}
 
 			@Override
-			protected boolean onEventDropped(EventSource source, Event event, int dayDelta, int minuteDelta,
-				boolean allDay, CalendarResponse response)
+			protected boolean onEventDropped(DroppedEvent event, CalendarResponse response)
 			{
-				info("Event drop. eventId: " + event.getId() + " sourceId: " + source.getUuid() + " dayDelta: " +
-					dayDelta + " minuteDelta: " + minuteDelta + " allDay: " + allDay);
-				response.getTarget().addComponent(feedback);
-				return false;
-			}
-
-			@Override
-			protected boolean onEventResized(EventSource source, Event event, int dayDelta, int minuteDelta,
-				CalendarResponse response)
-			{
-				info("Event resized. eventId: " + event.getId() + " sourceId: " + source.getUuid() + " dayDelta: " +
-					dayDelta + " minuteDelta: " + minuteDelta);
+				info("Event drop. eventId: " + event.getEvent().getId() + " sourceId: " + event.getSource().getUuid() +
+					" dayDelta: " + event.getDaysDelta() + " minuteDelta: " + event.getMinutesDelta() + " allDay: " +
+					event.isAllDay());
 				response.getTarget().addComponent(feedback);
 				return false;
 			}
 
 			@Override
-			protected void onEventClicked(EventSource source, Event event, CalendarResponse response)
+			protected boolean onEventResized(ResizedEvent event, CalendarResponse response)
 			{
-				info("Event clicked. eventId: " + event.getId() + ", sourceId: " + source.getUuid());
+				info("Event resized. eventId: " + event.getEvent().getId() + " sourceId: " +
+					event.getSource().getUuid() + " dayDelta: " + event.getDaysDelta() + " minuteDelta: " +
+					event.getMinutesDelta());
+				response.getTarget().addComponent(feedback);
+				return false;
+			}
+
+			@Override
+			protected void onEventClicked(ClickedEvent event, CalendarResponse response)
+			{
+				info("Event clicked. eventId: " + event.getEvent().getId() + ", sourceId: " +
+					event.getSource().getUuid());
 				response.refetchEvents();
 				response.getTarget().addComponent(feedback);
 			}

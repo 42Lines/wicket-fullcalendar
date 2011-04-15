@@ -49,12 +49,12 @@ public abstract class EventResizedCallback extends AbstractAjaxCallbackWithClien
 		int dayDelta = Integer.valueOf(r.getParameter("dayDelta"));
 		int minuteDelta = Integer.valueOf(r.getParameter("minuteDelta"));
 
-		return onEventResized(source, event, dayDelta, minuteDelta, new CalendarResponse(getCalendar(), target));
+		return onEventResized(new ResizedEvent(source, event, dayDelta, minuteDelta), new CalendarResponse(
+			getCalendar(), target));
 
 	}
 
-	protected abstract boolean onEventResized(EventSource source, Event event, int dayDelta, int minuteDelta,
-		CalendarResponse response);
+	protected abstract boolean onEventResized(ResizedEvent event, CalendarResponse response);
 
 	@Override
 	protected String getRevertScript()

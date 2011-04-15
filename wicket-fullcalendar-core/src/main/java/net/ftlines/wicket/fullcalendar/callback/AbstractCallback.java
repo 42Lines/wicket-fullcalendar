@@ -9,7 +9,7 @@ import org.apache.wicket.behavior.AbstractBehavior;
 import org.apache.wicket.behavior.IBehavior;
 import org.apache.wicket.behavior.IBehaviorListener;
 
-public abstract class AbstractCallback extends AbstractBehavior implements IBehaviorListener
+abstract class AbstractCallback extends AbstractBehavior implements IBehaviorListener
 {
 	private FullCalendar calendar;
 
