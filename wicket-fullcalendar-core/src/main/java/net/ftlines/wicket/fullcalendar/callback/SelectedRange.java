@@ -1,36 +1,36 @@
 package net.ftlines.wicket.fullcalendar.callback;
 
-import java.util.Date;
+import org.joda.time.DateTime;
 
 public class SelectedRange
 {
-	private Date start;
-	private Date end;
+	private DateTime start;
+	private DateTime end;
 	private boolean allDay;
 
-	public SelectedRange(Date start, Date end, boolean allDay)
+	public SelectedRange(DateTime start, DateTime end, boolean allDay)
 	{
 		this.start = start;
 		this.end = end;
 		this.allDay = allDay;
 	}
 
-	public Date getStart()
+	public DateTime getStart()
 	{
 		return start;
 	}
 
-	public void setStart(Date start)
+	public void setStart(DateTime start)
 	{
 		this.start = start;
 	}
 
-	public Date getEnd()
+	public DateTime getEnd()
 	{
 		return end;
 	}
 
-	public void setEnd(Date end)
+	public void setEnd(DateTime end)
 	{
 		this.end = end;
 	}

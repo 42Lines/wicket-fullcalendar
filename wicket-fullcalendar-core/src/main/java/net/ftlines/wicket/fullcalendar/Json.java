@@ -31,6 +31,7 @@ import org.codehaus.jackson.map.ObjectMapper;
 import org.codehaus.jackson.map.SerializerProvider;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.codehaus.jackson.map.module.SimpleModule;
+import org.joda.time.DateTime;
 
 class Json
 {
@@ -91,21 +92,21 @@ class Json
 		return json;
 	}
 
-	public static class DateSerializer extends JsonSerializer<Date>
+	public static class DateSerializer extends JsonSerializer<DateTime>
 	{
 
 		@Override
-		public void serialize(Date value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
+		public void serialize(DateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
 			JsonProcessingException
 		{
 
-			jgen.writeNumber(value.getTime() / 1000);
+			jgen.writeNumber(value.getMillis() / 1000);
 		}
 
 		@Override
-		public Class<Date> handledType()
+		public Class<DateTime> handledType()
 		{
-			return Date.class;
+			return DateTime.class;
 		}
 
 	}

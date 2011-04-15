@@ -15,6 +15,8 @@ package net.ftlines.wicket.fullcalendar;
 import java.io.Serializable;
 import java.util.Date;
 
+import org.joda.time.DateTime;
+
 public class Event implements Serializable
 {
 
@@ -24,9 +26,9 @@ public class Event implements Serializable
 
 	private boolean allDay = false;
 
-	private Date start;
+	private DateTime start;
 
-	private Date end;
+	private DateTime end;
 
 	private String url;
 
@@ -75,23 +77,23 @@ public class Event implements Serializable
 		return this;
 	}
 
-	public Date getStart()
+	public DateTime getStart()
 	{
 		return start;
 	}
 
-	public Event setStart(Date start)
+	public Event setStart(DateTime start)
 	{
 		this.start = start;
 		return this;
 	}
 
-	public Date getEnd()
+	public DateTime getEnd()
 	{
 		return end;
 	}
 
-	public Event setEnd(Date end)
+	public Event setEnd(DateTime end)
 	{
 		this.end = end;
 		return this;

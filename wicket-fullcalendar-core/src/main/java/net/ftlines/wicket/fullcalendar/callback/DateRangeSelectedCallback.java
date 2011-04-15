@@ -12,12 +12,11 @@
 
 package net.ftlines.wicket.fullcalendar.callback;
 
-import java.util.Date;
-
 import net.ftlines.wicket.fullcalendar.CalendarResponse;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.joda.time.DateTime;
 
 public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback implements CallbackWithHandler
 {
@@ -38,8 +37,8 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 	protected void respond(AjaxRequestTarget target)
 	{
 		Request r = getCalendar().getRequest();
-		Date start = new Date(Long.valueOf(r.getParameter("startDate")));
-		Date end = new Date(Long.valueOf(r.getParameter("endDate")));
+		DateTime start = new DateTime(Long.valueOf(r.getParameter("startDate")));
+		DateTime end = new DateTime(Long.valueOf(r.getParameter("endDate")));
 		boolean allDay = Boolean.valueOf(r.getParameter("allDay"));
 		onSelect(new SelectedRange(start, end, allDay), new CalendarResponse(getCalendar(), target));
 

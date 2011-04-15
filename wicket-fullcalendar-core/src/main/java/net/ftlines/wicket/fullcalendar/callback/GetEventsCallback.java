@@ -1,13 +1,12 @@
 package net.ftlines.wicket.fullcalendar.callback;
 
-import java.util.Date;
-
 import net.ftlines.wicket.fullcalendar.EventProvider;
 import net.ftlines.wicket.fullcalendar.EventSource;
 
 import org.apache.wicket.Request;
 import org.apache.wicket.request.target.basic.StringRequestTarget;
 import org.apache.wicket.util.collections.MicroMap;
+import org.joda.time.DateTime;
 
 
 public class GetEventsCallback extends AbstractCallback
@@ -24,8 +23,8 @@ public class GetEventsCallback extends AbstractCallback
 	{
 		Request r = getCalendar().getRequest();
 		String sid = r.getParameter(SOURCE_ID);
-		Date start = new Date(Long.valueOf(r.getParameter("start")) * 1000);
-		Date end = new Date(Long.valueOf(r.getParameter("end")) * 1000);
+		DateTime start = new DateTime(Long.valueOf(r.getParameter("start")) * 1000);
+		DateTime end = new DateTime(Long.valueOf(r.getParameter("end")) * 1000);
 
 		EventSource source = getCalendar().getEventManager().getEventSource(sid);
 		EventProvider provider = source.getEventProvider();

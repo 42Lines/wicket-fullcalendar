@@ -13,9 +13,7 @@
 package net.ftlines;
 
 import java.security.SecureRandom;
-import java.util.Calendar;
 import java.util.Collection;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -36,6 +34,7 @@ import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.util.time.Duration;
+import org.joda.time.DateTime;
 
 public class HomePage extends WebPage
 {
@@ -134,31 +133,27 @@ public class HomePage extends WebPage
 		}
 
 		@Override
-		public Collection<Event> getEvents(Date start, Date end)
+		public Collection<Event> getEvents(DateTime start, DateTime end)
 		{
 			events.clear();
 			SecureRandom random = new SecureRandom();
 
-			Duration duration = Duration.valueOf(end.getTime() - start.getTime());
+			Duration duration = Duration.valueOf(end.getMillis() - start.getMillis());
 
 			for (int j = 0; j < 1; j++)
 			{
 				for (int i = 0; i < duration.days() + 1; i++)
 				{
-					Calendar calendar = Calendar.getInstance();
-					calendar.setTime(start);
-
-					calendar.add(Calendar.DAY_OF_YEAR, i);
-
-					calendar.set(Calendar.HOUR_OF_DAY, 6 + random.nextInt(10));
+					DateTime calendar = start;
+					calendar = calendar.plusDays(i).withHourOfDay(6 + random.nextInt(10));
 
 					Event event = new Event();
 					int id = (int)(j * duration.days() + i);
 					event.setId("" + id);
 					event.setTitle(title + (1 + i));
-					event.setStart(calendar.getTime());
-					calendar.add(Calendar.HOUR_OF_DAY, random.nextInt(8));
-					event.setEnd(calendar.getTime());
+					event.setStart(calendar);
+					calendar = calendar.plusHours(random.nextInt(8));
+					event.setEnd(calendar);
 
 					events.put(id, event);
 				}

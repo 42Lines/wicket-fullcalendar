@@ -14,11 +14,12 @@ package net.ftlines.wicket.fullcalendar;
 
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Date;
+
+import org.joda.time.DateTime;
 
 public interface EventProvider extends Serializable
 {
-	Collection<Event> getEvents(Date start, Date end);
+	Collection<Event> getEvents(DateTime start, DateTime end);
 
 	Event getEventForId(String id) throws EventNotFoundException;
 }
