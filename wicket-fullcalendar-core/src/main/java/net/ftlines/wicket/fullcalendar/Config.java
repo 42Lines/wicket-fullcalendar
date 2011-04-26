@@ -31,10 +31,9 @@ public class Config implements Serializable
 	private String eventClick;
 	private Boolean selectable;
 	private Boolean selectHelper;
-
-
 	/** A callback that will fire after a selection is made */
 	private String select;
+	private String defaultView;
 
 	public Config add(EventSource eventSource)
 	{
@@ -137,5 +136,24 @@ public class Config implements Serializable
 		this.eventClick = eventClick;
 	}
 
+	/**
+	 * @return the defaultView
+	 */
+	public String getDefaultView()
+	{
+		return defaultView;
+	}
 
+	/**
+	 * See <a href="http://arshaw.com/fullcalendar/docs/views/Available_Views/">http://arshaw.com/
+	 * fullcalendar/docs/views/Available_Views/</a> for the list of possible values.
+	 * 
+	 * @param defaultView
+	 *            the defaultView to set
+	 */
+	public void setDefaultView(String defaultView)
+	{
+		this.defaultView = defaultView;
+	}
+	
 }
