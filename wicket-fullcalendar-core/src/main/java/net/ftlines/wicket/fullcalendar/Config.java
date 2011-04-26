@@ -16,12 +16,22 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonRawValue;
 
 public class Config implements Serializable
 {
+	/** Use these to specify calendar column formats */
+	public static enum ColumnFormat
+	{
+		day, week, month;
+	}
+
 	private List<EventSource> eventSources = new ArrayList<EventSource>();
 	private Header header = new Header();
 	private String loading;
@@ -34,7 +44,9 @@ public class Config implements Serializable
 	/** A callback that will fire after a selection is made */
 	private String select;
 	private String defaultView;
-
+	@JsonProperty
+	private Map<ColumnFormat, String> columnFormat = new HashMap<Config.ColumnFormat, String>();
+	
 	public Config add(EventSource eventSource)
 	{
 		eventSources.add(eventSource);
@@ -154,6 +166,39 @@ public class Config implements Serializable
 	public void setDefaultView(String defaultView)
 	{
 		this.defaultView = defaultView;
+	}
+	
+	@JsonIgnore
+	public String getColumnFormatDay()
+	{
+		return columnFormat.get(ColumnFormat.day);
+	}
+	
+	public void setColumnFormatDay(String format)
+	{
+		columnFormat.put(ColumnFormat.day, format);
+	}
+	
+	@JsonIgnore
+	public String getColumnFormatWeek()
+	{
+		return columnFormat.get(ColumnFormat.week);
+	}
+	
+	public void setColumnFormatWeek(String format)
+	{
+		columnFormat.put(ColumnFormat.week, format);
+	}
+	
+	@JsonIgnore
+	public String getColumnFormatMonth()
+	{
+		return columnFormat.get(ColumnFormat.month);
+	}
+	
+	public void setColumnFormatMonth(String format)
+	{
+		columnFormat.put(ColumnFormat.month, format);
 	}
 	
 }
