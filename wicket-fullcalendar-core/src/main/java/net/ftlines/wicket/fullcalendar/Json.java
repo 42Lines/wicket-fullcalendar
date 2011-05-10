@@ -76,20 +76,9 @@ class Json
 		{
 			json = mapper.writeValueAsString(object);
 		}
-		catch (JsonGenerationException e)
+		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (JsonMappingException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		catch (IOException e)
-		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException("Error encoding object: " + object + " into JSON string", e);
 		}
 		return json;
 	}
