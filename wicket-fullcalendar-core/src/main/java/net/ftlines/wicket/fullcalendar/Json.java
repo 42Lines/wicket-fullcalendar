@@ -32,6 +32,8 @@ import org.codehaus.jackson.map.SerializerProvider;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.codehaus.jackson.map.module.SimpleModule;
 import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormatterBuilder;
+import org.joda.time.format.ISODateTimeFormat;
 
 class Json
 {
@@ -94,13 +96,11 @@ class Json
 
 	public static class DateSerializer extends JsonSerializer<DateTime>
 	{
-
 		@Override
 		public void serialize(DateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
 			JsonProcessingException
 		{
-
-			jgen.writeNumber(value.getMillis() / 1000);
+			jgen.writeString(ISODateTimeFormat.dateTime().print(value));
 		}
 
 		@Override
