@@ -34,6 +34,7 @@ public class Config implements Serializable
 
 	private List<EventSource> eventSources = new ArrayList<EventSource>();
 	private Header header = new Header();
+	private ButtonText buttonText=new ButtonText();
 	private String loading;
 	private Boolean editable;
 	private String eventDrop;
@@ -200,5 +201,12 @@ public class Config implements Serializable
 	{
 		columnFormat.put(ColumnFormat.month, format);
 	}
+
+	public ButtonText getButtonText()
+	{
+		return buttonText;
+	}
+	
+	
 	
 }

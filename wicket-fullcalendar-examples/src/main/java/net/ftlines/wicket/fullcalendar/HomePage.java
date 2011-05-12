@@ -76,6 +76,8 @@ public class HomePage extends WebPage
 		config.getHeader().setCenter("title");
 		config.getHeader().setRight("month,agendaWeek,agendaDay");
 
+		config.getButtonText().setToday("Week");
+		
 		config.setLoading("function(bool) { if (bool) $(\"#loading\").show(); else $(\"#loading\").hide(); }");
 
 		FullCalendar calendar = new FullCalendar("cal", config)
