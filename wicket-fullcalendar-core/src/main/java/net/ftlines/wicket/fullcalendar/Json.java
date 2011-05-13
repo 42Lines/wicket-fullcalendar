@@ -17,14 +17,11 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Serializable;
 import java.io.Writer;
-import java.util.Date;
 
 import org.codehaus.jackson.JsonEncoding;
-import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.JsonGenerator;
 import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.Version;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.MappingJsonFactory;
 import org.codehaus.jackson.map.ObjectMapper;
@@ -32,7 +29,7 @@ import org.codehaus.jackson.map.SerializerProvider;
 import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
 import org.codehaus.jackson.map.module.SimpleModule;
 import org.joda.time.DateTime;
-import org.joda.time.format.DateTimeFormatterBuilder;
+import org.joda.time.LocalTime;
 import org.joda.time.format.ISODateTimeFormat;
 
 class Json
@@ -68,6 +65,7 @@ class Json
 		ObjectMapper mapper = new ObjectMapper(new MyJsonFactory());
 		SimpleModule module = new SimpleModule("fullcalendar", new Version(1, 0, 0, null));
 		module.addSerializer(new DateSerializer());
+		module.addSerializer(new LocalTimeSerializer());
 		mapper.registerModule(module);
 		mapper.getSerializationConfig().setSerializationInclusion(Inclusion.NON_NULL);
 
@@ -96,6 +94,23 @@ class Json
 		public Class<DateTime> handledType()
 		{
 			return DateTime.class;
+		}
+
+	}
+
+	public static class LocalTimeSerializer extends JsonSerializer<LocalTime>
+	{
+		@Override
+		public void serialize(LocalTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
+			JsonProcessingException
+		{
+			jgen.writeString(value.toString("h:mmaa"));
+		}
+
+		@Override
+		public Class<LocalTime> handledType()
+		{
+			return LocalTime.class;
 		}
 
 	}

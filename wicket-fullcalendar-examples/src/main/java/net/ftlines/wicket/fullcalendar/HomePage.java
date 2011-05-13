@@ -35,6 +35,7 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.util.time.Duration;
 import org.joda.time.DateTime;
+import org.joda.time.LocalTime;
 
 public class HomePage extends WebPage
 {
@@ -79,6 +80,9 @@ public class HomePage extends WebPage
 		config.getButtonText().setToday("Week");
 		
 		config.setLoading("function(bool) { if (bool) $(\"#loading\").show(); else $(\"#loading\").hide(); }");
+		
+		config.setMinTime(new LocalTime(6, 30));
+		config.setMaxTime(new LocalTime(17, 30));
 
 		FullCalendar calendar = new FullCalendar("cal", config)
 		{

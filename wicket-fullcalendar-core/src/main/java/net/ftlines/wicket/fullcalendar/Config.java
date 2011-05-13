@@ -23,6 +23,7 @@ import java.util.Map;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonRawValue;
+import org.joda.time.LocalTime;
 
 public class Config implements Serializable
 {
@@ -47,6 +48,9 @@ public class Config implements Serializable
 	private String defaultView;
 	@JsonProperty
 	private Map<ColumnFormat, String> columnFormat = new HashMap<Config.ColumnFormat, String>();
+	
+	private LocalTime minTime;
+	private LocalTime maxTime;
 	
 	public Config add(EventSource eventSource)
 	{
@@ -206,7 +210,25 @@ public class Config implements Serializable
 	{
 		return buttonText;
 	}
-	
-	
+
+	public LocalTime getMinTime()
+	{
+		return minTime;
+	}
+
+	public void setMinTime(LocalTime minTime)
+	{
+		this.minTime = minTime;
+	}
+
+	public LocalTime getMaxTime()
+	{
+		return maxTime;
+	}
+
+	public void setMaxTime(LocalTime maxTime)
+	{
+		this.maxTime = maxTime;
+	}
 	
 }
