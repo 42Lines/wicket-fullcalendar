@@ -35,7 +35,7 @@ public class Config implements Serializable
 
 	private List<EventSource> eventSources = new ArrayList<EventSource>();
 	private Header header = new Header();
-	private ButtonText buttonText=new ButtonText();
+	private ButtonText buttonText = new ButtonText();
 	private String loading;
 	private Boolean editable;
 	private String eventDrop;
@@ -48,10 +48,11 @@ public class Config implements Serializable
 	private String defaultView;
 	@JsonProperty
 	private Map<ColumnFormat, String> columnFormat = new HashMap<Config.ColumnFormat, String>();
-	
+
 	private LocalTime minTime;
 	private LocalTime maxTime;
-	
+	private Boolean allDaySlot;
+
 	public Config add(EventSource eventSource)
 	{
 		eventSources.add(eventSource);
@@ -172,35 +173,35 @@ public class Config implements Serializable
 	{
 		this.defaultView = defaultView;
 	}
-	
+
 	@JsonIgnore
 	public String getColumnFormatDay()
 	{
 		return columnFormat.get(ColumnFormat.day);
 	}
-	
+
 	public void setColumnFormatDay(String format)
 	{
 		columnFormat.put(ColumnFormat.day, format);
 	}
-	
+
 	@JsonIgnore
 	public String getColumnFormatWeek()
 	{
 		return columnFormat.get(ColumnFormat.week);
 	}
-	
+
 	public void setColumnFormatWeek(String format)
 	{
 		columnFormat.put(ColumnFormat.week, format);
 	}
-	
+
 	@JsonIgnore
 	public String getColumnFormatMonth()
 	{
 		return columnFormat.get(ColumnFormat.month);
 	}
-	
+
 	public void setColumnFormatMonth(String format)
 	{
 		columnFormat.put(ColumnFormat.month, format);
@@ -230,5 +231,16 @@ public class Config implements Serializable
 	{
 		this.maxTime = maxTime;
 	}
-	
+
+	public Boolean getAllDaySlot()
+	{
+		return allDaySlot;
+	}
+
+	public void setAllDaySlot(Boolean allDaySlot)
+	{
+		this.allDaySlot = allDaySlot;
+	}
+
+
 }

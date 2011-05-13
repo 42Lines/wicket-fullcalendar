@@ -83,7 +83,7 @@ public class HomePage extends WebPage
 		
 		config.setMinTime(new LocalTime(6, 30));
 		config.setMaxTime(new LocalTime(17, 30));
-
+		config.setAllDaySlot(false);
 		FullCalendar calendar = new FullCalendar("cal", config)
 		{
 			@Override
