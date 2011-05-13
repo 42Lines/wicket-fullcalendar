@@ -64,7 +64,7 @@ class Json
 	{
 		ObjectMapper mapper = new ObjectMapper(new MyJsonFactory());
 		SimpleModule module = new SimpleModule("fullcalendar", new Version(1, 0, 0, null));
-		module.addSerializer(new DateSerializer());
+		module.addSerializer(new DateTimeSerializer());
 		module.addSerializer(new LocalTimeSerializer());
 		mapper.registerModule(module);
 		mapper.getSerializationConfig().setSerializationInclusion(Inclusion.NON_NULL);
@@ -81,7 +81,7 @@ class Json
 		return json;
 	}
 
-	public static class DateSerializer extends JsonSerializer<DateTime>
+	public static class DateTimeSerializer extends JsonSerializer<DateTime>
 	{
 		@Override
 		public void serialize(DateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
