@@ -52,6 +52,11 @@ public class Config implements Serializable
 	private LocalTime minTime;
 	private LocalTime maxTime;
 	private Boolean allDaySlot;
+	
+	private String eventRender;
+	
+	private Boolean disableDragging;
+	private Boolean disableResizing;
 
 	public Config add(EventSource eventSource)
 	{
@@ -242,5 +247,35 @@ public class Config implements Serializable
 		this.allDaySlot = allDaySlot;
 	}
 
+	@JsonRawValue
+	public String getEventRender()
+	{
+		return eventRender;
+	}
+
+	public void setEventRender(String eventRenderer)
+	{
+		this.eventRender = eventRenderer;
+	}
+
+	public Boolean getDisableDragging()
+	{
+		return disableDragging;
+	}
+
+	public void setDisableDragging(Boolean disableDragging)
+	{
+		this.disableDragging = disableDragging;
+	}
+
+	public Boolean getDisableResizing()
+	{
+		return disableResizing;
+	}
+
+	public void setDisableResizing(Boolean disableResizing)
+	{
+		this.disableResizing = disableResizing;
+	}
 
 }

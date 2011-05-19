@@ -33,8 +33,7 @@ public abstract class EventClickedCallback extends AbstractAjaxCallback implemen
 	{
 		return "function(event) { " + getCallbackScript(true) + "}";
 	}
-
-
+	
 	@Override
 	protected void respond(AjaxRequestTarget target)
 	{

@@ -26,7 +26,7 @@ abstract class AbstractAjaxCallback extends AbstractDefaultAjaxBehavior
 	protected abstract String configureCallbackScript(String script, String urlTail);
 
 	@Override
-	protected final CharSequence getCallbackScript(boolean onlyTargetActivePage)
+	public final CharSequence getCallbackScript(boolean onlyTargetActivePage)
 	{
 		return configureCallbackScript(super.getCallbackScript(onlyTargetActivePage).toString(), PLACEHOLDER);
 	}
