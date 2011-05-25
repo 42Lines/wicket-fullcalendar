@@ -52,21 +52,32 @@ public class FullCalendar extends AbstractFullCalendar
 	{
 		return new EventManager(this);
 	}
-
+	
 	@Override
 	protected void onInitialize()
 	{
 		super.onInitialize();
+		for (EventSource source : config.getEventSources())
+		{
+			String uuid = UUID.randomUUID().toString().replaceAll("[^A-Za-z0-9]", "");
+			source.setUuid(uuid);
+		}
+	}
+
+	@Override
+	protected void onBeforeRender()
+	{
+		super.onBeforeRender();
 		setupCallbacks();
 	}
 
 	private void setupCallbacks()
 	{
+		if (getEvents!=null) return;
 		getEvents = new GetEventsCallback();
 		add(getEvents);
 		for (EventSource source : config.getEventSources())
 		{
-			source.setUuid(UUID.randomUUID().toString());
 			source.setUrl(getEvents.getUrl(source));
 		}
 
