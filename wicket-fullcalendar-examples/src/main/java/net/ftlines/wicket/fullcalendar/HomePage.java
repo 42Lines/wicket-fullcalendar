@@ -28,6 +28,7 @@ import net.ftlines.wicket.fullcalendar.callback.ClickedEvent;
 import net.ftlines.wicket.fullcalendar.callback.DroppedEvent;
 import net.ftlines.wicket.fullcalendar.callback.ResizedEvent;
 import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
+import net.ftlines.wicket.fullcalendar.callback.View;
 import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
 
 import org.apache.wicket.PageParameters;
@@ -122,6 +123,13 @@ public class HomePage extends WebPage
 				info("Event clicked. eventId: " + event.getEvent().getId() + ", sourceId: " +
 					event.getSource().getUuid());
 				response.refetchEvents();
+				response.getTarget().addComponent(feedback);
+			}
+			
+			@Override
+			protected void onViewDisplayed(View view, CalendarResponse response)
+			{
+				info("View displayed. viewType: "+view.getType().name()+", start: "+view.getStart()+", end: "+view.getEnd());
 				response.getTarget().addComponent(feedback);
 			}
 		};

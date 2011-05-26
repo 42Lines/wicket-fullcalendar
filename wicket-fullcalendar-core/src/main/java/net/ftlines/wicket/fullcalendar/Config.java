@@ -41,6 +41,8 @@ public class Config implements Serializable
 	private String eventDrop;
 	private String eventResize;
 	private String eventClick;
+	
+	private String viewDisplay;
 	private Boolean selectable;
 	private Boolean selectHelper;
 	/** A callback that will fire after a selection is made */
@@ -276,6 +278,17 @@ public class Config implements Serializable
 	public void setDisableResizing(Boolean disableResizing)
 	{
 		this.disableResizing = disableResizing;
+	}
+
+	@JsonRawValue
+	public String getViewDisplay()
+	{
+		return viewDisplay;
+	}
+
+	public void setViewDisplay(String viewDisplay)
+	{
+		this.viewDisplay = viewDisplay;
 	}
 
 }

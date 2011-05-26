@@ -23,6 +23,8 @@ import net.ftlines.wicket.fullcalendar.callback.EventResizedCallback;
 import net.ftlines.wicket.fullcalendar.callback.GetEventsCallback;
 import net.ftlines.wicket.fullcalendar.callback.ResizedEvent;
 import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
+import net.ftlines.wicket.fullcalendar.callback.View;
+import net.ftlines.wicket.fullcalendar.callback.ViewDisplayCallback;
 
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.util.string.Strings;
@@ -36,11 +38,13 @@ public class FullCalendar extends AbstractFullCalendar
 	private GetEventsCallback getEvents;
 	private DateRangeSelectedCallback dateRangeSelected;
 	private EventClickedCallback eventClicked;
+	private ViewDisplayCallback viewDisplay;
 
 	public FullCalendar(String id, Config config)
 	{
 		super(id);
 		this.config = config;
+		setVersioned(false);
 	}
 
 	public Config getConfig()
@@ -52,7 +56,7 @@ public class FullCalendar extends AbstractFullCalendar
 	{
 		return new EventManager(this);
 	}
-	
+
 	@Override
 	protected void onInitialize()
 	{
@@ -73,7 +77,9 @@ public class FullCalendar extends AbstractFullCalendar
 
 	private void setupCallbacks()
 	{
-		if (getEvents!=null) return;
+		if (getEvents != null)
+			return;
+
 		getEvents = new GetEventsCallback();
 		add(getEvents);
 		for (EventSource source : config.getEventSources())
@@ -136,8 +142,21 @@ public class FullCalendar extends AbstractFullCalendar
 
 			config.setEventResize(eventResized.getHandlerScript());
 		}
+		
+		if (Strings.isEmpty(config.getViewDisplay())) {
+			add(viewDisplay=new ViewDisplayCallback()
+			{
+				@Override
+				protected void onViewDisplayed(View view, CalendarResponse response)
+				{
+					FullCalendar.this.onViewDisplayed(view, response);
+				}
+			});
+			config.setViewDisplay(viewDisplay.getHandlerScript());
+		}
 
 	}
+
 
 
 	@Override
@@ -149,7 +168,7 @@ public class FullCalendar extends AbstractFullCalendar
 		configuration += Json.toJson(config);
 		configuration += ");";
 
-		response.renderOnLoadJavascript(configuration);
+		response.renderOnDomReadyJavascript(configuration);
 	}
 
 	protected boolean onEventDropped(DroppedEvent event, CalendarResponse response)
@@ -170,6 +189,11 @@ public class FullCalendar extends AbstractFullCalendar
 	protected void onEventClicked(ClickedEvent event, CalendarResponse response)
 	{
 
+	}
+
+	protected void onViewDisplayed(View view, CalendarResponse response)
+	{
+		
 	}
 
 }
