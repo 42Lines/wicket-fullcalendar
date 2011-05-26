@@ -37,8 +37,8 @@ public class GetEventsCallback extends AbstractCallback
 	{
 		Request r = getCalendar().getRequest();
 		String sid = r.getParameter(SOURCE_ID);
-		DateTime start = new DateTime(Long.valueOf(r.getParameter("start")) * 1000);
-		DateTime end = new DateTime(Long.valueOf(r.getParameter("end")) * 1000);
+		DateTime start = new DateTime(Long.valueOf(r.getParameter("start")));
+		DateTime end = new DateTime(Long.valueOf(r.getParameter("end")));
 
 		EventSource source = getCalendar().getEventManager().getEventSource(sid);
 		EventProvider provider = source.getEventProvider();

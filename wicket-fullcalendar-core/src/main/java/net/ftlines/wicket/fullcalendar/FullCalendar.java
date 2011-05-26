@@ -27,11 +27,15 @@ import net.ftlines.wicket.fullcalendar.callback.View;
 import net.ftlines.wicket.fullcalendar.callback.ViewDisplayCallback;
 
 import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.util.collections.MicroMap;
 import org.apache.wicket.util.string.Strings;
+import org.apache.wicket.util.template.PackagedTextTemplate;
+import org.apache.wicket.util.template.TextTemplate;
 
 public class FullCalendar extends AbstractFullCalendar
 {
-
+	private static final TextTemplate EVENTS=new PackagedTextTemplate(FullCalendar.class, "FullCalendar.events.tpl");
+	
 	private final Config config;
 	private EventDroppedCallback eventDropped;
 	private EventResizedCallback eventResized;
@@ -84,7 +88,7 @@ public class FullCalendar extends AbstractFullCalendar
 		add(getEvents);
 		for (EventSource source : config.getEventSources())
 		{
-			source.setUrl(getEvents.getUrl(source));
+			source.setEvents(EVENTS.asString(new MicroMap("url", getEvents.getUrl(source))));
 		}
 
 		if (Strings.isEmpty(config.getEventClick()))

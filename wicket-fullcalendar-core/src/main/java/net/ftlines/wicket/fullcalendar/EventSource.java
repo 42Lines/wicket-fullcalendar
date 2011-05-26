@@ -18,6 +18,7 @@ import java.util.Map;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
+import org.codehaus.jackson.annotate.JsonRawValue;
 
 public class EventSource implements Serializable
 {
@@ -32,7 +33,7 @@ public class EventSource implements Serializable
 	private Boolean ignoreTimezone;
 	private String error;
 	private Map<String, Object> data = new HashMap<String, Object>();
-	private String url;
+	private String events;
 
 	private EventProvider eventProvider;
 
@@ -152,18 +153,6 @@ public class EventSource implements Serializable
 		return data;
 	}
 
-	@JsonProperty
-	String getUrl()
-	{
-		return url;
-	}
-
-	void setUrl(String url)
-	{
-		this.url = url;
-	}
-
-
 	public EventSource setTitle(String title)
 	{
 		data.put(Const.TITLE, title);
@@ -188,6 +177,20 @@ public class EventSource implements Serializable
 		data.put(Const.UUID, uuid);
 		return this;
 	}
+
+	
+	@JsonRawValue
+	public String getEvents()
+	{
+		return events;
+	}
+
+	void setEvents(String events)
+	{
+		this.events = events;
+	}
+
+
 
 	public static class Const
 	{
