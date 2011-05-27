@@ -40,7 +40,7 @@ public abstract class ViewDisplayCallback extends AbstractAjaxCallback implement
 	@Override
 	public String getHandlerScript()
 	{
-		return String.format("function(v) { console.log('view', v); %s; console.log('ajax call made');}", getCallbackScript(true));
+		return String.format("function(v) {%s;}", getCallbackScript(true));
 	}
 
 	
