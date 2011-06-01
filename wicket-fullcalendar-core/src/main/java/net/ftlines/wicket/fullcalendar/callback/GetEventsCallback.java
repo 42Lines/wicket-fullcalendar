@@ -45,6 +45,4 @@ public class GetEventsCallback extends AbstractCallback
 		String response = getCalendar().toJson(provider.getEvents(start, end));
 		getCalendar().getRequestCycle().setRequestTarget(new StringRequestTarget(response));
 	}
-
-
 }

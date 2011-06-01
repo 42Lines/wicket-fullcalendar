@@ -14,6 +14,7 @@ package net.ftlines.wicket.fullcalendar;
 
 import java.util.UUID;
 
+import net.ftlines.wicket.fullcalendar.callback.AjaxConcurrency;
 import net.ftlines.wicket.fullcalendar.callback.ClickedEvent;
 import net.ftlines.wicket.fullcalendar.callback.DateRangeSelectedCallback;
 import net.ftlines.wicket.fullcalendar.callback.DroppedEvent;
@@ -26,6 +27,7 @@ import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
 import net.ftlines.wicket.fullcalendar.callback.View;
 import net.ftlines.wicket.fullcalendar.callback.ViewDisplayCallback;
 
+import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.util.collections.MicroMap;
 import org.apache.wicket.util.string.Strings;
@@ -34,8 +36,8 @@ import org.apache.wicket.util.template.TextTemplate;
 
 public class FullCalendar extends AbstractFullCalendar
 {
-	private static final TextTemplate EVENTS=new PackagedTextTemplate(FullCalendar.class, "FullCalendar.events.tpl");
-	
+	private static final TextTemplate EVENTS = new PackagedTextTemplate(FullCalendar.class, "FullCalendar.events.tpl");
+
 	private final Config config;
 	private EventDroppedCallback eventDropped;
 	private EventResizedCallback eventResized;
@@ -146,9 +148,10 @@ public class FullCalendar extends AbstractFullCalendar
 
 			config.setEventResize(eventResized.getHandlerScript());
 		}
-		
-		if (Strings.isEmpty(config.getViewDisplay())) {
-			add(viewDisplay=new ViewDisplayCallback()
+
+		if (Strings.isEmpty(config.getViewDisplay()))
+		{
+			add(viewDisplay = new ViewDisplayCallback()
 			{
 				@Override
 				protected void onViewDisplayed(View view, CalendarResponse response)
@@ -160,7 +163,6 @@ public class FullCalendar extends AbstractFullCalendar
 		}
 
 	}
-
 
 
 	@Override
@@ -197,7 +199,10 @@ public class FullCalendar extends AbstractFullCalendar
 
 	protected void onViewDisplayed(View view, CalendarResponse response)
 	{
-		
+
 	}
 
+	public AjaxConcurrency getAjaxConcurrency() {
+		return AjaxConcurrency.QUEUE;
+	}
 }
