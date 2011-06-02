@@ -4,7 +4,8 @@ function(start, end, callback) {
         dataType: 'json',
         data: {
             start: Math.round(start.getTime()),
-            end: Math.round(end.getTime())
+            end: Math.round(end.getTime()),
+            anticache: ""+new Date().getTime()+"."+Math.random()
         },
         headers: {
         	"Wicket-Ajax": true
