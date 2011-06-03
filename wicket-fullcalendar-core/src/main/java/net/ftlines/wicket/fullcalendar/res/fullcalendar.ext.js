@@ -127,7 +127,7 @@ $.fn.generateId = function() {
 				ext.toggleSource=function(sourceId, enabled) {
 					_toggleSource(owner, sourceId, enabled); 
 				}
-			
+				
 				return ext;
 			}(this));
 			
@@ -135,10 +135,13 @@ $.fn.generateId = function() {
 			
 			forward(this, _arguments);
 		});
-
-		
-		
-		
     };
-    
+
+	
 })(jQuery);
+
+function fullCalendarExtIsoDate(d) {
+	function pad(n){return n<10 ? '0'+n:n;}
+	return d.getUTCFullYear()+'-'+pad(d.getUTCMonth()+1)+'-'+pad(d.getUTCDate())+'T'
+		+pad(d.getUTCHours())+':'+pad(d.getUTCMinutes())+':'+pad(d.getUTCSeconds())+'Z';
+}

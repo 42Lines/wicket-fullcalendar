@@ -19,6 +19,9 @@ import org.apache.wicket.Request;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.joda.time.DateMidnight;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
+import org.joda.time.format.DateTimeFormatter;
+import org.joda.time.format.ISODateTimeFormat;
 
 
 /**
@@ -32,31 +35,30 @@ public abstract class ViewDisplayCallback extends AbstractAjaxCallback implement
 	@Override
 	protected String configureCallbackScript(String script, String urlTail)
 	{
-		return script.replace(
-			urlTail,
-			"&view='+v.name+'&start='+v.start.getTime()+'&end='+v.end.getTime()+'&visibleStart='+v.visStart.getTime()+'&visibleEnd='+v.visEnd.getTime()+'");
+		return script.replace(urlTail,
+			"&view='+v.name+'&start='+fullCalendarExtIsoDate(v.start)+'&end='+fullCalendarExtIsoDate(v.end)+'&visibleStart='+fullCalendarExtIsoDate(v.visStart)+'&visibleEnd='+fullCalendarExtIsoDate(v.visEnd)+'");
 	}
 
 	@Override
 	public String getHandlerScript()
 	{
-		return String.format("function(v) {%s;}", getCallbackScript(true));
+		return String.format("function(v) {%s;}",
+			getCallbackScript(true));
 	}
 
-	
-	
+
 	@Override
 	protected void respond(AjaxRequestTarget target)
 	{
-		Request r=target.getPage().getRequest();
-		
-		ViewType type=ViewType.forCode(r.getParameter("view"));
-		DateMidnight start = new DateTime(Long.valueOf(r.getParameter("start"))).toDateMidnight();
-		DateMidnight end = new DateTime(Long.valueOf(r.getParameter("end"))).toDateMidnight();
-		DateMidnight visibleStart = new DateTime(Long.valueOf(r.getParameter("visibleStart"))).toDateMidnight();
-		DateMidnight visibleEnd = new DateTime(Long.valueOf(r.getParameter("visibleEnd"))).toDateMidnight();
-		View view=new View(type, start, end, visibleStart, visibleEnd);
-		CalendarResponse response=new CalendarResponse(getCalendar(), target);
+		Request r = target.getPage().getRequest();
+		ViewType type = ViewType.forCode(r.getParameter("view"));
+		DateTimeFormatter fmt = ISODateTimeFormat.dateTimeParser().withZone(DateTimeZone.UTC);
+		DateMidnight start = fmt.parseDateTime(r.getParameter("start")).toDateMidnight();
+		DateMidnight end = fmt.parseDateTime(r.getParameter("end")).toDateMidnight();
+		DateMidnight visibleStart = fmt.parseDateTime(r.getParameter("visibleStart")).toDateMidnight();
+		DateMidnight visibleEnd = fmt.parseDateTime(r.getParameter("visibleEnd")).toDateMidnight();
+		View view = new View(type, start, end, visibleStart, visibleEnd);
+		CalendarResponse response = new CalendarResponse(getCalendar(), target);
 		onViewDisplayed(view, response);
 	}
 
