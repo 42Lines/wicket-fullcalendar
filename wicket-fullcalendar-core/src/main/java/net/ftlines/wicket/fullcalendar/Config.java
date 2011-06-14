@@ -59,6 +59,7 @@ public class Config implements Serializable
 	
 	private Boolean disableDragging;
 	private Boolean disableResizing;
+	private Integer slotMinutes;
 
 	public Config add(EventSource eventSource)
 	{
@@ -291,4 +292,14 @@ public class Config implements Serializable
 		this.viewDisplay = viewDisplay;
 	}
 
+	public void setSlotMinutes(Integer slotMinutes)
+	{
+		this.slotMinutes = slotMinutes;
+	}
+	
+	public Integer getSlotMinutes()
+	{
+		return slotMinutes;
+	}
+	
 }
