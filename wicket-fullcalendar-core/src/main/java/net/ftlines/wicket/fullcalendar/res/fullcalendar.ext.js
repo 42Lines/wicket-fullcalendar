@@ -118,6 +118,8 @@ $.fn.generateId = function() {
 						checkbox.bind("click", function() { _toggleSource(owner, sourceUuid, this.checked); });
 						checkbox.generateId();
 						var li=$("<li></li>");
+						// Add the class used by the event source to the <li> so it can be styled.
+						if (this.className && $.trim(this.className) != "") { li.attr("class",this.className); }
 						checkbox.appendTo(li);
 						$("<label for='"+checkbox.attr("id")+"'>"+this.data.fcxTitle+"</label>").appendTo(li);
 						li.appendTo(ul);					
