@@ -60,6 +60,7 @@ public class Config implements Serializable
 	private Boolean disableDragging;
 	private Boolean disableResizing;
 	private Integer slotMinutes;
+	private Float aspectRatio;
 
 	public Config add(EventSource eventSource)
 	{
@@ -300,6 +301,29 @@ public class Config implements Serializable
 	public Integer getSlotMinutes()
 	{
 		return slotMinutes;
+	}
+
+	/**
+	 * See <a href="http://arshaw.com/fullcalendar/docs/display/aspectRatio/">http://arshaw.com/
+	 * fullcalendar/docs/display/aspectRatio/</a>
+	 * 
+	 * @param aspectRatio
+	 *            the aspectRatio to set
+	 */
+	public void setAspectRatio(Float aspectRatio)
+	{
+		this.aspectRatio = aspectRatio;
+	}
+
+	/**
+	 * See <a href="http://arshaw.com/fullcalendar/docs/display/aspectRatio/">http://arshaw.com/
+	 * fullcalendar/docs/display/aspectRatio/</a>
+	 * 
+	 * @return the aspectRatio
+	 */
+	public Float getAspectRatio()
+	{
+		return aspectRatio;
 	}
 	
 }
