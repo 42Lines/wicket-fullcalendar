@@ -61,6 +61,7 @@ public class Config implements Serializable
 	private Boolean disableResizing;
 	private Integer slotMinutes;
 	private Float aspectRatio;
+	private boolean ignoreTimezone = false;
 
 	public Config add(EventSource eventSource)
 	{
@@ -324,6 +325,38 @@ public class Config implements Serializable
 	public Float getAspectRatio()
 	{
 		return aspectRatio;
+	}
+
+	/**
+	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client's time zone will be
+	 * ignored when determining selected date ranges, resulting in ranges with the selected start
+	 * and end values, but in the server's time zone. The default value is {@code false}.
+	 * <p>
+	 * Not currently used on the client side.
+	 * 
+	 * @param ignoreTimezone
+	 *            whether or not to ignore the remote client's time zone when determining selected
+	 *            date ranges
+	 */
+	public void setIgnoreTimezone(final boolean ignoreTimezone)
+	{
+		this.ignoreTimezone = ignoreTimezone;
+	}
+
+	/**
+	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client's time zone will be
+	 * ignored when determining selected date ranges, resulting in ranges with the selected start
+	 * and end values, but in the server's time zone. The default value is {@code false}.
+	 * <p>
+	 * Not currently used on the client side.
+	 * 
+	 * @return whether or not to ignore the remote client's time zone when determining selected date
+	 *         ranges
+	 */
+	@JsonIgnore
+	public boolean isIgnoreTimezone()
+	{
+		return ignoreTimezone;
 	}
 	
 }

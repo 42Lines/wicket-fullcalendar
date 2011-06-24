@@ -108,7 +108,7 @@ public class FullCalendar extends AbstractFullCalendar
 
 		if (Strings.isEmpty(config.getSelect()))
 		{
-			add(dateRangeSelected = new DateRangeSelectedCallback()
+			add(dateRangeSelected = new DateRangeSelectedCallback(config.isIgnoreTimezone())
 			{
 				@Override
 				protected void onSelect(SelectedRange range, CalendarResponse response)
