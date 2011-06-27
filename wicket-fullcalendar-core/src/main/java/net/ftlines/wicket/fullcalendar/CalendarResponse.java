@@ -81,5 +81,16 @@ public class CalendarResponse
 		}
 	}
 
+	/**
+	 * Clears the client-side selection highlight.
+	 * 
+	 * @return this for chaining
+	 * 
+	 */
+	public CalendarResponse clearSelection()
+	{
+		return execute(q("unselect"));
+	}
+
 
 }
