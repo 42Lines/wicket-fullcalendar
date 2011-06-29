@@ -111,18 +111,21 @@ $.fn.generateId = function() {
 				ext.createEventSourceSelector=function(id) {
 					var ul=$("#"+id);
 					$(sources).each(function() {
-						var sourceUuid=this.data.fcxUuid||null;
-						
-						var checkbox=$("<input type='checkbox'/>");
-						if (this.data.fcxEnabled) { checkbox.attr("checked","checked"); }
-						checkbox.bind("click", function() { _toggleSource(owner, sourceUuid, this.checked); });
-						checkbox.generateId();
-						var li=$("<li></li>");
-						// Add the class used by the event source to the <li> so it can be styled.
-						if (this.className && $.trim(this.className) != "") { li.attr("class",this.className); }
-						checkbox.appendTo(li);
-						$("<label for='"+checkbox.attr("id")+"'>"+this.data.fcxTitle+"</label>").appendTo(li);
-						li.appendTo(ul);					
+						if (this.includeInSelector)
+						{
+							var sourceUuid=this.data.fcxUuid||null;
+							var checkbox=$("<input type='checkbox'/>");
+							if (this.data.fcxEnabled) { checkbox.attr("checked","checked"); }
+							if (!this.enableInSelector) { checkbox.attr("disabled", "true"); }
+							checkbox.bind("click", function() { _toggleSource(owner, sourceUuid, this.checked); });
+							checkbox.generateId();
+							var li=$("<li></li>");
+							// Add the class used by the event source to the <li> so it can be styled.
+							if (this.className && $.trim(this.className) != "") { li.attr("class",this.className); }
+							checkbox.appendTo(li);
+							$("<label for='"+checkbox.attr("id")+"'>"+this.data.fcxTitle+"</label>").appendTo(li);
+							li.appendTo(ul);					
+						}
 					});
 				}
 				
