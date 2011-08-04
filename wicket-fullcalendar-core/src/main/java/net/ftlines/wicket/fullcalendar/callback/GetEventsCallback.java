@@ -21,6 +21,7 @@ import org.apache.wicket.Request;
 import org.apache.wicket.request.target.basic.StringRequestTarget;
 import org.apache.wicket.util.collections.MicroMap;
 import org.joda.time.DateTime;
+import org.joda.time.DateTimeZone;
 
 
 public class GetEventsCallback extends AbstractCallback
@@ -40,6 +41,15 @@ public class GetEventsCallback extends AbstractCallback
 		DateTime start = new DateTime(Long.valueOf(r.getParameter("start")));
 		DateTime end = new DateTime(Long.valueOf(r.getParameter("end")));
 
+		if (getCalendar().getConfig().isIgnoreTimezone())
+		{
+			// Convert to same DateTime in local time zone.
+			int remoteOffset = -Integer.valueOf(r.getParameter("timezoneOffset"));
+			int localOffset = DateTimeZone.getDefault().getOffset(null) / 60000;
+			int minutesAdjustment = remoteOffset - localOffset;
+			start = start.plusMinutes(minutesAdjustment);
+			end = end.plusMinutes(minutesAdjustment);
+		}
 		EventSource source = getCalendar().getEventManager().getEventSource(sid);
 		EventProvider provider = source.getEventProvider();
 		String response = getCalendar().toJson(provider.getEvents(start, end));
