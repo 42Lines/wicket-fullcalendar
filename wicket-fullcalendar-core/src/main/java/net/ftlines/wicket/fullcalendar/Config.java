@@ -53,7 +53,10 @@ public class Config implements Serializable
 
 	private LocalTime minTime;
 	private LocalTime maxTime;
+	private Integer firstHour;
 	private Boolean allDaySlot;
+	
+	private String timeFormat;
 	
 	private String eventRender;
 	
@@ -242,6 +245,16 @@ public class Config implements Serializable
 		this.maxTime = maxTime;
 	}
 
+	public Integer getFirstHour()
+	{
+		return firstHour;
+	}
+
+	public void setFirstHour(Integer firstHour)
+	{
+		this.firstHour = firstHour;
+	}
+
 	public Boolean getAllDaySlot()
 	{
 		return allDaySlot;
@@ -250,6 +263,16 @@ public class Config implements Serializable
 	public void setAllDaySlot(Boolean allDaySlot)
 	{
 		this.allDaySlot = allDaySlot;
+	}
+	
+	public String getTimeFormat()
+	{
+		return timeFormat;
+	}
+
+	public void setTimeFormat(String timeFormat)
+	{
+		this.timeFormat = timeFormat;
 	}
 
 	@JsonRawValue
