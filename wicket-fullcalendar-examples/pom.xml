@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>net.ftlines.wicket-fullcalendar</groupId>
 		<artifactId>wicket-fullcalendar-parent</artifactId>
-		<version>1.2</version>
+		<version>1.3-SNAPSHOT</version>
 	</parent>
 	<artifactId>wicket-fullcalendar-examples</artifactId>
 	<packaging>war</packaging>
