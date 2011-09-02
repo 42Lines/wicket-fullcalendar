@@ -12,6 +12,8 @@
 
 package net.ftlines.wicket.fullcalendar;
 
+import java.util.Date;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.util.string.Strings;
 
@@ -55,6 +57,11 @@ public class CalendarResponse
 	public CalendarResponse removeEvent(Event event)
 	{
 		return execute(q("removeEvents"), q(event.getId()));
+	}
+	
+	public CalendarResponse gotoDate(Date date)
+	{
+		return execute(q("gotoDate"), "new Date(" + date.getTime() + ")");
 	}
 
 	public AjaxRequestTarget getTarget()
