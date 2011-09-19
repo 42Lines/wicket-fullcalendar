@@ -15,10 +15,9 @@ package net.ftlines.wicket.fullcalendar.callback;
 import net.ftlines.wicket.fullcalendar.CalendarResponse;
 import net.ftlines.wicket.fullcalendar.ViewType;
 
-import org.apache.wicket.Request;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.request.Request;
 import org.joda.time.DateMidnight;
-import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
@@ -35,15 +34,15 @@ public abstract class ViewDisplayCallback extends AbstractAjaxCallback implement
 	@Override
 	protected String configureCallbackScript(String script, String urlTail)
 	{
-		return script.replace(urlTail,
+		return script.replace(
+			urlTail,
 			"&view='+v.name+'&start='+fullCalendarExtIsoDate(v.start)+'&end='+fullCalendarExtIsoDate(v.end)+'&visibleStart='+fullCalendarExtIsoDate(v.visStart)+'&visibleEnd='+fullCalendarExtIsoDate(v.visEnd)+'");
 	}
 
 	@Override
 	public String getHandlerScript()
 	{
-		return String.format("function(v) {%s;}",
-			getCallbackScript(true));
+		return String.format("function(v) {%s;}", getCallbackScript());
 	}
 
 
@@ -51,12 +50,16 @@ public abstract class ViewDisplayCallback extends AbstractAjaxCallback implement
 	protected void respond(AjaxRequestTarget target)
 	{
 		Request r = target.getPage().getRequest();
-		ViewType type = ViewType.forCode(r.getParameter("view"));
+		ViewType type = ViewType.forCode(r.getRequestParameters().getParameterValue("view").toString());
 		DateTimeFormatter fmt = ISODateTimeFormat.dateTimeParser().withZone(DateTimeZone.UTC);
-		DateMidnight start = fmt.parseDateTime(r.getParameter("start")).toDateMidnight();
-		DateMidnight end = fmt.parseDateTime(r.getParameter("end")).toDateMidnight();
-		DateMidnight visibleStart = fmt.parseDateTime(r.getParameter("visibleStart")).toDateMidnight();
-		DateMidnight visibleEnd = fmt.parseDateTime(r.getParameter("visibleEnd")).toDateMidnight();
+		DateMidnight start = fmt.parseDateTime(r.getRequestParameters().getParameterValue("start").toString())
+			.toDateMidnight();
+		DateMidnight end = fmt.parseDateTime(r.getRequestParameters().getParameterValue("end").toString())
+			.toDateMidnight();
+		DateMidnight visibleStart = fmt.parseDateTime(
+			r.getRequestParameters().getParameterValue("visibleStart").toString()).toDateMidnight();
+		DateMidnight visibleEnd = fmt.parseDateTime(r.getRequestParameters().getParameterValue("visibleEnd").toString())
+			.toDateMidnight();
 		View view = new View(type, start, end, visibleStart, visibleEnd);
 		CalendarResponse response = new CalendarResponse(getCalendar(), target);
 		onViewDisplayed(view, response);

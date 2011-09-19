@@ -33,7 +33,7 @@ public class EventSourceSelector extends WebComponent implements IHeaderContribu
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.renderOnLoadJavascript("$('#" + calendar.getMarkupId() +
+		response.renderOnLoadJavaScript("$('#" + calendar.getMarkupId() +
 			"').fullCalendarExt('createEventSourceSelector', '" + getMarkupId() + "');");
 	}
 

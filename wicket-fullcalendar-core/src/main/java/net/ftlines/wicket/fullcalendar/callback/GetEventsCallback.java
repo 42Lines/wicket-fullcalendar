@@ -17,8 +17,8 @@ package net.ftlines.wicket.fullcalendar.callback;
 import net.ftlines.wicket.fullcalendar.EventProvider;
 import net.ftlines.wicket.fullcalendar.EventSource;
 
-import org.apache.wicket.Request;
-import org.apache.wicket.request.target.basic.StringRequestTarget;
+import org.apache.wicket.request.Request;
+import org.apache.wicket.request.handler.TextRequestHandler;
 import org.apache.wicket.util.collections.MicroMap;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
@@ -37,14 +37,14 @@ public class GetEventsCallback extends AbstractCallback
 	protected void respond()
 	{
 		Request r = getCalendar().getRequest();
-		String sid = r.getParameter(SOURCE_ID);
-		DateTime start = new DateTime(Long.valueOf(r.getParameter("start")));
-		DateTime end = new DateTime(Long.valueOf(r.getParameter("end")));
+		String sid = r.getRequestParameters().getParameterValue(SOURCE_ID).toString();
+		DateTime start = new DateTime(r.getRequestParameters().getParameterValue("start").toLong());
+		DateTime end = new DateTime(r.getRequestParameters().getParameterValue("end").toLong());
 
 		if (getCalendar().getConfig().isIgnoreTimezone())
 		{
 			// Convert to same DateTime in local time zone.
-			int remoteOffset = -Integer.valueOf(r.getParameter("timezoneOffset"));
+			int remoteOffset = -r.getRequestParameters().getParameterValue("timezoneOffset").toInt();
 			int localOffset = DateTimeZone.getDefault().getOffset(null) / 60000;
 			int minutesAdjustment = remoteOffset - localOffset;
 			start = start.plusMinutes(minutesAdjustment);
@@ -53,6 +53,6 @@ public class GetEventsCallback extends AbstractCallback
 		EventSource source = getCalendar().getEventManager().getEventSource(sid);
 		EventProvider provider = source.getEventProvider();
 		String response = getCalendar().toJson(provider.getEvents(start, end));
-		getCalendar().getRequestCycle().setRequestTarget(new StringRequestTarget(response));
+		getCalendar().getRequestCycle().scheduleRequestHandlerAfterCurrent(new TextRequestHandler(response));
 	}
 }

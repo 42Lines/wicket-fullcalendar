@@ -17,13 +17,6 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.ftlines.wicket.fullcalendar.CalendarResponse;
-import net.ftlines.wicket.fullcalendar.Config;
-import net.ftlines.wicket.fullcalendar.Event;
-import net.ftlines.wicket.fullcalendar.EventNotFoundException;
-import net.ftlines.wicket.fullcalendar.EventProvider;
-import net.ftlines.wicket.fullcalendar.EventSource;
-import net.ftlines.wicket.fullcalendar.FullCalendar;
 import net.ftlines.wicket.fullcalendar.callback.ClickedEvent;
 import net.ftlines.wicket.fullcalendar.callback.DroppedEvent;
 import net.ftlines.wicket.fullcalendar.callback.ResizedEvent;
@@ -31,7 +24,6 @@ import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
 import net.ftlines.wicket.fullcalendar.callback.View;
 import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
 
-import org.apache.wicket.PageParameters;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.panel.FeedbackPanel;
 import org.apache.wicket.util.time.Duration;
@@ -41,7 +33,7 @@ import org.joda.time.LocalTime;
 public class HomePage extends WebPage
 {
 
-	public HomePage(final PageParameters parameters)
+	public HomePage()
 	{
 
 		final FeedbackPanel feedback = new FeedbackPanel("feedback");
@@ -79,9 +71,9 @@ public class HomePage extends WebPage
 		config.getHeader().setRight("month,agendaWeek,agendaDay");
 
 		config.getButtonText().setToday("Week");
-		
+
 		config.setLoading("function(bool) { if (bool) $(\"#loading\").show(); else $(\"#loading\").hide(); }");
-		
+
 		config.setMinTime(new LocalTime(6, 30));
 		config.setMaxTime(new LocalTime(17, 30));
 		config.setAllDaySlot(false);
@@ -125,11 +117,12 @@ public class HomePage extends WebPage
 				response.refetchEvents();
 				response.getTarget().addComponent(feedback);
 			}
-			
+
 			@Override
 			protected void onViewDisplayed(View view, CalendarResponse response)
 			{
-				info("View displayed. viewType: "+view.getType().name()+", start: "+view.getStart()+", end: "+view.getEnd());
+				info("View displayed. viewType: " + view.getType().name() + ", start: " + view.getStart() + ", end: " +
+					view.getEnd());
 				response.getTarget().addComponent(feedback);
 			}
 		};

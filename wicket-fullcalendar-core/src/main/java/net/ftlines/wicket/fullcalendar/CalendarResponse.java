@@ -72,7 +72,7 @@ public class CalendarResponse
 	private CalendarResponse execute(String... args)
 	{
 		String js = String.format("$('#%s').fullCalendarExt(" + Strings.join(",", args) + ");", calendar.getMarkupId());
-		target.appendJavascript(js);
+		target.appendJavaScript(js);
 		return this;
 	}
 

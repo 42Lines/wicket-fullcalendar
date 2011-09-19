@@ -27,16 +27,15 @@ import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
 import net.ftlines.wicket.fullcalendar.callback.View;
 import net.ftlines.wicket.fullcalendar.callback.ViewDisplayCallback;
 
-import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.util.collections.MicroMap;
 import org.apache.wicket.util.string.Strings;
-import org.apache.wicket.util.template.PackagedTextTemplate;
+import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.template.TextTemplate;
 
 public class FullCalendar extends AbstractFullCalendar
 {
-	private static final TextTemplate EVENTS = new PackagedTextTemplate(FullCalendar.class, "FullCalendar.events.tpl");
+	private static final TextTemplate EVENTS = new PackageTextTemplate(FullCalendar.class, "FullCalendar.events.tpl");
 
 	private final Config config;
 	private EventDroppedCallback eventDropped;
@@ -162,6 +161,7 @@ public class FullCalendar extends AbstractFullCalendar
 			config.setViewDisplay(viewDisplay.getHandlerScript());
 		}
 
+		getPage().dirty();
 	}
 
 
@@ -174,7 +174,7 @@ public class FullCalendar extends AbstractFullCalendar
 		configuration += Json.toJson(config);
 		configuration += ");";
 
-		response.renderOnDomReadyJavascript(configuration);
+		response.renderOnDomReadyJavaScript(configuration);
 	}
 
 	protected boolean onEventDropped(DroppedEvent event, CalendarResponse response)
@@ -202,7 +202,8 @@ public class FullCalendar extends AbstractFullCalendar
 
 	}
 
-	public AjaxConcurrency getAjaxConcurrency() {
+	public AjaxConcurrency getAjaxConcurrency()
+	{
 		return AjaxConcurrency.QUEUE;
 	}
 }

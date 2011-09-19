@@ -25,15 +25,15 @@ abstract class AbstractAjaxCallback extends AbstractDefaultAjaxBehavior
 	protected abstract String configureCallbackScript(String script, String urlTail);
 
 	@Override
-	public final CharSequence getCallbackScript(boolean onlyTargetActivePage)
+	public final CharSequence getCallbackScript()
 	{
-		return configureCallbackScript(super.getCallbackScript(onlyTargetActivePage).toString(), PLACEHOLDER);
+		return configureCallbackScript(super.getCallbackScript().toString(), PLACEHOLDER);
 	}
 
 	@Override
-	public final CharSequence getCallbackUrl(boolean onlyTargetActivePage)
+	public final CharSequence getCallbackUrl()
 	{
-		return super.getCallbackUrl(onlyTargetActivePage) + PLACEHOLDER;
+		return super.getCallbackUrl() + PLACEHOLDER;
 	}
 
 	protected FullCalendar getCalendar()

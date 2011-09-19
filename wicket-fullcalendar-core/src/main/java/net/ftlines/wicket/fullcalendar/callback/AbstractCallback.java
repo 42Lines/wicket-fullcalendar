@@ -19,11 +19,10 @@ import java.util.Map;
 import net.ftlines.wicket.fullcalendar.FullCalendar;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.behavior.AbstractBehavior;
-import org.apache.wicket.behavior.IBehavior;
+import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.behavior.IBehaviorListener;
 
-abstract class AbstractCallback extends AbstractBehavior implements IBehaviorListener
+abstract class AbstractCallback extends Behavior implements IBehaviorListener
 {
 	private FullCalendar calendar;
 
@@ -36,7 +35,7 @@ abstract class AbstractCallback extends AbstractBehavior implements IBehaviorLis
 
 	protected final String getUrl(Map<String, Object> parameters)
 	{
-		String url = calendar.urlFor((IBehavior)this, IBehaviorListener.INTERFACE).toString();
+		String url = calendar.urlFor(this, IBehaviorListener.INTERFACE).toString();
 		if (parameters != null)
 		{
 			for (Map.Entry<String, Object> parameter : parameters.entrySet())
@@ -60,4 +59,9 @@ abstract class AbstractCallback extends AbstractBehavior implements IBehaviorLis
 		return (FullCalendar)calendar;
 	}
 
+	@Override
+	public boolean getStatelessHint(Component component)
+	{
+		return false;
+	}
 }

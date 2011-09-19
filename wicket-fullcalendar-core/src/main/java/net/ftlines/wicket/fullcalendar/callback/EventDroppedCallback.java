@@ -16,8 +16,8 @@ import net.ftlines.wicket.fullcalendar.CalendarResponse;
 import net.ftlines.wicket.fullcalendar.Event;
 import net.ftlines.wicket.fullcalendar.EventSource;
 
-import org.apache.wicket.Request;
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.request.Request;
 
 public abstract class EventDroppedCallback extends AbstractAjaxCallbackWithClientsideRevert
 	implements
@@ -33,22 +33,22 @@ public abstract class EventDroppedCallback extends AbstractAjaxCallbackWithClien
 	@Override
 	public String getHandlerScript()
 	{
-		return "function(event, dayDelta, minuteDelta, allDay, revertFunc) { " + getCallbackScript(true) + "}";
+		return "function(event, dayDelta, minuteDelta, allDay, revertFunc) { " + getCallbackScript() + "}";
 	}
 
 	@Override
 	protected boolean onEvent(AjaxRequestTarget target)
 	{
 		Request r = getCalendar().getRequest();
-		String eventId = r.getParameter("eventId");
-		String sourceId = r.getParameter("sourceId");
+		String eventId = r.getRequestParameters().getParameterValue("eventId").toString();
+		String sourceId = r.getRequestParameters().getParameterValue("sourceId").toString();
 
 		EventSource source = getCalendar().getEventManager().getEventSource(sourceId);
 		Event event = source.getEventProvider().getEventForId(eventId);
 
-		int dayDelta = Integer.valueOf(r.getParameter("dayDelta"));
-		int minuteDelta = Integer.valueOf(r.getParameter("minuteDelta"));
-		boolean allDay = Boolean.valueOf(r.getParameter("allDay"));
+		int dayDelta = r.getRequestParameters().getParameterValue("dayDelta").toInt();
+		int minuteDelta = r.getRequestParameters().getParameterValue("minuteDelta").toInt();
+		boolean allDay = r.getRequestParameters().getParameterValue("allDay").toBoolean();
 
 		return onEventDropped(new DroppedEvent(source, event, dayDelta, minuteDelta, allDay), new CalendarResponse(
 			getCalendar(), target));

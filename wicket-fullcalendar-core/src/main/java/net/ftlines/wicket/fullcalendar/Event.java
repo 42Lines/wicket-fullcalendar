@@ -13,7 +13,6 @@
 package net.ftlines.wicket.fullcalendar;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import org.joda.time.DateTime;
 

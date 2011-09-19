@@ -38,7 +38,7 @@ abstract class AbstractAjaxCallbackWithClientsideRevert extends AbstractAjaxCall
 	protected final void respond(AjaxRequestTarget target)
 	{
 		boolean result = onEvent(target);
-		target.prependJavascript(String.format("$.data(document, '%s', %s);", uuid, String.valueOf(result)));
+		target.prependJavaScript(String.format("$.data(document, '%s', %s);", uuid, String.valueOf(result)));
 	}
 
 	@Override

@@ -13,10 +13,11 @@
 package net.ftlines.wicket.fullcalendar;
 
 import org.apache.wicket.Application;
-import org.apache.wicket.ResourceReference;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebComponent;
+import org.apache.wicket.request.resource.PackageResourceReference;
+import org.apache.wicket.request.resource.ResourceReference;
 
 abstract class AbstractFullCalendar extends WebComponent implements IHeaderContributor
 {
@@ -25,12 +26,14 @@ abstract class AbstractFullCalendar extends WebComponent implements IHeaderContr
 		super(id);
 	}
 
-	private static final ResourceReference CSS = new ResourceReference(AbstractFullCalendar.class,
+	// TODO see if it makes sense to switch these to Css/JavaScriptResourceReference
+	private static final ResourceReference CSS = new PackageResourceReference(AbstractFullCalendar.class,
 		"res/fullcalendar.css");
-	private static final ResourceReference JS = new ResourceReference(AbstractFullCalendar.class, "res/fullcalendar.js");
-	private static final ResourceReference JS_EXT = new ResourceReference(AbstractFullCalendar.class,
+	private static final ResourceReference JS = new PackageResourceReference(AbstractFullCalendar.class,
+		"res/fullcalendar.js");
+	private static final ResourceReference JS_EXT = new PackageResourceReference(AbstractFullCalendar.class,
 		"res/fullcalendar.ext.js");
-	private static final ResourceReference JS_MIN = new ResourceReference(AbstractFullCalendar.class,
+	private static final ResourceReference JS_MIN = new PackageResourceReference(AbstractFullCalendar.class,
 		"res/fullcalendar.min.js");
 
 	@Override
@@ -38,15 +41,15 @@ abstract class AbstractFullCalendar extends WebComponent implements IHeaderContr
 	{
 
 		response.renderCSSReference(CSS);
-		if (Application.DEPLOYMENT.equals(Application.get().getConfigurationType()))
+		if (getApplication().usesDeploymentConfig())
 		{
-			response.renderJavascriptReference(JS_MIN);
+			response.renderJavaScriptReference(JS_MIN);
 		}
 		else
 		{
-			response.renderJavascriptReference(JS);
+			response.renderJavaScriptReference(JS);
 		}
-		response.renderJavascriptReference(JS_EXT);
+		response.renderJavaScriptReference(JS_EXT);
 	}
 
 
