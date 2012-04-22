@@ -27,7 +27,8 @@ import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
 import net.ftlines.wicket.fullcalendar.callback.View;
 import net.ftlines.wicket.fullcalendar.callback.ViewDisplayCallback;
 
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.util.collections.MicroMap;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.template.PackageTextTemplate;
@@ -174,7 +175,7 @@ public class FullCalendar extends AbstractFullCalendar
 		configuration += Json.toJson(config);
 		configuration += ");";
 
-		response.renderOnDomReadyJavaScript(configuration);
+		response.render( OnDomReadyHeaderItem.forScript(configuration) );
 	}
 
 	protected boolean onEventDropped(DroppedEvent event, CalendarResponse response)

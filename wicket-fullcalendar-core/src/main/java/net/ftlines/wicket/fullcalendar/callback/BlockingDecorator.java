@@ -13,7 +13,7 @@
 package net.ftlines.wicket.fullcalendar.callback;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.IAjaxCallDecorator;
+import org.apache.wicket.ajax.attributes.IAjaxCallListener;
 import org.apache.wicket.util.collections.MicroMap;
 import org.apache.wicket.util.string.interpolator.MapVariableInterpolator;
 
@@ -22,7 +22,7 @@ import org.apache.wicket.util.string.interpolator.MapVariableInterpolator;
  * 
  * @author igor
  */
-public class BlockingDecorator implements IAjaxCallDecorator
+public class BlockingDecorator implements IAjaxCallListener
 {
 	// @formatter:off
 
@@ -60,7 +60,7 @@ public class BlockingDecorator implements IAjaxCallDecorator
 		return var;
 	}
 
-	@Override
+	//@Override
 	public CharSequence decorateScript(Component component, CharSequence script)
 	{
 		switch (callback.getCalendar().getAjaxConcurrency())
@@ -76,7 +76,7 @@ public class BlockingDecorator implements IAjaxCallDecorator
 		}
 	}
 
-	@Override
+	//@Override
 	public CharSequence decorateOnSuccessScript(Component component, CharSequence script)
 	{
 		switch (callback.getCalendar().getAjaxConcurrency())
@@ -91,9 +91,45 @@ public class BlockingDecorator implements IAjaxCallDecorator
 		}
 	}
 
-	@Override
+	//@Override
 	public CharSequence decorateOnFailureScript(Component component, CharSequence script)
 	{
 		return decorateOnSuccessScript(component, script);
+	}
+
+	@Override
+	public CharSequence getSuccessHandler(Component component) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CharSequence getFailureHandler(Component component) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CharSequence getBeforeHandler(Component component) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CharSequence getAfterHandler(Component component) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CharSequence getCompleteHandler(Component component) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CharSequence getPrecondition(Component component) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

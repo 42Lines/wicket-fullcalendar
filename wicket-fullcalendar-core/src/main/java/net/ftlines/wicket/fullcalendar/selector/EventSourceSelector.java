@@ -14,8 +14,10 @@ package net.ftlines.wicket.fullcalendar.selector;
 
 import net.ftlines.wicket.fullcalendar.FullCalendar;
 
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnLoadHeaderItem;
 import org.apache.wicket.markup.html.IHeaderContributor;
-import org.apache.wicket.markup.html.IHeaderResponse;
+
 import org.apache.wicket.markup.html.WebComponent;
 
 public class EventSourceSelector extends WebComponent implements IHeaderContributor
@@ -33,8 +35,10 @@ public class EventSourceSelector extends WebComponent implements IHeaderContribu
 	@Override
 	public void renderHead(IHeaderResponse response)
 	{
-		response.renderOnLoadJavaScript("$('#" + calendar.getMarkupId() +
-			"').fullCalendarExt('createEventSourceSelector', '" + getMarkupId() + "');");
+		
+		
+		response.render(OnLoadHeaderItem.forScript("$('#" + calendar.getMarkupId() +
+			"').fullCalendarExt('createEventSourceSelector', '" + getMarkupId() + "');"));
 	}
 
 }

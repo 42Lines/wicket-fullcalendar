@@ -21,6 +21,7 @@ import net.ftlines.wicket.fullcalendar.FullCalendar;
 import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.behavior.IBehaviorListener;
+import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 abstract class AbstractCallback extends Behavior implements IBehaviorListener
 {
@@ -35,14 +36,17 @@ abstract class AbstractCallback extends Behavior implements IBehaviorListener
 
 	protected final String getUrl(Map<String, Object> parameters)
 	{
-		String url = calendar.urlFor(this, IBehaviorListener.INTERFACE).toString();
+		PageParameters params = new PageParameters();
 		if (parameters != null)
 		{
 			for (Map.Entry<String, Object> parameter : parameters.entrySet())
 			{
-				url += "&" + parameter.getKey() + "=" + parameter.getValue();
+				params.add(parameter.getKey() ,parameter.getValue());
 			}
 		}
+		
+		String url = calendar.urlFor(IBehaviorListener.INTERFACE, params).toString();
+		
 		return url;
 	}
 
