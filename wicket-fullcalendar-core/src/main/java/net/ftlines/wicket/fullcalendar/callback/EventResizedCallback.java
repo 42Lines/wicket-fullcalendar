@@ -35,11 +35,11 @@ public abstract class EventResizedCallback extends AbstractAjaxCallbackWithClien
 	public IModel<String> getHandlerScript()
 	{
 		return new AbstractReadOnlyModel<String>() {
-		    @Override
-		    public String getObject() {
-		        return "function(event, dayDelta, minuteDelta,  revertFunc) { " + getCallbackScript() + "}";
-		    }
-        };
+			@Override
+			public String getObject() {
+				return "function(event, dayDelta, minuteDelta,  revertFunc) { " + getCallbackScript() + "}";
+			}
+		};
 	}
 
 	@Override

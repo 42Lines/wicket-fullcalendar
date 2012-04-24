@@ -21,7 +21,6 @@ import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
 import org.apache.wicket.model.AbstractReadOnlyModel;
 import org.apache.wicket.model.IModel;
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonRawValue;
 
 public class EventSource implements Serializable
@@ -188,29 +187,29 @@ public class EventSource implements Serializable
 	@JsonRawValue
 	public String getEvents()
 	{
-        return eventsModel == null ? "" : eventsModel.getObject();
+		return eventsModel == null ? "" : eventsModel.getObject();
 	}
 
 	void setEvents(final String events)
 	{
-        this.eventsModel = new AbstractReadOnlyModel<String>() {
-            @Override
-            public String getObject() {
-                return events;
-            }
-        };
+		this.eventsModel = new AbstractReadOnlyModel<String>() {
+			@Override
+			public String getObject() {
+				return events;
+			}
+		};
 	}
 
 	@JsonIgnore
 	public IModel<String> getEventsModel() {
-        return eventsModel;
-    }
+		return eventsModel;
+	}
 
-    public void setEventsModel(IModel<String> eventsModel) {
-        this.eventsModel = eventsModel;
-    }
+	public void setEventsModel(IModel<String> eventsModel) {
+		this.eventsModel = eventsModel;
+	}
 
-    public static class Const
+	public static class Const
 	{
 		public static final String TITLE = "fcxTitle";
 		public static final String UUID = "fcxUuid";
@@ -222,8 +221,8 @@ public class EventSource implements Serializable
 	 * then the check box will not be enabled. Default is {@code true}.
 	 * 
 	 * @param includeInSelector
-	 *            if {@code true} then the check box for this EventSource will be enabled, otherwise
-	 *            it won't
+	 *			if {@code true} then the check box for this EventSource will be enabled, otherwise
+	 *			it won't
 	 */
 	public void setEnableInSelector(final boolean enableInSelector)
 	{
@@ -236,7 +235,7 @@ public class EventSource implements Serializable
 	 * {@code false} if this EventSource will not be included. Default is {@code true}.
 	 * 
 	 * @return if {@code true} then this event source will be included in a
-	 *         {@link EventSourceSelector}, otherwise it won't
+	 *		 {@link EventSourceSelector}, otherwise it won't
 	 */
 	public Boolean getEnableInSelector()
 	{
@@ -250,8 +249,8 @@ public class EventSource implements Serializable
 	 * {@code true}.
 	 * 
 	 * @param includeInSelector
-	 *            if {@code true} then this event source will be included in a
-	 *            {@link EventSourceSelector}, otherwise it won't
+	 *			if {@code true} then this event source will be included in a
+	 *			{@link EventSourceSelector}, otherwise it won't
 	 */
 	public void setIncludeInSelector(final boolean includeInSelector)
 	{
@@ -264,7 +263,7 @@ public class EventSource implements Serializable
 	 * if this EventSource will not be included. Default is {@code true}.
 	 * 
 	 * @return if {@code true} then this event source will be included in a
-	 *         {@link EventSourceSelector}, otherwise it won't
+	 *		 {@link EventSourceSelector}, otherwise it won't
 	 */
 	public Boolean getIncludeInSelector()
 	{

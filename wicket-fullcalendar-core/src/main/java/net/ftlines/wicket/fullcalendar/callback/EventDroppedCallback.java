@@ -35,11 +35,11 @@ public abstract class EventDroppedCallback extends AbstractAjaxCallbackWithClien
 	public IModel<String> getHandlerScript()
 	{
 		return new AbstractReadOnlyModel<String>() {
-		    @Override
-		    public String getObject() {
-		        return "function(event, dayDelta, minuteDelta, allDay, revertFunc) { " + getCallbackScript() + "}";
-		    }
-        };
+			@Override
+			public String getObject() {
+				return "function(event, dayDelta, minuteDelta, allDay, revertFunc) { " + getCallbackScript() + "}";
+			}
+		};
 	}
 
 	@Override

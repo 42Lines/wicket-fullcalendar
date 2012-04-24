@@ -85,11 +85,11 @@ public class FullCalendar extends AbstractFullCalendar
 		for (final EventSource source : config.getEventSources())
 		{
 			source.setEventsModel(new AbstractReadOnlyModel<String>() {
-			    @Override
-			    public String getObject() {
-			        return EVENTS.asString(new MicroMap("url", getEvents.getUrl(source)));
-			    }
-            });
+				@Override
+				public String getObject() {
+					return EVENTS.asString(new MicroMap("url", getEvents.getUrl(source)));
+				}
+			});
 		}
 
 		if (Strings.isEmpty(config.getEventClick()))

@@ -33,11 +33,11 @@ public abstract class EventClickedCallback extends AbstractAjaxCallback implemen
 	public IModel<String> getHandlerScript()
 	{
 		return new AbstractReadOnlyModel<String>() {
-		    @Override
-		    public String getObject() {
-		        return "function(event) { " + getCallbackScript() + "}";
-		    }
-        };
+			@Override
+			public String getObject() {
+				return "function(event) { " + getCallbackScript() + "}";
+			}
+		};
 	}
 	
 	@Override

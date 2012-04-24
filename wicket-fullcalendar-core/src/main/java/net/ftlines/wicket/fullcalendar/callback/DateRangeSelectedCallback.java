@@ -31,8 +31,8 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 	 * start and end values, but in the server's time zone.
 	 * 
 	 * @param ignoreTimezone
-	 *            whether or not to ignore the remote client's time zone when determining the
-	 *            selected date range
+	 *			whether or not to ignore the remote client's time zone when determining the
+	 *			selected date range
 	 */
 	public DateRangeSelectedCallback(final boolean ignoreTimezone)
 	{
@@ -49,11 +49,11 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 	public IModel<String> getHandlerScript()
 	{
 		return new AbstractReadOnlyModel<String>() {
-		    @Override
-		    public String getObject() {
-		        return "function(startDate, endDate, allDay) { " + getCallbackScript() + "}";
-		    }
-        };
+			@Override
+			public String getObject() {
+				return "function(startDate, endDate, allDay) { " + getCallbackScript() + "}";
+			}
+		};
 	}
 
 	@Override

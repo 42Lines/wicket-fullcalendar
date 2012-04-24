@@ -44,10 +44,10 @@ public abstract class ViewDisplayCallback extends AbstractAjaxCallback implement
 	public IModel<String> getHandlerScript()
 	{
 		return new AbstractReadOnlyModel<String>() {
-		    @Override
-		    public String getObject() {
-		        return String.format("function(v) {%s;}", getCallbackScript());
-		    }
+			@Override
+			public String getObject() {
+				return String.format("function(v) {%s;}", getCallbackScript());
+			}
 		};
 	}
 
