@@ -42,10 +42,8 @@ public class Event implements Serializable
 	private String borderColor;
 
 	private String textColor;
-	
 	private Serializable payload;
 	
-
 	public String getId()
 	{
 		return id;
@@ -183,6 +181,7 @@ public class Event implements Serializable
 	}
 
 	public void setPayload(Serializable payload) {
+
 		this.payload = payload;
 	}
 
