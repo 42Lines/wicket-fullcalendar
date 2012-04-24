@@ -18,6 +18,8 @@ import java.util.Map;
 
 import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
 
+import org.apache.wicket.model.AbstractReadOnlyModel;
+import org.apache.wicket.model.IModel;
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonRawValue;
@@ -35,7 +37,7 @@ public class EventSource implements Serializable
 	private Boolean ignoreTimezone;
 	private String error;
 	private Map<String, Object> data = new HashMap<String, Object>();
-	private String events;
+	private IModel<String> eventsModel;
 
 	private EventProvider eventProvider;
 	private Boolean enableInSelector = true;
@@ -186,17 +188,29 @@ public class EventSource implements Serializable
 	@JsonRawValue
 	public String getEvents()
 	{
-		return events;
+        return eventsModel == null ? "" : eventsModel.getObject();
 	}
 
-	void setEvents(String events)
+	void setEvents(final String events)
 	{
-		this.events = events;
+        this.eventsModel = new AbstractReadOnlyModel<String>() {
+            @Override
+            public String getObject() {
+                return events;
+            }
+        };
 	}
 
+	@JsonIgnore
+	public IModel<String> getEventsModel() {
+        return eventsModel;
+    }
 
+    public void setEventsModel(IModel<String> eventsModel) {
+        this.eventsModel = eventsModel;
+    }
 
-	public static class Const
+    public static class Const
 	{
 		public static final String TITLE = "fcxTitle";
 		public static final String UUID = "fcxUuid";
