@@ -12,6 +12,7 @@
 
 package net.ftlines.wicket.fullcalendar;
 
+import org.apache.wicket.MarkupContainer;
 import org.apache.wicket.ajax.WicketAjaxJQueryResourceReference;
 import org.apache.wicket.markup.head.CssReferenceHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
@@ -22,7 +23,7 @@ import org.apache.wicket.markup.html.WebComponent;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
-abstract class AbstractFullCalendar extends WebComponent implements IHeaderContributor
+abstract class AbstractFullCalendar extends MarkupContainer implements IHeaderContributor
 {
 	public AbstractFullCalendar(String id)
 	{
