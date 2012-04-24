@@ -12,7 +12,6 @@
 
 package net.ftlines.wicket.fullcalendar;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.markup.head.CssReferenceHeaderItem;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
@@ -42,7 +41,9 @@ abstract class AbstractFullCalendar extends WebComponent implements IHeaderContr
 	public void renderHead(IHeaderResponse response)
 	{
 
+
 		response.render( CssReferenceHeaderItem.forReference(CSS) );
+
 		if (getApplication().usesDeploymentConfig())
 		{
 			response.render( JavaScriptReferenceHeaderItem.forReference(JS_MIN) );
@@ -52,6 +53,7 @@ abstract class AbstractFullCalendar extends WebComponent implements IHeaderContr
 			response.render( JavaScriptReferenceHeaderItem.forReference(JS));
 		}
 		response.render( JavaScriptReferenceHeaderItem.forReference(JS_EXT));
+
 	}
 
 
