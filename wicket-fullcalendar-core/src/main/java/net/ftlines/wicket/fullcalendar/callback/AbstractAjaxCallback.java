@@ -15,6 +15,7 @@ package net.ftlines.wicket.fullcalendar.callback;
 import net.ftlines.wicket.fullcalendar.FullCalendar;
 
 import org.apache.wicket.ajax.AbstractDefaultAjaxBehavior;
+import org.apache.wicket.ajax.attributes.IAjaxCallListener;
 
 abstract class AbstractAjaxCallback extends AbstractDefaultAjaxBehavior
 {
@@ -40,9 +41,11 @@ abstract class AbstractAjaxCallback extends AbstractDefaultAjaxBehavior
 		return (FullCalendar)getComponent();
 	}
 
+
 	/*
+
 	@Override
-	protected IAjaxCallDecorator getAjaxCallDecorator()
+	protected IAjaxCallListener getAjaxCallListener()
 	{
 		return new BlockingDecorator(this);
 	}

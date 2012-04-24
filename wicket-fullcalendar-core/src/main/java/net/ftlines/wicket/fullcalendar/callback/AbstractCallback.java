@@ -37,14 +37,14 @@ abstract class AbstractCallback extends Behavior implements IBehaviorListener
 	protected final String getUrl(Map<String, Object> parameters)
 	{
 		PageParameters params = new PageParameters();
+		
 		if (parameters != null)
 		{
 			for (Map.Entry<String, Object> parameter : parameters.entrySet())
 			{
-				params.add(parameter.getKey() ,parameter.getValue());
+				params.add(parameter.getKey(), parameter.getValue());
 			}
 		}
-		
 		String url = calendar.urlFor(IBehaviorListener.INTERFACE, params).toString();
 		
 		return url;
