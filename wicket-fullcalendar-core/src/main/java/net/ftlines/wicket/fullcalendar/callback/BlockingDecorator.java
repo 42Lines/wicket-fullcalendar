@@ -76,6 +76,7 @@ public class BlockingDecorator implements IAjaxCallListener
 		}
 	}
 
+
 	//@Override
 	public CharSequence decorateOnSuccessScript(Component component, CharSequence script)
 	{
@@ -91,44 +92,51 @@ public class BlockingDecorator implements IAjaxCallListener
 		}
 	}
 
+
 	//@Override
 	public CharSequence decorateOnFailureScript(Component component, CharSequence script)
 	{
 		return decorateOnSuccessScript(component, script);
 	}
 
-	@Override
-	public CharSequence getSuccessHandler(Component component) {
+
+	public CharSequence getSuccessHandler(Component component)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CharSequence getFailureHandler(Component component) {
+	public CharSequence getFailureHandler(Component component)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CharSequence getBeforeHandler(Component component) {
+	public CharSequence getBeforeHandler(Component component)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CharSequence getAfterHandler(Component component) {
+	public CharSequence getAfterHandler(Component component)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CharSequence getCompleteHandler(Component component) {
+	public CharSequence getCompleteHandler(Component component)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CharSequence getPrecondition(Component component) {
+	public CharSequence getPrecondition(Component component)
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
