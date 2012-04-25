@@ -24,12 +24,12 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 	private final boolean ignoreTimezone;
 
 	/**
-	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client's time zone will be
+	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client\"s time zone will be
 	 * ignored when determining the selected date range, resulting in a range with the selected
-	 * start and end values, but in the server's time zone.
+	 * start and end values, but in the server\"s time zone.
 	 * 
 	 * @param ignoreTimezone
-	 *            whether or not to ignore the remote client's time zone when determining the
+	 *            whether or not to ignore the remote client\"s time zone when determining the
 	 *            selected date range
 	 */
 	public DateRangeSelectedCallback(final boolean ignoreTimezone)
@@ -41,7 +41,7 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 	protected String configureCallbackScript(String script, String urlTail)
 	{
 		return script.replace(urlTail,
-			"&timezoneOffset='+startDate.getTimezoneOffset()+'&startDate='+startDate.getTime()+'&endDate='+endDate.getTime()+'&allDay='+allDay+'");
+			"&timezoneOffset=\"+startDate.getTimezoneOffset()+\"&startDate=\"+startDate.getTime()+\"&endDate=\"+endDate.getTime()+\"&allDay=\"+allDay+\"");
 	}
 
 	@Override

@@ -24,8 +24,8 @@ public abstract class EventClickedCallback extends AbstractAjaxCallback implemen
 	@Override
 	protected String configureCallbackScript(String script, String urlTail)
 	{
-		return script.replace(urlTail, "&eventId='+event.id+'&sourceId='+event.source.data." + EventSource.Const.UUID +
-			"+'");
+		return script.replace(urlTail, "&eventId=\"+event.id+\"&sourceId=\"+event.source.data." + EventSource.Const.UUID +
+			"+\"");
 	}
 
 	@Override

@@ -82,10 +82,8 @@ public class CalendarResponse
 		{
 			return "null";
 		}
-		else
-		{
-			return "'" + o.toString() + "'";
-		}
+
+		return "'" + o.toString() + "'";
 	}
 
 	/**

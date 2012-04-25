@@ -26,8 +26,8 @@ public abstract class EventDroppedCallback extends AbstractAjaxCallbackWithClien
 	@Override
 	protected String configureCallbackScript(String script, String urlTail)
 	{
-		return script.replace(urlTail, "&eventId='+event.id+'&sourceId='+event.source.data." + EventSource.Const.UUID +
-			"+'&dayDelta='+dayDelta+'&minuteDelta='+minuteDelta+'&allDay='+allDay+'");
+		return script.replace(urlTail, "&eventId=\"+event.id+\"&sourceId=\"+event.source.data." + EventSource.Const.UUID +
+			"+\"&dayDelta=\"+dayDelta+\"&minuteDelta=\"+minuteDelta+\"&allDay=\"+allDay+\"");
 	}
 
 	@Override

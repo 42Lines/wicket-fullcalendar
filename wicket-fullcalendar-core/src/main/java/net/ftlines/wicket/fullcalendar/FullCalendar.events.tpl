@@ -8,10 +8,6 @@ function(start, end, callback) {
             timezoneOffset: new Date().getTimezoneOffset(),
             anticache: ""+new Date().getTime()+"."+Math.random()
         },
-        headers: {
-        	"Wicket-Ajax": true,
-        	"Wicket-Ajax-BaseURL": Wicket._getAjaxBaseUrl()
-        },
         success: function(events) {
             callback(events);
         }
