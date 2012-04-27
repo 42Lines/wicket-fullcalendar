@@ -1,5 +1,5 @@
 function(start, end, callback) {
-alert(callback);
+
     Wicket.Ajax.ajax({
         'u': '${url}',
         'dt': 'json',
