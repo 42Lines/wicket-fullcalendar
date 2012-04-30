@@ -3,7 +3,7 @@ function(start, end, callback) {
     Wicket.Ajax.ajax({
         "u": "${url}",
         "dt": "json",
-        "dep": {
+        "ep": {
             "start": Math.round(start.getTime()),
             "end": Math.round(end.getTime()),
             "timezoneOffset": new Date().getTimezoneOffset(),
