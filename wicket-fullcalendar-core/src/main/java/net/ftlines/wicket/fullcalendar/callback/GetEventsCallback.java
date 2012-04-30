@@ -53,6 +53,9 @@ public class GetEventsCallback extends AbstractCallback
 		EventSource source = getCalendar().getEventManager().getEventSource(sid);
 		EventProvider provider = source.getEventProvider();
 		String response = getCalendar().toJson(provider.getEvents(start, end));
-		getCalendar().getRequestCycle().scheduleRequestHandlerAfterCurrent(new TextRequestHandler(response));
+		//getCalendar().getRequestCycle().scheduleRequestHandlerAfterCurrent(new TextRequestHandler(response));
+		
+		getCalendar().getRequestCycle().scheduleRequestHandlerAfterCurrent(new TextRequestHandler("application/json", "UTF-8",response));
+		
 	}
 }
