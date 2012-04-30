@@ -3,6 +3,7 @@ function(start, end, callback) {
     Wicket.Ajax.ajax({
         "u": "${url}",
         "dt": "json",
+        "wr":  false,
         "ep": {
             "start": Math.round(start.getTime()),
             "end": Math.round(end.getTime()),
