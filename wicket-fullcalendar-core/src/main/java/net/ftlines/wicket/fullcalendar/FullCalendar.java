@@ -27,7 +27,7 @@ import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
 import net.ftlines.wicket.fullcalendar.callback.View;
 import net.ftlines.wicket.fullcalendar.callback.ViewDisplayCallback;
 
-
+import org.apache.wicket.behavior.IBehaviorListener;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.util.collections.MicroMap;
@@ -35,7 +35,7 @@ import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.template.TextTemplate;
 
-public class FullCalendar extends AbstractFullCalendar
+public class FullCalendar extends AbstractFullCalendar implements IBehaviorListener
 {
 	private static final TextTemplate EVENTS = new PackageTextTemplate(FullCalendar.class, "FullCalendar.events.tpl");
 
@@ -209,4 +209,11 @@ public class FullCalendar extends AbstractFullCalendar
 	{
 		return AjaxConcurrency.QUEUE;
 	}
+
+	@Override
+	public void onRequest() {
+		getEvents.onRequest();
+		
+	}
+
 }
