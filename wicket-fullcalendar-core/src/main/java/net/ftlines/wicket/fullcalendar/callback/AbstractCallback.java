@@ -34,6 +34,7 @@ abstract class AbstractCallback extends Behavior implements IBehaviorListener
 		this.calendar = (FullCalendar)component;
 	}
 
+	/*
 	protected final String getUrl(Map<String, Object> parameters)
 	{
 		PageParameters params = new PageParameters();
@@ -49,6 +50,21 @@ abstract class AbstractCallback extends Behavior implements IBehaviorListener
 		
 		return url;
 	}
+	*/
+	protected final String getUrl(Map<String, Object> parameters)
+	{
+		PageParameters params = new PageParameters();
+		String url =  calendar.urlFor(IBehaviorListener.INTERFACE, params).toString();;
+		if (parameters != null)
+		{
+			for (Map.Entry<String, Object> parameter : parameters.entrySet())
+			{
+				url += "&" + parameter.getKey() + "=" + parameter.getValue();
+			}
+		}
+		return url;
+	}
+
 
 	@Override
 	public final void onRequest()
