@@ -83,7 +83,7 @@ public class HomePage extends WebPage
 			protected void onDateRangeSelected(SelectedRange range, CalendarResponse response)
 			{
 				info("Selected region: " + range.getStart() + " - " + range.getEnd() + " / allDay: " + range.isAllDay());
-				response.getTarget().addComponent(feedback);
+				response.getTarget().add(feedback);
 			}
 
 			@Override
@@ -95,7 +95,7 @@ public class HomePage extends WebPage
 				info("Original start time: " + event.getEvent().getStart() + ", original end time: " +
 					event.getEvent().getEnd());
 				info("New start time: " + event.getNewStartTime() + ", new end time: " + event.getNewEndTime());
-				response.getTarget().addComponent(feedback);
+				response.getTarget().add(feedback);
 				return false;
 			}
 
@@ -105,7 +105,7 @@ public class HomePage extends WebPage
 				info("Event resized. eventId: " + event.getEvent().getId() + " sourceId: " +
 					event.getSource().getUuid() + " dayDelta: " + event.getDaysDelta() + " minuteDelta: " +
 					event.getMinutesDelta());
-				response.getTarget().addComponent(feedback);
+				response.getTarget().add(feedback);
 				return false;
 			}
 
@@ -115,7 +115,7 @@ public class HomePage extends WebPage
 				info("Event clicked. eventId: " + event.getEvent().getId() + ", sourceId: " +
 					event.getSource().getUuid());
 				response.refetchEvents();
-				response.getTarget().addComponent(feedback);
+				response.getTarget().add(feedback);
 			}
 
 			@Override
@@ -123,7 +123,7 @@ public class HomePage extends WebPage
 			{
 				info("View displayed. viewType: " + view.getType().name() + ", start: " + view.getStart() + ", end: " +
 					view.getEnd());
-				response.getTarget().addComponent(feedback);
+				response.getTarget().add(feedback);
 			}
 		};
 		calendar.setMarkupId("calendar");

@@ -12,7 +12,6 @@
 
 package net.ftlines.wicket.fullcalendar;
 
-import org.apache.wicket.Application;
 import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebComponent;
