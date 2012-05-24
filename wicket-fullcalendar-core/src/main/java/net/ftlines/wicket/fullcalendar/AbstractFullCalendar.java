@@ -12,14 +12,12 @@
 
 package net.ftlines.wicket.fullcalendar;
 
-import org.apache.wicket.Application;
-import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.markup.html.IHeaderResponse;
 import org.apache.wicket.markup.html.WebComponent;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
-abstract class AbstractFullCalendar extends WebComponent implements IHeaderContributor
+abstract class AbstractFullCalendar extends WebComponent
 {
 	public AbstractFullCalendar(String id)
 	{

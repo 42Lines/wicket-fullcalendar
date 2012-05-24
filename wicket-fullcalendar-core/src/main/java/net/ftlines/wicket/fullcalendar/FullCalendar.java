@@ -89,7 +89,7 @@ public class FullCalendar extends AbstractFullCalendar
 		add(getEvents);
 		for (EventSource source : config.getEventSources())
 		{
-			source.setEvents(EVENTS.asString(new MicroMap("url", getEvents.getUrl(source))));
+			source.setEvents(EVENTS.asString(new MicroMap<String, String>("url", getEvents.getUrl(source))));
 		}
 
 		if (Strings.isEmpty(config.getEventClick()))
