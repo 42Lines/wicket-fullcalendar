@@ -23,26 +23,21 @@ import org.apache.wicket.util.collections.MicroMap;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-
-public class GetEventsCallback extends AbstractCallback
-{
+public class GetEventsCallback extends AbstractCallback {
 	private static final String SOURCE_ID = "sid";
 
-	public String getUrl(EventSource source)
-	{
+	public String getUrl(EventSource source) {
 		return getUrl(new MicroMap<String, Object>(SOURCE_ID, source.getUuid()));
 	}
 
 	@Override
-	protected void respond()
-	{
+	protected void respond() {
 		Request r = getCalendar().getRequest();
 		String sid = r.getRequestParameters().getParameterValue(SOURCE_ID).toString();
 		DateTime start = new DateTime(r.getRequestParameters().getParameterValue("start").toLong());
 		DateTime end = new DateTime(r.getRequestParameters().getParameterValue("end").toLong());
 
-		if (getCalendar().getConfig().isIgnoreTimezone())
-		{
+		if (getCalendar().getConfig().isIgnoreTimezone()) {
 			// Convert to same DateTime in local time zone.
 			int remoteOffset = -r.getRequestParameters().getParameterValue("timezoneOffset").toInt();
 			int localOffset = DateTimeZone.getDefault().getOffset(null) / 60000;

@@ -14,8 +14,7 @@
 
 package net.ftlines.wicket.fullcalendar.callback;
 
-public enum AjaxConcurrency
-{
+public enum AjaxConcurrency {
 	/** queue and execute all callbacks */
 	QUEUE,
 	/** drop callbacks if a callback of the same type is already executing */

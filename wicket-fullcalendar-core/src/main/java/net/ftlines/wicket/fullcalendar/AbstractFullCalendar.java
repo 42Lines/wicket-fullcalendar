@@ -17,10 +17,8 @@ import org.apache.wicket.markup.html.WebComponent;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
-abstract class AbstractFullCalendar extends WebComponent
-{
-	public AbstractFullCalendar(String id)
-	{
+abstract class AbstractFullCalendar extends WebComponent {
+	public AbstractFullCalendar(String id) {
 		super(id);
 	}
 
@@ -35,24 +33,18 @@ abstract class AbstractFullCalendar extends WebComponent
 		"res/fullcalendar.min.js");
 
 	@Override
-	public void renderHead(IHeaderResponse response)
-	{
+	public void renderHead(IHeaderResponse response) {
 
 		response.renderCSSReference(CSS);
-		if (getApplication().usesDeploymentConfig())
-		{
+		if (getApplication().usesDeploymentConfig()) {
 			response.renderJavaScriptReference(JS_MIN);
-		}
-		else
-		{
+		} else {
 			response.renderJavaScriptReference(JS);
 		}
 		response.renderJavaScriptReference(JS_EXT);
 	}
 
-
-	public final String toJson(Object value)
-	{
+	public final String toJson(Object value) {
 		return Json.toJson(value);
 	}
 }

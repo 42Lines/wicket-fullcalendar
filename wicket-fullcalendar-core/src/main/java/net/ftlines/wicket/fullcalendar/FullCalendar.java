@@ -73,102 +73,80 @@ public class FullCalendar extends AbstractFullCalendar {
 		setupCallbacks();
 	}
 
-	private void setupCallbacks()
-	{
-		if (getEvents==null) {
+	private void setupCallbacks() {
+		if (getEvents == null) {
 			add(getEvents = new GetEventsCallback());
 		}
-		
-		for (EventSource source : config.getEventSources())
-		{
+
+		for (EventSource source : config.getEventSources()) {
 			source.setEvents(EVENTS.asString(new MicroMap<String, String>("url", getEvents.getUrl(source))));
 		}
 
-		if (Strings.isEmpty(config.getEventClick()))
-		{
-			add(eventClicked = new EventClickedCallback()
-			{
+		if (Strings.isEmpty(config.getEventClick())) {
+			add(eventClicked = new EventClickedCallback() {
 				@Override
-				protected void onClicked(ClickedEvent event, CalendarResponse response)
-				{
+				protected void onClicked(ClickedEvent event, CalendarResponse response) {
 					onEventClicked(event, response);
 				}
 			});
 		}
 
-		if (eventClicked!=null)
-		{
-			config.setEventClick(eventClicked.getHandlerScript());	
+		if (eventClicked != null) {
+			config.setEventClick(eventClicked.getHandlerScript());
 		}
 
-		if (Strings.isEmpty(config.getSelect()))
-		{
-			add(dateRangeSelected = new DateRangeSelectedCallback(config.isIgnoreTimezone())
-			{
+		if (Strings.isEmpty(config.getSelect())) {
+			add(dateRangeSelected = new DateRangeSelectedCallback(config.isIgnoreTimezone()) {
 				@Override
-				protected void onSelect(SelectedRange range, CalendarResponse response)
-				{
+				protected void onSelect(SelectedRange range, CalendarResponse response) {
 					FullCalendar.this.onDateRangeSelected(range, response);
 				}
 			});
 		}
-		
-		if (dateRangeSelected!=null)
-		{
+
+		if (dateRangeSelected != null) {
 			config.setSelect(dateRangeSelected.getHandlerScript());
 		}
 
-		if (Strings.isEmpty(config.getEventDrop()))
-		{
-			add(eventDropped = new EventDroppedCallback()
-			{
+		if (Strings.isEmpty(config.getEventDrop())) {
+			add(eventDropped = new EventDroppedCallback() {
 
 				@Override
-				protected boolean onEventDropped(DroppedEvent event, CalendarResponse response)
-				{
+				protected boolean onEventDropped(DroppedEvent event, CalendarResponse response) {
 					return FullCalendar.this.onEventDropped(event, response);
 				}
 			});
 		}
-		
-		if (eventDropped!=null)
-		{
+
+		if (eventDropped != null) {
 			config.setEventDrop(eventDropped.getHandlerScript());
 		}
 
-		if (Strings.isEmpty(config.getEventResize()))
-		{
-			add(eventResized = new EventResizedCallback()
-			{
+		if (Strings.isEmpty(config.getEventResize())) {
+			add(eventResized = new EventResizedCallback() {
 
 				@Override
-				protected boolean onEventResized(ResizedEvent event, CalendarResponse response)
-				{
+				protected boolean onEventResized(ResizedEvent event, CalendarResponse response) {
 					return FullCalendar.this.onEventResized(event, response);
 				}
 
 			});
 		}
-		
-		if (eventResized!=null)
-		{
+
+		if (eventResized != null) {
 			config.setEventResize(eventResized.getHandlerScript());
 		}
 
-		if (Strings.isEmpty(config.getViewDisplay()))
-		{
-			add(viewDisplay = new ViewDisplayCallback()
-			{
+		if (Strings.isEmpty(config.getViewDisplay())) {
+			add(viewDisplay = new ViewDisplayCallback() {
 				@Override
-				protected void onViewDisplayed(View view, CalendarResponse response)
-				{
+				protected void onViewDisplayed(View view, CalendarResponse response) {
 					FullCalendar.this.onViewDisplayed(view, response);
 				}
 			});
 		}
-		
-		if (viewDisplay!=null)
-		{
+
+		if (viewDisplay != null) {
 			config.setViewDisplay(viewDisplay.getHandlerScript());
 		}
 

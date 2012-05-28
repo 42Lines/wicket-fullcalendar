@@ -22,24 +22,19 @@ import org.apache.wicket.Component;
 import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.behavior.IBehaviorListener;
 
-abstract class AbstractCallback extends Behavior implements IBehaviorListener
-{
+abstract class AbstractCallback extends Behavior implements IBehaviorListener {
 	private FullCalendar calendar;
 
 	@Override
-	public void bind(Component component)
-	{
+	public void bind(Component component) {
 		super.bind(component);
-		this.calendar = (FullCalendar)component;
+		this.calendar = (FullCalendar) component;
 	}
 
-	protected final String getUrl(Map<String, Object> parameters)
-	{
+	protected final String getUrl(Map<String, Object> parameters) {
 		String url = calendar.urlFor(this, IBehaviorListener.INTERFACE, null).toString();
-		if (parameters != null)
-		{
-			for (Map.Entry<String, Object> parameter : parameters.entrySet())
-			{
+		if (parameters != null) {
+			for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
 				url += "&" + parameter.getKey() + "=" + parameter.getValue();
 			}
 		}
@@ -47,21 +42,18 @@ abstract class AbstractCallback extends Behavior implements IBehaviorListener
 	}
 
 	@Override
-	public final void onRequest()
-	{
+	public final void onRequest() {
 		respond();
 	}
 
 	protected abstract void respond();
 
-	protected final FullCalendar getCalendar()
-	{
-		return (FullCalendar)calendar;
+	protected final FullCalendar getCalendar() {
+		return calendar;
 	}
 
 	@Override
-	public boolean getStatelessHint(Component component)
-	{
+	public boolean getStatelessHint(Component component) {
 		return false;
 	}
 }

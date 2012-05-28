@@ -17,11 +17,9 @@ import org.mortbay.jetty.Server;
 import org.mortbay.jetty.bio.SocketConnector;
 import org.mortbay.jetty.webapp.WebAppContext;
 
-public class StartFullCalendarExamples
-{
+public class StartFullCalendarExamples {
 
-	public static void main(String[] args) throws Exception
-	{
+	public static void main(String[] args) throws Exception {
 		Server server = new Server();
 		SocketConnector connector = new SocketConnector();
 
@@ -44,8 +42,7 @@ public class StartFullCalendarExamples
 
 		server.addHandler(bb);
 
-		try
-		{
+		try {
 			System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
 			server.start();
 			System.in.read();
@@ -55,9 +52,7 @@ public class StartFullCalendarExamples
 			// }
 			server.stop();
 			server.join();
-		}
-		catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(100);
 		}

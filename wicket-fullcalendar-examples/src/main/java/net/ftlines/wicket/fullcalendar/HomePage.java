@@ -30,11 +30,9 @@ import org.apache.wicket.util.time.Duration;
 import org.joda.time.DateTime;
 import org.joda.time.LocalTime;
 
-public class HomePage extends WebPage
-{
+public class HomePage extends WebPage {
 
-	public HomePage()
-	{
+	public HomePage() {
 
 		final FeedbackPanel feedback = new FeedbackPanel("feedback");
 		feedback.setOutputMarkupId(true);
@@ -77,52 +75,46 @@ public class HomePage extends WebPage
 		config.setMinTime(new LocalTime(6, 30));
 		config.setMaxTime(new LocalTime(17, 30));
 		config.setAllDaySlot(false);
-		FullCalendar calendar = new FullCalendar("cal", config)
-		{
+		FullCalendar calendar = new FullCalendar("cal", config) {
 			@Override
-			protected void onDateRangeSelected(SelectedRange range, CalendarResponse response)
-			{
+			protected void onDateRangeSelected(SelectedRange range, CalendarResponse response) {
 				info("Selected region: " + range.getStart() + " - " + range.getEnd() + " / allDay: " + range.isAllDay());
 				response.getTarget().add(feedback);
 			}
 
 			@Override
-			protected boolean onEventDropped(DroppedEvent event, CalendarResponse response)
-			{
-				info("Event drop. eventId: " + event.getEvent().getId() + " sourceId: " + event.getSource().getUuid() +
-					" dayDelta: " + event.getDaysDelta() + " minuteDelta: " + event.getMinutesDelta() + " allDay: " +
-					event.isAllDay());
-				info("Original start time: " + event.getEvent().getStart() + ", original end time: " +
-					event.getEvent().getEnd());
+			protected boolean onEventDropped(DroppedEvent event, CalendarResponse response) {
+				info("Event drop. eventId: " + event.getEvent().getId() + " sourceId: " + event.getSource().getUuid()
+					+ " dayDelta: " + event.getDaysDelta() + " minuteDelta: " + event.getMinutesDelta() + " allDay: "
+					+ event.isAllDay());
+				info("Original start time: " + event.getEvent().getStart() + ", original end time: "
+					+ event.getEvent().getEnd());
 				info("New start time: " + event.getNewStartTime() + ", new end time: " + event.getNewEndTime());
 				response.getTarget().add(feedback);
 				return false;
 			}
 
 			@Override
-			protected boolean onEventResized(ResizedEvent event, CalendarResponse response)
-			{
-				info("Event resized. eventId: " + event.getEvent().getId() + " sourceId: " +
-					event.getSource().getUuid() + " dayDelta: " + event.getDaysDelta() + " minuteDelta: " +
-					event.getMinutesDelta());
+			protected boolean onEventResized(ResizedEvent event, CalendarResponse response) {
+				info("Event resized. eventId: " + event.getEvent().getId() + " sourceId: "
+					+ event.getSource().getUuid() + " dayDelta: " + event.getDaysDelta() + " minuteDelta: "
+					+ event.getMinutesDelta());
 				response.getTarget().add(feedback);
 				return false;
 			}
 
 			@Override
-			protected void onEventClicked(ClickedEvent event, CalendarResponse response)
-			{
-				info("Event clicked. eventId: " + event.getEvent().getId() + ", sourceId: " +
-					event.getSource().getUuid());
+			protected void onEventClicked(ClickedEvent event, CalendarResponse response) {
+				info("Event clicked. eventId: " + event.getEvent().getId() + ", sourceId: "
+					+ event.getSource().getUuid());
 				response.refetchEvents();
 				response.getTarget().add(feedback);
 			}
 
 			@Override
-			protected void onViewDisplayed(View view, CalendarResponse response)
-			{
-				info("View displayed. viewType: " + view.getType().name() + ", start: " + view.getStart() + ", end: " +
-					view.getEnd());
+			protected void onViewDisplayed(View view, CalendarResponse response) {
+				info("View displayed. viewType: " + view.getType().name() + ", start: " + view.getStart() + ", end: "
+					+ view.getEnd());
 				response.getTarget().add(feedback);
 			}
 		};
@@ -131,34 +123,29 @@ public class HomePage extends WebPage
 		add(new EventSourceSelector("selector", calendar));
 	}
 
-	private static class RandomEventsProvider implements EventProvider
-	{
+	private static class RandomEventsProvider implements EventProvider {
 		Map<Integer, Event> events = new HashMap<Integer, Event>();
 
 		private final String title;
 
-		public RandomEventsProvider(String title)
-		{
+		public RandomEventsProvider(String title) {
 			this.title = title;
 		}
 
 		@Override
-		public Collection<Event> getEvents(DateTime start, DateTime end)
-		{
+		public Collection<Event> getEvents(DateTime start, DateTime end) {
 			events.clear();
 			SecureRandom random = new SecureRandom();
 
 			Duration duration = Duration.valueOf(end.getMillis() - start.getMillis());
 
-			for (int j = 0; j < 1; j++)
-			{
-				for (int i = 0; i < duration.days() + 1; i++)
-				{
+			for (int j = 0; j < 1; j++) {
+				for (int i = 0; i < duration.days() + 1; i++) {
 					DateTime calendar = start;
 					calendar = calendar.plusDays(i).withHourOfDay(6 + random.nextInt(10));
 
 					Event event = new Event();
-					int id = (int)(j * duration.days() + i);
+					int id = (int) (j * duration.days() + i);
 					event.setId("" + id);
 					event.setTitle(title + (1 + i));
 					event.setStart(calendar);
@@ -172,12 +159,10 @@ public class HomePage extends WebPage
 		}
 
 		@Override
-		public Event getEventForId(String id) throws EventNotFoundException
-		{
+		public Event getEventForId(String id) throws EventNotFoundException {
 			Integer idd = Integer.valueOf(id);
 			Event event = events.get(idd);
-			if (event != null)
-			{
+			if (event != null) {
 				return event;
 			}
 			throw new EventNotFoundException("Event with id: " + id + " not found");

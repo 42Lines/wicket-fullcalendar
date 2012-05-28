@@ -22,11 +22,9 @@ import org.junit.Test;
  * @author igor
  * 
  */
-public class DummyTest
-{
+public class DummyTest {
 	@Test
-	public void dummy()
-	{
+	public void dummy() {
 
 	}
 }

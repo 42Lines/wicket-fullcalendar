@@ -19,26 +19,21 @@ import net.ftlines.wicket.fullcalendar.EventSource;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.request.Request;
 
-public abstract class EventDroppedCallback extends AbstractAjaxCallbackWithClientsideRevert
-	implements
-		CallbackWithHandler
-{
+public abstract class EventDroppedCallback extends AbstractAjaxCallbackWithClientsideRevert implements
+	CallbackWithHandler {
 	@Override
-	protected String configureCallbackScript(String script, String urlTail)
-	{
-		return script.replace(urlTail, "&eventId='+event.id+'&sourceId='+event.source.data." + EventSource.Const.UUID +
-			"+'&dayDelta='+dayDelta+'&minuteDelta='+minuteDelta+'&allDay='+allDay+'");
+	protected String configureCallbackScript(String script, String urlTail) {
+		return script.replace(urlTail, "&eventId='+event.id+'&sourceId='+event.source.data." + EventSource.Const.UUID
+			+ "+'&dayDelta='+dayDelta+'&minuteDelta='+minuteDelta+'&allDay='+allDay+'");
 	}
 
 	@Override
-	public String getHandlerScript()
-	{
+	public String getHandlerScript() {
 		return "function(event, dayDelta, minuteDelta, allDay, revertFunc) { " + getCallbackScript() + "}";
 	}
 
 	@Override
-	protected boolean onEvent(AjaxRequestTarget target)
-	{
+	protected boolean onEvent(AjaxRequestTarget target) {
 		Request r = getCalendar().getRequest();
 		String eventId = r.getRequestParameters().getParameterValue("eventId").toString();
 		String sourceId = r.getRequestParameters().getParameterValue("sourceId").toString();
@@ -57,8 +52,7 @@ public abstract class EventDroppedCallback extends AbstractAjaxCallbackWithClien
 	protected abstract boolean onEventDropped(DroppedEvent event, CalendarResponse response);
 
 	@Override
-	protected String getRevertScript()
-	{
+	protected String getRevertScript() {
 		return "revertFunc();";
 	}
 

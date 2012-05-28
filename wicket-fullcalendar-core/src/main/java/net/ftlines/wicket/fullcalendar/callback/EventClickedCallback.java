@@ -19,24 +19,20 @@ import net.ftlines.wicket.fullcalendar.EventSource;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.request.Request;
 
-public abstract class EventClickedCallback extends AbstractAjaxCallback implements CallbackWithHandler
-{
+public abstract class EventClickedCallback extends AbstractAjaxCallback implements CallbackWithHandler {
 	@Override
-	protected String configureCallbackScript(String script, String urlTail)
-	{
-		return script.replace(urlTail, "&eventId='+event.id+'&sourceId='+event.source.data." + EventSource.Const.UUID +
-			"+'");
+	protected String configureCallbackScript(String script, String urlTail) {
+		return script.replace(urlTail, "&eventId='+event.id+'&sourceId='+event.source.data." + EventSource.Const.UUID
+			+ "+'");
 	}
 
 	@Override
-	public String getHandlerScript()
-	{
+	public String getHandlerScript() {
 		return "function(event) { " + getCallbackScript() + "}";
 	}
-	
+
 	@Override
-	protected void respond(AjaxRequestTarget target)
-	{
+	protected void respond(AjaxRequestTarget target) {
 		Request r = getCalendar().getRequest();
 		String eventId = r.getRequestParameters().getParameterValue("eventId").toString();
 		String sourceId = r.getRequestParameters().getParameterValue("sourceId").toString();
@@ -47,8 +43,6 @@ public abstract class EventClickedCallback extends AbstractAjaxCallback implemen
 		onClicked(new ClickedEvent(source, event), new CalendarResponse(getCalendar(), target));
 	}
 
-
 	protected abstract void onClicked(ClickedEvent event, CalendarResponse response);
-
 
 }
