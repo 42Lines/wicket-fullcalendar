@@ -33,8 +33,7 @@ import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.template.TextTemplate;
 
-public class FullCalendar extends AbstractFullCalendar
-{
+public class FullCalendar extends AbstractFullCalendar {
 	private static final TextTemplate EVENTS = new PackageTextTemplate(FullCalendar.class, "FullCalendar.events.tpl");
 
 	private final Config config;
@@ -45,48 +44,41 @@ public class FullCalendar extends AbstractFullCalendar
 	private EventClickedCallback eventClicked;
 	private ViewDisplayCallback viewDisplay;
 
-	public FullCalendar(String id, Config config)
-	{
+	public FullCalendar(String id, Config config) {
 		super(id);
 		this.config = config;
 		setVersioned(false);
 	}
 
-	public Config getConfig()
-	{
+	public Config getConfig() {
 		return config;
 	}
 
-	public EventManager getEventManager()
-	{
+	public EventManager getEventManager() {
 		return new EventManager(this);
 	}
 
 	@Override
-	protected void onInitialize()
-	{
+	protected void onInitialize() {
 		super.onInitialize();
-		for (EventSource source : config.getEventSources())
-		{
+		for (EventSource source : config.getEventSources()) {
 			String uuid = UUID.randomUUID().toString().replaceAll("[^A-Za-z0-9]", "");
 			source.setUuid(uuid);
 		}
 	}
 
 	@Override
-	protected void onBeforeRender()
-	{
+	protected void onBeforeRender() {
 		super.onBeforeRender();
 		setupCallbacks();
 	}
 
 	private void setupCallbacks()
 	{
-		if (getEvents != null)
-			return;
-
-		getEvents = new GetEventsCallback();
-		add(getEvents);
+		if (getEvents==null) {
+			add(getEvents = new GetEventsCallback());
+		}
+		
 		for (EventSource source : config.getEventSources())
 		{
 			source.setEvents(EVENTS.asString(new MicroMap<String, String>("url", getEvents.getUrl(source))));
@@ -102,7 +94,11 @@ public class FullCalendar extends AbstractFullCalendar
 					onEventClicked(event, response);
 				}
 			});
-			config.setEventClick(eventClicked.getHandlerScript());
+		}
+
+		if (eventClicked!=null)
+		{
+			config.setEventClick(eventClicked.getHandlerScript());	
 		}
 
 		if (Strings.isEmpty(config.getSelect()))
@@ -115,6 +111,10 @@ public class FullCalendar extends AbstractFullCalendar
 					FullCalendar.this.onDateRangeSelected(range, response);
 				}
 			});
+		}
+		
+		if (dateRangeSelected!=null)
+		{
 			config.setSelect(dateRangeSelected.getHandlerScript());
 		}
 
@@ -129,6 +129,10 @@ public class FullCalendar extends AbstractFullCalendar
 					return FullCalendar.this.onEventDropped(event, response);
 				}
 			});
+		}
+		
+		if (eventDropped!=null)
+		{
 			config.setEventDrop(eventDropped.getHandlerScript());
 		}
 
@@ -144,7 +148,10 @@ public class FullCalendar extends AbstractFullCalendar
 				}
 
 			});
-
+		}
+		
+		if (eventResized!=null)
+		{
 			config.setEventResize(eventResized.getHandlerScript());
 		}
 
@@ -158,16 +165,18 @@ public class FullCalendar extends AbstractFullCalendar
 					FullCalendar.this.onViewDisplayed(view, response);
 				}
 			});
+		}
+		
+		if (viewDisplay!=null)
+		{
 			config.setViewDisplay(viewDisplay.getHandlerScript());
 		}
 
 		getPage().dirty();
 	}
 
-
 	@Override
-	public void renderHead(IHeaderResponse response)
-	{
+	public void renderHead(IHeaderResponse response) {
 		super.renderHead(response);
 
 		String configuration = "$(\"#" + getMarkupId() + "\").fullCalendarExt(";
@@ -177,33 +186,27 @@ public class FullCalendar extends AbstractFullCalendar
 		response.renderOnDomReadyJavaScript(configuration);
 	}
 
-	protected boolean onEventDropped(DroppedEvent event, CalendarResponse response)
-	{
+	protected boolean onEventDropped(DroppedEvent event, CalendarResponse response) {
 		return false;
 	}
 
-	protected boolean onEventResized(ResizedEvent event, CalendarResponse response)
-	{
+	protected boolean onEventResized(ResizedEvent event, CalendarResponse response) {
 		return false;
 	}
 
-	protected void onDateRangeSelected(SelectedRange range, CalendarResponse response)
-	{
+	protected void onDateRangeSelected(SelectedRange range, CalendarResponse response) {
 
 	}
 
-	protected void onEventClicked(ClickedEvent event, CalendarResponse response)
-	{
+	protected void onEventClicked(ClickedEvent event, CalendarResponse response) {
 
 	}
 
-	protected void onViewDisplayed(View view, CalendarResponse response)
-	{
+	protected void onViewDisplayed(View view, CalendarResponse response) {
 
 	}
 
-	public AjaxConcurrency getAjaxConcurrency()
-	{
+	public AjaxConcurrency getAjaxConcurrency() {
 		return AjaxConcurrency.QUEUE;
 	}
 }
