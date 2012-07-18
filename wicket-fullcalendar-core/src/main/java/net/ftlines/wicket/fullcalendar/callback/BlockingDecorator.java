@@ -60,7 +60,7 @@ public class BlockingDecorator implements IAjaxCallListener
 		return var;
 	}
 
-	//@Override
+	// @Override
 	public CharSequence decorateScript(Component component, CharSequence script)
 	{
 		switch (callback.getCalendar().getAjaxConcurrency())
@@ -77,7 +77,7 @@ public class BlockingDecorator implements IAjaxCallListener
 	}
 
 
-	//@Override
+	// @Override
 	public CharSequence decorateOnSuccessScript(Component component, CharSequence script)
 	{
 		switch (callback.getCalendar().getAjaxConcurrency())
@@ -93,7 +93,7 @@ public class BlockingDecorator implements IAjaxCallListener
 	}
 
 
-	//@Override
+	// @Override
 	public CharSequence decorateOnFailureScript(Component component, CharSequence script)
 	{
 		return decorateOnSuccessScript(component, script);

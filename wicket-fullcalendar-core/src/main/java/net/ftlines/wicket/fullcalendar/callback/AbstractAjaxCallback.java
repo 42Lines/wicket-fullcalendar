@@ -43,12 +43,9 @@ abstract class AbstractAjaxCallback extends AbstractDefaultAjaxBehavior
 
 
 	/*
+	 * 
+	 * @Override protected IAjaxCallListener getAjaxCallListener() { return new
+	 * BlockingDecorator(this); }
+	 */
 
-	@Override
-	protected IAjaxCallListener getAjaxCallListener()
-	{
-		return new BlockingDecorator(this);
-	}
-	*/
-	
 }

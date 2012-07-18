@@ -58,7 +58,7 @@ public class CalendarResponse
 	{
 		return execute(q("removeEvents"), q(event.getId()));
 	}
-	
+
 	public CalendarResponse gotoDate(Date date)
 	{
 		return execute(q("gotoDate"), "new Date(" + date.getTime() + ")");

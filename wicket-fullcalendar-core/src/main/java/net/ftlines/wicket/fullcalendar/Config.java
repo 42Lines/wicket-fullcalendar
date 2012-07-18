@@ -41,7 +41,7 @@ public class Config implements Serializable
 	private String eventDrop;
 	private String eventResize;
 	private String eventClick;
-	
+
 	private String viewDisplay;
 	private Boolean selectable;
 	private Boolean selectHelper;
@@ -55,11 +55,11 @@ public class Config implements Serializable
 	private LocalTime maxTime;
 	private Integer firstHour;
 	private Boolean allDaySlot;
-	
+
 	private String timeFormat;
-	
+
 	private String eventRender;
-	
+
 	private Boolean disableDragging;
 	private Boolean disableResizing;
 	private Integer slotMinutes;
@@ -264,7 +264,7 @@ public class Config implements Serializable
 	{
 		this.allDaySlot = allDaySlot;
 	}
-	
+
 	public String getTimeFormat()
 	{
 		return timeFormat;
@@ -321,7 +321,7 @@ public class Config implements Serializable
 	{
 		this.slotMinutes = slotMinutes;
 	}
-	
+
 	public Integer getSlotMinutes()
 	{
 		return slotMinutes;
@@ -381,5 +381,5 @@ public class Config implements Serializable
 	{
 		return ignoreTimezone;
 	}
-	
+
 }

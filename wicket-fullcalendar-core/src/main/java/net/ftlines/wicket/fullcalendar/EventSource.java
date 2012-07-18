@@ -182,7 +182,7 @@ public class EventSource implements Serializable
 		return this;
 	}
 
-	
+
 	@JsonRawValue
 	public String getEvents()
 	{
@@ -193,7 +193,6 @@ public class EventSource implements Serializable
 	{
 		this.events = events;
 	}
-
 
 
 	public static class Const
@@ -256,5 +255,5 @@ public class EventSource implements Serializable
 	{
 		return includeInSelector;
 	}
-	
+
 }

@@ -1,15 +1,13 @@
 /**
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
+ * in compliance with the License. You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing, software distributed under the License
+ * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+ * or implied. See the License for the specific language governing permissions and limitations under
+ * the License.
  */
 
 package net.ftlines.wicket.fullcalendar.callback;
@@ -35,26 +33,20 @@ abstract class AbstractCallback extends Behavior implements IBehaviorListener
 	}
 
 	/*
+	 * protected final String getUrl(Map<String, Object> parameters) { PageParameters params = new
+	 * PageParameters();
+	 * 
+	 * if (parameters != null) { for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
+	 * params.add(parameter.getKey(), parameter.getValue()); } } String url =
+	 * calendar.urlFor(IBehaviorListener.INTERFACE, params).toString();
+	 * 
+	 * return url; }
+	 */
 	protected final String getUrl(Map<String, Object> parameters)
 	{
 		PageParameters params = new PageParameters();
-		
-		if (parameters != null)
-		{
-			for (Map.Entry<String, Object> parameter : parameters.entrySet())
-			{
-				params.add(parameter.getKey(), parameter.getValue());
-			}
-		}
 		String url = calendar.urlFor(IBehaviorListener.INTERFACE, params).toString();
-		
-		return url;
-	}
-	*/
-	protected final String getUrl(Map<String, Object> parameters)
-	{
-		PageParameters params = new PageParameters();
-		String url =  calendar.urlFor(IBehaviorListener.INTERFACE, params).toString();;
+		;
 		if (parameters != null)
 		{
 			for (Map.Entry<String, Object> parameter : parameters.entrySet())

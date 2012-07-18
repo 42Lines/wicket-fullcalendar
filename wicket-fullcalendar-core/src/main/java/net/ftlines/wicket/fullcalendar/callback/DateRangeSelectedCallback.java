@@ -36,11 +36,12 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 	{
 		this.ignoreTimezone = ignoreTimezone;
 	}
-	
+
 	@Override
 	protected String configureCallbackScript(String script, String urlTail)
 	{
-		return script.replace(urlTail,
+		return script.replace(
+			urlTail,
 			"&timezoneOffset=\"+startDate.getTimezoneOffset()+\"&startDate=\"+startDate.getTime()+\"&endDate=\"+endDate.getTime()+\"&allDay=\"+allDay+\"");
 	}
 

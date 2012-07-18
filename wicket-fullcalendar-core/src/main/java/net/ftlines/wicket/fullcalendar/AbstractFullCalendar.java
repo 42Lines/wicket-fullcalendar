@@ -44,18 +44,18 @@ abstract class AbstractFullCalendar extends MarkupContainer implements IHeaderCo
 	{
 
 		response.render(JavaScriptHeaderItem.forReference(WicketAjaxJQueryResourceReference.get()));
-		
-		response.render( CssReferenceHeaderItem.forReference(CSS) );
+
+		response.render(CssReferenceHeaderItem.forReference(CSS));
 
 		if (getApplication().usesDeploymentConfig())
 		{
-			response.render( JavaScriptReferenceHeaderItem.forReference(JS_MIN) );
+			response.render(JavaScriptReferenceHeaderItem.forReference(JS_MIN));
 		}
 		else
 		{
-			response.render( JavaScriptReferenceHeaderItem.forReference(JS));
+			response.render(JavaScriptReferenceHeaderItem.forReference(JS));
 		}
-		response.render( JavaScriptReferenceHeaderItem.forReference(JS_EXT));
+		response.render(JavaScriptReferenceHeaderItem.forReference(JS_EXT));
 
 	}
 

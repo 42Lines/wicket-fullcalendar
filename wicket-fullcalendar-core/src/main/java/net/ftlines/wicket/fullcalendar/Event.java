@@ -43,7 +43,7 @@ public class Event implements Serializable
 
 	private String textColor;
 	private Serializable payload;
-	
+
 	public String getId()
 	{
 		return id;
@@ -176,11 +176,13 @@ public class Event implements Serializable
 		return this;
 	}
 
-	public Serializable getPayload() {
+	public Serializable getPayload()
+	{
 		return payload;
 	}
 
-	public void setPayload(Serializable payload) {
+	public void setPayload(Serializable payload)
+	{
 
 		this.payload = payload;
 	}

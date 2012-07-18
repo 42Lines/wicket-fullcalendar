@@ -176,7 +176,7 @@ public class FullCalendar extends AbstractFullCalendar implements IBehaviorListe
 		configuration += Json.toJson(config);
 		configuration += ");";
 
-		response.render( OnDomReadyHeaderItem.forScript(configuration) );
+		response.render(OnDomReadyHeaderItem.forScript(configuration));
 
 	}
 
@@ -211,9 +211,10 @@ public class FullCalendar extends AbstractFullCalendar implements IBehaviorListe
 	}
 
 	@Override
-	public void onRequest() {
+	public void onRequest()
+	{
 		getEvents.onRequest();
-		
+
 	}
 
 }
