@@ -21,59 +21,52 @@ import org.apache.wicket.behavior.Behavior;
 import org.apache.wicket.behavior.IBehaviorListener;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-abstract class AbstractCallback extends Behavior implements IBehaviorListener
-{
+abstract class AbstractCallback extends Behavior implements IBehaviorListener {
 	private FullCalendar calendar;
 
 	@Override
-	public void bind(Component component)
-	{
+	public void bind(Component component) {
 		super.bind(component);
-		this.calendar = (FullCalendar)component;
+		this.calendar = (FullCalendar) component;
 	}
 
 	/*
-	 * protected final String getUrl(Map<String, Object> parameters) { PageParameters params = new
-	 * PageParameters();
+	 * protected final String getUrl(Map<String, Object> parameters) {
+	 * PageParameters params = new PageParameters();
 	 * 
-	 * if (parameters != null) { for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
-	 * params.add(parameter.getKey(), parameter.getValue()); } } String url =
+	 * if (parameters != null) { for (Map.Entry<String, Object> parameter :
+	 * parameters.entrySet()) { params.add(parameter.getKey(),
+	 * parameter.getValue()); } } String url =
 	 * calendar.urlFor(IBehaviorListener.INTERFACE, params).toString();
 	 * 
 	 * return url; }
 	 */
-	protected final String getUrl(Map<String, Object> parameters)
-	{
+	protected final String getUrl(Map<String, Object> parameters) {
 		PageParameters params = new PageParameters();
-		String url = calendar.urlFor(IBehaviorListener.INTERFACE, params).toString();
+		String url = calendar.urlFor(IBehaviorListener.INTERFACE, params)
+				.toString();
 		;
-		if (parameters != null)
-		{
-			for (Map.Entry<String, Object> parameter : parameters.entrySet())
-			{
+		if (parameters != null) {
+			for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
 				url += "&" + parameter.getKey() + "=" + parameter.getValue();
 			}
 		}
 		return url;
 	}
 
-
 	@Override
-	public final void onRequest()
-	{
+	public final void onRequest() {
 		respond();
 	}
 
 	protected abstract void respond();
 
-	protected final FullCalendar getCalendar()
-	{
-		return (FullCalendar)calendar;
+	protected final FullCalendar getCalendar() {
+		return (FullCalendar) calendar;
 	}
 
 	@Override
-	public boolean getStatelessHint(Component component)
-	{
+	public boolean getStatelessHint(Component component) {
 		return false;
 	}
 }

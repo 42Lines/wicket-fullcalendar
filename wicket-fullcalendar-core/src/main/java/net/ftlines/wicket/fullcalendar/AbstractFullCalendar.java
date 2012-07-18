@@ -22,46 +22,41 @@ import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
-abstract class AbstractFullCalendar extends MarkupContainer implements IHeaderContributor
-{
-	public AbstractFullCalendar(String id)
-	{
+abstract class AbstractFullCalendar extends MarkupContainer implements
+		IHeaderContributor {
+	public AbstractFullCalendar(String id) {
 		super(id);
 	}
 
-	// TODO see if it makes sense to switch these to Css/JavaScriptResourceReference
-	private static final ResourceReference CSS = new PackageResourceReference(AbstractFullCalendar.class,
-		"res/fullcalendar.css");
-	private static final ResourceReference JS = new PackageResourceReference(AbstractFullCalendar.class,
-		"res/fullcalendar.js");
-	private static final ResourceReference JS_EXT = new PackageResourceReference(AbstractFullCalendar.class,
-		"res/fullcalendar.ext.js");
-	private static final ResourceReference JS_MIN = new PackageResourceReference(AbstractFullCalendar.class,
-		"res/fullcalendar.min.js");
+	// TODO see if it makes sense to switch these to
+	// Css/JavaScriptResourceReference
+	private static final ResourceReference CSS = new PackageResourceReference(
+			AbstractFullCalendar.class, "res/fullcalendar.css");
+	private static final ResourceReference JS = new PackageResourceReference(
+			AbstractFullCalendar.class, "res/fullcalendar.js");
+	private static final ResourceReference JS_EXT = new PackageResourceReference(
+			AbstractFullCalendar.class, "res/fullcalendar.ext.js");
+	private static final ResourceReference JS_MIN = new PackageResourceReference(
+			AbstractFullCalendar.class, "res/fullcalendar.min.js");
 
 	@Override
-	public void renderHead(IHeaderResponse response)
-	{
+	public void renderHead(IHeaderResponse response) {
 
-		response.render(JavaScriptHeaderItem.forReference(WicketAjaxJQueryResourceReference.get()));
+		response.render(JavaScriptHeaderItem
+				.forReference(WicketAjaxJQueryResourceReference.get()));
 
 		response.render(CssReferenceHeaderItem.forReference(CSS));
 
-		if (getApplication().usesDeploymentConfig())
-		{
+		if (getApplication().usesDeploymentConfig()) {
 			response.render(JavaScriptReferenceHeaderItem.forReference(JS_MIN));
-		}
-		else
-		{
+		} else {
 			response.render(JavaScriptReferenceHeaderItem.forReference(JS));
 		}
 		response.render(JavaScriptReferenceHeaderItem.forReference(JS_EXT));
 
 	}
 
-
-	public final String toJson(Object value)
-	{
+	public final String toJson(Object value) {
 		return Json.toJson(value);
 	}
 }

@@ -22,44 +22,46 @@ import org.joda.time.DateTimeZone;
 import org.joda.time.format.DateTimeFormatter;
 import org.joda.time.format.ISODateTimeFormat;
 
-
 /**
  * A base callback that passes back calendar's starting date
  * 
  * @author igor
  * 
  */
-public abstract class ViewDisplayCallback extends AbstractAjaxCallback implements CallbackWithHandler
-{
+public abstract class ViewDisplayCallback extends AbstractAjaxCallback
+		implements CallbackWithHandler {
 	@Override
-	protected String configureCallbackScript(String script, String urlTail)
-	{
-		return script.replace(
-			urlTail,
-			"&view=\"+v.name+\"&start=\"+fullCalendarExtIsoDate(v.start)+\"&end=\"+fullCalendarExtIsoDate(v.end)+\"&visibleStart=\"+fullCalendarExtIsoDate(v.visStart)+\"&visibleEnd=\"+fullCalendarExtIsoDate(v.visEnd)+\"");
+	protected String configureCallbackScript(String script, String urlTail) {
+		return script
+				.replace(
+						urlTail,
+						"&view=\"+v.name+\"&start=\"+fullCalendarExtIsoDate(v.start)+\"&end=\"+fullCalendarExtIsoDate(v.end)+\"&visibleStart=\"+fullCalendarExtIsoDate(v.visStart)+\"&visibleEnd=\"+fullCalendarExtIsoDate(v.visEnd)+\"");
 	}
 
 	@Override
-	public String getHandlerScript()
-	{
+	public String getHandlerScript() {
 		return String.format("function(v) {%s;}", getCallbackScript());
 	}
 
-
 	@Override
-	protected void respond(AjaxRequestTarget target)
-	{
+	protected void respond(AjaxRequestTarget target) {
 		Request r = target.getPage().getRequest();
-		ViewType type = ViewType.forCode(r.getRequestParameters().getParameterValue("view").toString());
-		DateTimeFormatter fmt = ISODateTimeFormat.dateTimeParser().withZone(DateTimeZone.UTC);
-		DateMidnight start = fmt.parseDateTime(r.getRequestParameters().getParameterValue("start").toString())
-			.toDateMidnight();
-		DateMidnight end = fmt.parseDateTime(r.getRequestParameters().getParameterValue("end").toString())
-			.toDateMidnight();
+		ViewType type = ViewType.forCode(r.getRequestParameters()
+				.getParameterValue("view").toString());
+		DateTimeFormatter fmt = ISODateTimeFormat.dateTimeParser().withZone(
+				DateTimeZone.UTC);
+		DateMidnight start = fmt.parseDateTime(
+				r.getRequestParameters().getParameterValue("start").toString())
+				.toDateMidnight();
+		DateMidnight end = fmt.parseDateTime(
+				r.getRequestParameters().getParameterValue("end").toString())
+				.toDateMidnight();
 		DateMidnight visibleStart = fmt.parseDateTime(
-			r.getRequestParameters().getParameterValue("visibleStart").toString()).toDateMidnight();
-		DateMidnight visibleEnd = fmt.parseDateTime(r.getRequestParameters().getParameterValue("visibleEnd").toString())
-			.toDateMidnight();
+				r.getRequestParameters().getParameterValue("visibleStart")
+						.toString()).toDateMidnight();
+		DateMidnight visibleEnd = fmt.parseDateTime(
+				r.getRequestParameters().getParameterValue("visibleEnd")
+						.toString()).toDateMidnight();
 		View view = new View(type, start, end, visibleStart, visibleEnd);
 		CalendarResponse response = new CalendarResponse(getCalendar(), target);
 		onViewDisplayed(view, response);

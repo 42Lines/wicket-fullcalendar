@@ -14,97 +14,79 @@ package net.ftlines.wicket.fullcalendar;
 
 import java.io.Serializable;
 
-public class ButtonText implements Serializable
-{
+public class ButtonText implements Serializable {
 	private String prev, next, prevYear, nextYear, today, month, week, day;
 
-	public String getPrev()
-	{
+	public String getPrev() {
 		return prev;
 	}
 
-	public ButtonText setPrev(String prev)
-	{
+	public ButtonText setPrev(String prev) {
 		this.prev = prev;
 		return this;
 	}
 
-	public String getNext()
-	{
+	public String getNext() {
 		return next;
 	}
 
-	public ButtonText setNext(String next)
-	{
+	public ButtonText setNext(String next) {
 		this.next = next;
 		return this;
 	}
 
-	public String getPrevYear()
-	{
+	public String getPrevYear() {
 		return prevYear;
 	}
 
-	public ButtonText setPrevYear(String prevYear)
-	{
+	public ButtonText setPrevYear(String prevYear) {
 		this.prevYear = prevYear;
 		return this;
 	}
 
-	public String getNextYear()
-	{
+	public String getNextYear() {
 		return nextYear;
 	}
 
-	public ButtonText setNextYear(String nextYear)
-	{
+	public ButtonText setNextYear(String nextYear) {
 		this.nextYear = nextYear;
 		return this;
 	}
 
-	public String getToday()
-	{
+	public String getToday() {
 		return today;
 	}
 
-	public ButtonText setToday(String today)
-	{
+	public ButtonText setToday(String today) {
 		this.today = today;
 		return this;
 	}
 
-	public String getMonth()
-	{
+	public String getMonth() {
 		return month;
 	}
 
-	public ButtonText setMonth(String month)
-	{
+	public ButtonText setMonth(String month) {
 		this.month = month;
 		return this;
 	}
 
-	public String getWeek()
-	{
+	public String getWeek() {
 		return week;
 	}
 
-	public ButtonText setWeek(String week)
-	{
+	public ButtonText setWeek(String week) {
 		this.week = week;
 		return this;
 	}
 
-	public String getDay()
-	{
+	public String getDay() {
 		return day;
 	}
 
-	public ButtonText setDay(String day)
-	{
+	public ButtonText setDay(String day) {
 		this.day = day;
 		return this;
 	}
-
 
 }
