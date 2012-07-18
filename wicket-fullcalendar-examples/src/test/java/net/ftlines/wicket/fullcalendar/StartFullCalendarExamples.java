@@ -43,8 +43,8 @@ public class StartFullCalendarExamples {
 		server.addHandler(bb);
 
 		try {
-			System.out
-					.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
+
+			System.out.println(">>> STARTING EMBEDDED JETTY SERVER, PRESS ANY KEY TO STOP");
 			server.start();
 			System.in.read();
 			System.out.println(">>> STOPPING EMBEDDED JETTY SERVER");

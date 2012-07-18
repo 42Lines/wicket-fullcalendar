@@ -35,10 +35,8 @@ import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.template.TextTemplate;
 
-public class FullCalendar extends AbstractFullCalendar implements
-		IBehaviorListener {
-	private static final TextTemplate EVENTS = new PackageTextTemplate(
-			FullCalendar.class, "FullCalendar.events.tpl");
+public class FullCalendar extends AbstractFullCalendar implements IBehaviorListener {
+	private static final TextTemplate EVENTS = new PackageTextTemplate(FullCalendar.class, "FullCalendar.events.tpl");
 
 	private final Config config;
 	private EventDroppedCallback eventDropped;
@@ -66,8 +64,8 @@ public class FullCalendar extends AbstractFullCalendar implements
 	protected void onInitialize() {
 		super.onInitialize();
 		for (EventSource source : config.getEventSources()) {
-			String uuid = UUID.randomUUID().toString()
-					.replaceAll("[^A-Za-z0-9]", "");
+
+			String uuid = UUID.randomUUID().toString().replaceAll("[^A-Za-z0-9]", "");
 			source.setUuid(uuid);
 		}
 	}
@@ -79,36 +77,39 @@ public class FullCalendar extends AbstractFullCalendar implements
 	}
 
 	private void setupCallbacks() {
+
 		if (getEvents != null)
 			return;
 
 		getEvents = new GetEventsCallback();
 		add(getEvents);
 		for (EventSource source : config.getEventSources()) {
-			source.setEvents(EVENTS.asString(new MicroMap("url", getEvents
-					.getUrl(source))));
+			source.setEvents(EVENTS.asString(new MicroMap("url", getEvents.getUrl(source))));
 		}
 
 		if (Strings.isEmpty(config.getEventClick())) {
 			add(eventClicked = new EventClickedCallback() {
 				@Override
-				protected void onClicked(ClickedEvent event,
-						CalendarResponse response) {
+				protected void onClicked(ClickedEvent event, CalendarResponse response) {
 					onEventClicked(event, response);
 				}
 			});
+		}
+
+		if (eventClicked != null) {
 			config.setEventClick(eventClicked.getHandlerScript());
 		}
 
 		if (Strings.isEmpty(config.getSelect())) {
-			add(dateRangeSelected = new DateRangeSelectedCallback(
-					config.isIgnoreTimezone()) {
+			add(dateRangeSelected = new DateRangeSelectedCallback(config.isIgnoreTimezone()) {
 				@Override
-				protected void onSelect(SelectedRange range,
-						CalendarResponse response) {
+				protected void onSelect(SelectedRange range, CalendarResponse response) {
 					FullCalendar.this.onDateRangeSelected(range, response);
 				}
 			});
+		}
+
+		if (dateRangeSelected != null) {
 			config.setSelect(dateRangeSelected.getHandlerScript());
 		}
 
@@ -116,11 +117,13 @@ public class FullCalendar extends AbstractFullCalendar implements
 			add(eventDropped = new EventDroppedCallback() {
 
 				@Override
-				protected boolean onEventDropped(DroppedEvent event,
-						CalendarResponse response) {
+				protected boolean onEventDropped(DroppedEvent event, CalendarResponse response) {
 					return FullCalendar.this.onEventDropped(event, response);
 				}
 			});
+		}
+
+		if (eventDropped != null) {
 			config.setEventDrop(eventDropped.getHandlerScript());
 		}
 
@@ -128,24 +131,27 @@ public class FullCalendar extends AbstractFullCalendar implements
 			add(eventResized = new EventResizedCallback() {
 
 				@Override
-				protected boolean onEventResized(ResizedEvent event,
-						CalendarResponse response) {
+				protected boolean onEventResized(ResizedEvent event, CalendarResponse response) {
 					return FullCalendar.this.onEventResized(event, response);
 				}
 
 			});
+		}
 
+		if (eventResized != null) {
 			config.setEventResize(eventResized.getHandlerScript());
 		}
 
 		if (Strings.isEmpty(config.getViewDisplay())) {
 			add(viewDisplay = new ViewDisplayCallback() {
 				@Override
-				protected void onViewDisplayed(View view,
-						CalendarResponse response) {
+				protected void onViewDisplayed(View view, CalendarResponse response) {
 					FullCalendar.this.onViewDisplayed(view, response);
 				}
 			});
+		}
+
+		if (viewDisplay != null) {
 			config.setViewDisplay(viewDisplay.getHandlerScript());
 		}
 
@@ -164,18 +170,15 @@ public class FullCalendar extends AbstractFullCalendar implements
 
 	}
 
-	protected boolean onEventDropped(DroppedEvent event,
-			CalendarResponse response) {
+	protected boolean onEventDropped(DroppedEvent event, CalendarResponse response) {
 		return false;
 	}
 
-	protected boolean onEventResized(ResizedEvent event,
-			CalendarResponse response) {
+	protected boolean onEventResized(ResizedEvent event, CalendarResponse response) {
 		return false;
 	}
 
-	protected void onDateRangeSelected(SelectedRange range,
-			CalendarResponse response) {
+	protected void onDateRangeSelected(SelectedRange range, CalendarResponse response) {
 
 	}
 

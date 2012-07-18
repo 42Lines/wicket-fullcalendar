@@ -303,22 +303,33 @@ public class Config implements Serializable {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client's
 	 * time zone will be ignored when determining selected date ranges,
 	 * resulting in ranges with the selected start and end values, but in the
 	 * server's time zone. The default value is {@code false}.
+=======
+	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client's time zone will be ignored when determining
+	 * selected date ranges, resulting in ranges with the selected start and end values, but in the server's time zone.
+	 * The default value is {@code false}.
+>>>>>>> remotes/wicket6/wicket-6
 	 * <p>
 	 * Not currently used on the client side.
 	 * 
 	 * @param ignoreTimezone
+<<<<<<< HEAD
 	 *            whether or not to ignore the remote client's time zone when
 	 *            determining selected date ranges
+=======
+	 *            whether or not to ignore the remote client's time zone when determining selected date ranges
+>>>>>>> remotes/wicket6/wicket-6
 	 */
 	public void setIgnoreTimezone(final boolean ignoreTimezone) {
 		this.ignoreTimezone = ignoreTimezone;
 	}
 
 	/**
+<<<<<<< HEAD
 	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client's
 	 * time zone will be ignored when determining selected date ranges,
 	 * resulting in ranges with the selected start and end values, but in the
@@ -328,6 +339,15 @@ public class Config implements Serializable {
 	 * 
 	 * @return whether or not to ignore the remote client's time zone when
 	 *         determining selected date ranges
+=======
+	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client's time zone will be ignored when determining
+	 * selected date ranges, resulting in ranges with the selected start and end values, but in the server's time zone.
+	 * The default value is {@code false}.
+	 * <p>
+	 * Not currently used on the client side.
+	 * 
+	 * @return whether or not to ignore the remote client's time zone when determining selected date ranges
+>>>>>>> remotes/wicket6/wicket-6
 	 */
 	@JsonIgnore
 	public boolean isIgnoreTimezone() {

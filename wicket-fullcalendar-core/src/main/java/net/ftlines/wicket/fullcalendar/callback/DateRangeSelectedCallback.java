@@ -19,19 +19,16 @@ import org.apache.wicket.request.Request;
 import org.joda.time.DateTime;
 import org.joda.time.DateTimeZone;
 
-public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback
-		implements CallbackWithHandler {
+public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback implements CallbackWithHandler {
 	private final boolean ignoreTimezone;
 
 	/**
-	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client\"s
-	 * time zone will be ignored when determining the selected date range,
-	 * resulting in a range with the selected start and end values, but in the
+	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client\"s time zone will be ignored when
+	 * determining the selected date range, resulting in a range with the selected start and end values, but in the
 	 * server\"s time zone.
 	 * 
 	 * @param ignoreTimezone
-	 *            whether or not to ignore the remote client\"s time zone when
-	 *            determining the selected date range
+	 *            whether or not to ignore the remote client\"s time zone when determining the selected date range
 	 */
 	public DateRangeSelectedCallback(final boolean ignoreTimezone) {
 		this.ignoreTimezone = ignoreTimezone;
@@ -40,41 +37,36 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback
 	@Override
 	protected String configureCallbackScript(String script, String urlTail) {
 		return script
-				.replace(
-						urlTail,
-						"&timezoneOffset=\"+startDate.getTimezoneOffset()+\"&startDate=\"+startDate.getTime()+\"&endDate=\"+endDate.getTime()+\"&allDay=\"+allDay+\"");
+			.replace(
+				urlTail,
+				"&timezoneOffset=\"+startDate.getTimezoneOffset()+\"&startDate=\"+startDate.getTime()+\"&endDate=\"+endDate.getTime()+\"&allDay=\"+allDay+\"");
 	}
 
 	@Override
 	public String getHandlerScript() {
-		return "function(startDate, endDate, allDay) { " + getCallbackScript()
-				+ "}";
+		return "function(startDate, endDate, allDay) { " + getCallbackScript() + "}";
 	}
 
 	@Override
 	protected void respond(AjaxRequestTarget target) {
 		Request r = getCalendar().getRequest();
-		DateTime start = new DateTime(r.getRequestParameters()
-				.getParameterValue("startDate").toLong());
-		DateTime end = new DateTime(r.getRequestParameters()
-				.getParameterValue("endDate").toLong());
+
+		DateTime start = new DateTime(r.getRequestParameters().getParameterValue("startDate").toLong());
+		DateTime end = new DateTime(r.getRequestParameters().getParameterValue("endDate").toLong());
+
 		if (ignoreTimezone) {
 			// Convert to same DateTime in local time zone.
-			int remoteOffset = -r.getRequestParameters()
-					.getParameterValue("timezoneOffset").toInt();
+			int remoteOffset = -r.getRequestParameters().getParameterValue("timezoneOffset").toInt();
 			int localOffset = DateTimeZone.getDefault().getOffset(null) / 60000;
 			int minutesAdjustment = remoteOffset - localOffset;
 			start = start.plusMinutes(minutesAdjustment);
 			end = end.plusMinutes(minutesAdjustment);
 		}
-		boolean allDay = r.getRequestParameters().getParameterValue("allDay")
-				.toBoolean();
-		onSelect(new SelectedRange(start, end, allDay), new CalendarResponse(
-				getCalendar(), target));
+		boolean allDay = r.getRequestParameters().getParameterValue("allDay").toBoolean();
+		onSelect(new SelectedRange(start, end, allDay), new CalendarResponse(getCalendar(), target));
 
 	}
 
-	protected abstract void onSelect(SelectedRange range,
-			CalendarResponse response);
+	protected abstract void onSelect(SelectedRange range, CalendarResponse response);
 
 }

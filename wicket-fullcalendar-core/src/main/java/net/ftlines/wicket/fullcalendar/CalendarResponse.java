@@ -44,10 +44,8 @@ public class CalendarResponse {
 		return refetchEvents(source);
 	}
 
-	public CalendarResponse toggleEventSource(EventSource source,
-			boolean enabled) {
-		return execute(q("toggleSource"), q(source.getUuid()),
-				String.valueOf(enabled));
+	public CalendarResponse toggleEventSource(EventSource source, boolean enabled) {
+		return execute(q("toggleSource"), q(source.getUuid()), String.valueOf(enabled));
 	}
 
 	public CalendarResponse removeEvent(Event event) {
@@ -63,9 +61,7 @@ public class CalendarResponse {
 	}
 
 	private CalendarResponse execute(String... args) {
-		String js = String.format(
-				"$('#%s').fullCalendarExt(" + Strings.join(",", args) + ");",
-				calendar.getMarkupId());
+		String js = String.format("$('#%s').fullCalendarExt(" + Strings.join(",", args) + ");", calendar.getMarkupId());
 		target.appendJavaScript(js);
 		return this;
 	}

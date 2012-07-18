@@ -13,8 +13,7 @@
 package net.ftlines.wicket.fullcalendar;
 
 public enum ViewType {
-	MONTH("month"), BASIC_WEEK("basicWeek"), BASIC_DAY("basicDay"), AGENDA_WEEK(
-			"agendaWeek"), AGENDA_DAY("agendaDay");
+	MONTH("month"), BASIC_WEEK("basicWeek"), BASIC_DAY("basicDay"), AGENDA_WEEK("agendaWeek"), AGENDA_DAY("agendaDay");
 
 	private final String code;
 

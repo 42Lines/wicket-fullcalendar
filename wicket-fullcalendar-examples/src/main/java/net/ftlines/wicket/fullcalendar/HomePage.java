@@ -78,14 +78,17 @@ public class HomePage extends WebPage {
 		config.setAllDaySlot(false);
 		FullCalendar calendar = new FullCalendar("cal", config) {
 			@Override
+
 			protected void onDateRangeSelected(SelectedRange range,
 					CalendarResponse response) {
 				info("Selected region: " + range.getStart() + " - "
 						+ range.getEnd() + " / allDay: " + range.isAllDay());
+
 				response.getTarget().add(feedback);
 			}
 
 			@Override
+
 			protected boolean onEventDropped(DroppedEvent event,
 					CalendarResponse response) {
 				info("Event drop. eventId: " + event.getEvent().getId()
@@ -97,11 +100,13 @@ public class HomePage extends WebPage {
 						+ ", original end time: " + event.getEvent().getEnd());
 				info("New start time: " + event.getNewStartTime()
 						+ ", new end time: " + event.getNewEndTime());
+
 				response.getTarget().add(feedback);
 				return false;
 			}
 
 			@Override
+
 			protected boolean onEventResized(ResizedEvent event,
 					CalendarResponse response) {
 				info("Event resized. eventId: " + event.getEvent().getId()
@@ -113,6 +118,7 @@ public class HomePage extends WebPage {
 			}
 
 			@Override
+
 			protected void onEventClicked(ClickedEvent event,
 					CalendarResponse response) {
 				info("Event clicked. eventId: " + event.getEvent().getId()
@@ -123,6 +129,7 @@ public class HomePage extends WebPage {
 
 			@Override
 			protected void onViewDisplayed(View view, CalendarResponse response) {
+
 				info("View displayed. viewType: " + view.getType().name()
 						+ ", start: " + view.getStart() + ", end: "
 						+ view.getEnd());

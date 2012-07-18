@@ -19,7 +19,6 @@ import java.util.Map;
 import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonRawValue;
 
 public class EventSource implements Serializable {
@@ -170,6 +169,7 @@ public class EventSource implements Serializable {
 	}
 
 	/**
+<<<<<<< HEAD
 	 * If <var>enableInSelector</var> is {@code true} then the check box for
 	 * this EventSource, if included in a {@link EventSourceSelector} to begin
 	 * with, will be enabled. If {@code false} then the check box will not be
@@ -178,46 +178,72 @@ public class EventSource implements Serializable {
 	 * @param includeInSelector
 	 *            if {@code true} then the check box for this EventSource will
 	 *            be enabled, otherwise it won't
+=======
+	 * If <var>enableInSelector</var> is {@code true} then the check box for this EventSource, if included in a
+	 * {@link EventSourceSelector} to begin with, will be enabled. If {@code false} then the check box will not be
+	 * enabled. Default is {@code true}.
+	 * 
+	 * @param includeInSelector
+	 *            if {@code true} then the check box for this EventSource will be enabled, otherwise it won't
+>>>>>>> remotes/wicket6/wicket-6
 	 */
 	public void setEnableInSelector(final boolean enableInSelector) {
 		this.enableInSelector = enableInSelector;
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns {@code true} if this EventSource will be included in a
 	 * {@link EventSourceSelector}, if one is included for the
 	 * {@link FullCalendar} containing this EventSource. Returns {@code false}
 	 * if this EventSource will not be included. Default is {@code true}.
+=======
+	 * Returns {@code true} if this EventSource will be included in a {@link EventSourceSelector}, if one is included
+	 * for the {@link FullCalendar} containing this EventSource. Returns {@code false} if this EventSource will not be
+	 * included. Default is {@code true}.
+>>>>>>> remotes/wicket6/wicket-6
 	 * 
-	 * @return if {@code true} then this event source will be included in a
-	 *         {@link EventSourceSelector}, otherwise it won't
+	 * @return if {@code true} then this event source will be included in a {@link EventSourceSelector}, otherwise it
+	 *         won't
 	 */
 	public Boolean getEnableInSelector() {
 		return enableInSelector;
 	}
 
 	/**
+<<<<<<< HEAD
 	 * If <var>includeInSelector</var> is {@code true} then this EventSource
 	 * will be included in a {@link EventSourceSelector}, if one exists for the
 	 * {@link FullCalendar} containing this EventSource. If {@code false} then
 	 * this EventSource will not be included. Default is {@code true}.
+=======
+	 * If <var>includeInSelector</var> is {@code true} then this EventSource will be included in a
+	 * {@link EventSourceSelector}, if one exists for the {@link FullCalendar} containing this EventSource. If
+	 * {@code false} then this EventSource will not be included. Default is {@code true}.
+>>>>>>> remotes/wicket6/wicket-6
 	 * 
 	 * @param includeInSelector
-	 *            if {@code true} then this event source will be included in a
-	 *            {@link EventSourceSelector}, otherwise it won't
+	 *            if {@code true} then this event source will be included in a {@link EventSourceSelector}, otherwise it
+	 *            won't
 	 */
 	public void setIncludeInSelector(final boolean includeInSelector) {
 		this.includeInSelector = includeInSelector;
 	}
 
 	/**
+<<<<<<< HEAD
 	 * Returns {@code true} if this EventSource will be included in a
 	 * {@link EventSourceSelector}, if one exists for the {@link FullCalendar}
 	 * containing this EventSource. Returns {@code false} if this EventSource
 	 * will not be included. Default is {@code true}.
+=======
+	 * Returns {@code true} if this EventSource will be included in a {@link EventSourceSelector}, if one exists for the
+	 * {@link FullCalendar} containing this EventSource. Returns {@code false} if this EventSource will not be included.
+	 * Default is {@code true}.
+>>>>>>> remotes/wicket6/wicket-6
 	 * 
-	 * @return if {@code true} then this event source will be included in a
-	 *         {@link EventSourceSelector}, otherwise it won't
+	 * @return if {@code true} then this event source will be included in a {@link EventSourceSelector}, otherwise it
+	 *         won't
 	 */
 	public Boolean getIncludeInSelector() {
 		return includeInSelector;

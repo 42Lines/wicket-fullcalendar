@@ -31,31 +31,27 @@ public class GetEventsCallback extends AbstractCallback {
 	@Override
 	protected void respond() {
 		Request r = getCalendar().getRequest();
-		String sid = r.getRequestParameters().getParameterValue(SOURCE_ID)
-				.toString();
-		DateTime start = new DateTime(r.getRequestParameters()
-				.getParameterValue("start").toLong());
-		DateTime end = new DateTime(r.getRequestParameters()
-				.getParameterValue("end").toLong());
+
+		String sid = r.getRequestParameters().getParameterValue(SOURCE_ID).toString();
+		DateTime start = new DateTime(r.getRequestParameters().getParameterValue("start").toLong());
+		DateTime end = new DateTime(r.getRequestParameters().getParameterValue("end").toLong());
 
 		if (getCalendar().getConfig().isIgnoreTimezone()) {
 			// Convert to same DateTime in local time zone.
-			int remoteOffset = -r.getRequestParameters()
-					.getParameterValue("timezoneOffset").toInt();
+			int remoteOffset = -r.getRequestParameters().getParameterValue("timezoneOffset").toInt();
 			int localOffset = DateTimeZone.getDefault().getOffset(null) / 60000;
 			int minutesAdjustment = remoteOffset - localOffset;
 			start = start.plusMinutes(minutesAdjustment);
 			end = end.plusMinutes(minutesAdjustment);
 		}
-		EventSource source = getCalendar().getEventManager()
-				.getEventSource(sid);
+		EventSource source = getCalendar().getEventManager().getEventSource(sid);
 		EventProvider provider = source.getEventProvider();
 		String response = getCalendar().toJson(provider.getEvents(start, end));
 		// getCalendar().getRequestCycle().scheduleRequestHandlerAfterCurrent(new
 		// TextRequestHandler(response));
 
 		getCalendar().getRequestCycle().scheduleRequestHandlerAfterCurrent(
-				new TextRequestHandler("application/json", "UTF-8", response));
+			new TextRequestHandler("application/json", "UTF-8", response));
 
 	}
 }

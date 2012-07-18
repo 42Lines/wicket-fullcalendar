@@ -44,44 +44,37 @@ class Json {
 		}
 
 		@Override
-		public JsonGenerator createJsonGenerator(File f, JsonEncoding enc)
-				throws IOException {
+		public JsonGenerator createJsonGenerator(File f, JsonEncoding enc) throws IOException {
 			return super.createJsonGenerator(f, enc).useDefaultPrettyPrinter();
 		}
 
 		@Override
-		public JsonGenerator createJsonGenerator(OutputStream out,
-				JsonEncoding enc) throws IOException {
-			return super.createJsonGenerator(out, enc)
-					.useDefaultPrettyPrinter();
+		public JsonGenerator createJsonGenerator(OutputStream out, JsonEncoding enc) throws IOException {
+			return super.createJsonGenerator(out, enc).useDefaultPrettyPrinter();
 		}
 	}
 
 	public static String toJson(Object object) {
 		ObjectMapper mapper = new ObjectMapper(new MyJsonFactory());
-		SimpleModule module = new SimpleModule("fullcalendar", new Version(1,
-				0, 0, null));
+		SimpleModule module = new SimpleModule("fullcalendar", new Version(1, 0, 0, null));
 		module.addSerializer(new DateTimeSerializer());
 		module.addSerializer(new LocalTimeSerializer());
 		mapper.registerModule(module);
-		mapper.getSerializationConfig().setSerializationInclusion(
-				Inclusion.NON_NULL);
+		mapper.getSerializationConfig().setSerializationInclusion(Inclusion.NON_NULL);
 
 		String json = null;
 		try {
 			json = mapper.writeValueAsString(object);
 		} catch (Exception e) {
-			throw new RuntimeException("Error encoding object: " + object
-					+ " into JSON string", e);
+			throw new RuntimeException("Error encoding object: " + object + " into JSON string", e);
 		}
 		return json;
 	}
 
 	public static class DateTimeSerializer extends JsonSerializer<DateTime> {
 		@Override
-		public void serialize(DateTime value, JsonGenerator jgen,
-				SerializerProvider provider) throws IOException,
-				JsonProcessingException {
+		public void serialize(DateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
+			JsonProcessingException {
 			jgen.writeString(ISODateTimeFormat.dateTime().print(value));
 		}
 
@@ -94,9 +87,8 @@ class Json {
 
 	public static class LocalTimeSerializer extends JsonSerializer<LocalTime> {
 		@Override
-		public void serialize(LocalTime value, JsonGenerator jgen,
-				SerializerProvider provider) throws IOException,
-				JsonProcessingException {
+		public void serialize(LocalTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
+			JsonProcessingException {
 			jgen.writeString(value.toString("h:mmaa"));
 		}
 

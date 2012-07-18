@@ -28,13 +28,13 @@
 		<module>wicket-fullcalendar-examples</module>
 	</modules>
 	<properties>
-		<wicket.version>6.0.0-beta1</wicket.version>
+		<wicket.version>6.0.0-beta3</wicket.version>
 		<joda.version>1.6.2</joda.version>
 		<jackson.version>1.7.5</jackson.version>
 		<junit.version>4.8.1</junit.version>
 		<jetty.version>6.1.25</jetty.version>
-		<slf4j.version>1.6.2</slf4j.version>
-		<log4j.version>1.2.14</log4j.version>
+		<slf4j.version>1.6.4</slf4j.version>
+		<log4j.version>1.2.16</log4j.version>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -43,7 +43,7 @@
 				<artifactId>wicket-core</artifactId>
 				<version>${wicket.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>joda-time</groupId>
 				<artifactId>joda-time</artifactId>
@@ -60,14 +60,14 @@
 				<artifactId>jackson-mapper-asl</artifactId>
 				<version>${jackson.version}</version>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
 				<version>${junit.version}</version>
 				<scope>test</scope>
 			</dependency>
-			
+
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>slf4j-log4j12</artifactId>
@@ -132,6 +132,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-release-plugin</artifactId>
+				<version>2.3</version>
 				<configuration>
 						<goals>deploy</goals>
 						<autoVersionSubmodules>true</autoVersionSubmodules>
@@ -141,6 +142,7 @@
 				<inherited>true</inherited>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
+				<version>2.4</version>
 				<configuration>
 					<source>1.6</source>
 					<target>1.6</target>
@@ -156,7 +158,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.8</version>
+				<version>2.9</version>
 				<configuration>
 					<downloadSources>true</downloadSources>
 				</configuration>
@@ -164,6 +166,7 @@
 			<plugin>
 				<groupId>com.mycila.maven-license-plugin</groupId>
 				<artifactId>maven-license-plugin</artifactId>
+				<version>1.10.b1</version>
 				<configuration>
 					<failIfMissing>true</failIfMissing>
 					<aggregate>true</aggregate>
@@ -188,19 +191,20 @@
 					</execution>
 				</executions>
 			</plugin>
-    <plugin>
-         <groupId>org.apache.maven.plugins</groupId>
-         <artifactId>maven-source-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>attach-sources</id>
-            <phase>verify</phase>
-            <goals>
-              <goal>jar</goal>
-            </goals>
-            </execution>
-          </executions>
-     </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.1.2</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 </project>

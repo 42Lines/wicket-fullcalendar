@@ -23,8 +23,7 @@ public class View {
 	private DateMidnight visibleStart;
 	private DateMidnight visibleEnd;
 
-	public View(ViewType type, DateMidnight start, DateMidnight end,
-			DateMidnight visibleStart, DateMidnight visibleEnd) {
+	public View(ViewType type, DateMidnight start, DateMidnight end, DateMidnight visibleStart, DateMidnight visibleEnd) {
 		this.type = type;
 		this.start = start;
 		this.end = end;

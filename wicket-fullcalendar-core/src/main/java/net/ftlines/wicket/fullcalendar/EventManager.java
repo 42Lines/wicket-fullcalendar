@@ -21,20 +21,17 @@ public class EventManager {
 		this.calendar = calendar;
 	}
 
-	public EventSource getEventSource(String id)
-			throws EventSourceNotFoundException {
+	public EventSource getEventSource(String id) throws EventSourceNotFoundException {
+
 		for (EventSource source : calendar.getConfig().getEventSources()) {
 			if (Objects.equal(id, source.getUuid())) {
 				return source;
 			}
 		}
-		throw new EventSourceNotFoundException("Event source with uuid: " + id
-				+ " not found");
+		throw new EventSourceNotFoundException("Event source with uuid: " + id + " not found");
 	}
 
-	public Event getEvent(String sourceId, String eventId)
-			throws EventSourceNotFoundException, EventNotFoundException {
-		return getEventSource(sourceId).getEventProvider().getEventForId(
-				eventId);
+	public Event getEvent(String sourceId, String eventId) throws EventSourceNotFoundException, EventNotFoundException {
+		return getEventSource(sourceId).getEventProvider().getEventForId(eventId);
 	}
 }

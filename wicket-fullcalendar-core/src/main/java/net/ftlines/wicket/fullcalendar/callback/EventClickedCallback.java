@@ -19,13 +19,11 @@ import net.ftlines.wicket.fullcalendar.EventSource;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.request.Request;
 
-public abstract class EventClickedCallback extends AbstractAjaxCallback
-		implements CallbackWithHandler {
+public abstract class EventClickedCallback extends AbstractAjaxCallback implements CallbackWithHandler {
 	@Override
 	protected String configureCallbackScript(String script, String urlTail) {
-		return script.replace(urlTail,
-				"&eventId=\"+event.id+\"&sourceId=\"+event.source.data."
-						+ EventSource.Const.UUID + "+\"");
+		return script.replace(urlTail, "&eventId=\"+event.id+\"&sourceId=\"+event.source.data."
+			+ EventSource.Const.UUID + "+\"");
 	}
 
 	@Override
@@ -36,20 +34,14 @@ public abstract class EventClickedCallback extends AbstractAjaxCallback
 	@Override
 	protected void respond(AjaxRequestTarget target) {
 		Request r = getCalendar().getRequest();
-		String eventId = r.getRequestParameters().getParameterValue("eventId")
-				.toString();
-		String sourceId = r.getRequestParameters()
-				.getParameterValue("sourceId").toString();
+		String eventId = r.getRequestParameters().getParameterValue("eventId").toString();
+		String sourceId = r.getRequestParameters().getParameterValue("sourceId").toString();
 
-		EventSource source = getCalendar().getEventManager().getEventSource(
-				sourceId);
+		EventSource source = getCalendar().getEventManager().getEventSource(sourceId);
 		Event event = source.getEventProvider().getEventForId(eventId);
 
-		onClicked(new ClickedEvent(source, event), new CalendarResponse(
-				getCalendar(), target));
+		onClicked(new ClickedEvent(source, event), new CalendarResponse(getCalendar(), target));
 	}
 
-	protected abstract void onClicked(ClickedEvent event,
-			CalendarResponse response);
-
+	protected abstract void onClicked(ClickedEvent event, CalendarResponse response);
 }
