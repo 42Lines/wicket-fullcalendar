@@ -10,6 +10,6 @@ function(start, end, callback) {
             "timezoneOffset": new Date().getTimezoneOffset(),
             "anticache": ""+new Date().getTime()+"."+Math.random()
         },
-        "sh": [function(data, textStatus, jqXHR, attrs) { callback(data, textStatus, jqXHR, attrs) }]
+        "sh": [function(data, textStatus, jqXHR, attrs) { callback(jqXHR) }]
     });
 }
