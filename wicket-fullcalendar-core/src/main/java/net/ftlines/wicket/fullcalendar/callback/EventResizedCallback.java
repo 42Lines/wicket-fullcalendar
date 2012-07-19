@@ -23,8 +23,8 @@ public abstract class EventResizedCallback extends AbstractAjaxCallbackWithClien
 	CallbackWithHandler {
 	@Override
 	protected String configureCallbackScript(String script, String urlTail) {
-		return script.replace(urlTail, "&eventId='+event.id+'&sourceId='+event.source.data." + EventSource.Const.UUID
-			+ "+'&dayDelta='+dayDelta+'&minuteDelta='+minuteDelta+'");
+		return script.replace(urlTail, "&eventId=\"+event.id+\"&sourceId=\"+event.source.data."
+			+ EventSource.Const.UUID + "+\"&dayDelta=\"+dayDelta+\"&minuteDelta=\"+minuteDelta+\"");
 	}
 
 	@Override

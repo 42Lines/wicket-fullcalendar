@@ -22,8 +22,8 @@ import org.apache.wicket.request.Request;
 public abstract class EventClickedCallback extends AbstractAjaxCallback implements CallbackWithHandler {
 	@Override
 	protected String configureCallbackScript(String script, String urlTail) {
-		return script.replace(urlTail, "&eventId='+event.id+'&sourceId='+event.source.data." + EventSource.Const.UUID
-			+ "+'");
+		return script.replace(urlTail, "&eventId=\"+event.id+\"&sourceId=\"+event.source.data."
+			+ EventSource.Const.UUID + "+\"");
 	}
 
 	@Override
@@ -44,5 +44,4 @@ public abstract class EventClickedCallback extends AbstractAjaxCallback implemen
 	}
 
 	protected abstract void onClicked(ClickedEvent event, CalendarResponse response);
-
 }

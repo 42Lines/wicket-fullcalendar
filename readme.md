@@ -1,4 +1,4 @@
-WicketFullCalendar provides an integration between FullCalendar javascript library and Wicket
+WicketFullCalendar provides an integration between FullCalendar javascript library and Wicket 6.0
 
 FullCalendar: http://arshaw.com/fullcalendar
 

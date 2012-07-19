@@ -12,17 +12,23 @@
 
 package net.ftlines.wicket.fullcalendar;
 
-import org.apache.wicket.markup.html.IHeaderResponse;
-import org.apache.wicket.markup.html.WebComponent;
+import org.apache.wicket.MarkupContainer;
+import org.apache.wicket.ajax.WicketAjaxJQueryResourceReference;
+import org.apache.wicket.markup.head.CssReferenceHeaderItem;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.JavaScriptHeaderItem;
+import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
+import org.apache.wicket.markup.html.IHeaderContributor;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
 
-abstract class AbstractFullCalendar extends WebComponent {
+abstract class AbstractFullCalendar extends MarkupContainer implements IHeaderContributor {
 	public AbstractFullCalendar(String id) {
 		super(id);
 	}
 
-	// TODO see if it makes sense to switch these to Css/JavaScriptResourceReference
+	// TODO see if it makes sense to switch these to
+	// Css/JavaScriptResourceReference
 	private static final ResourceReference CSS = new PackageResourceReference(AbstractFullCalendar.class,
 		"res/fullcalendar.css");
 	private static final ResourceReference JS = new PackageResourceReference(AbstractFullCalendar.class,
@@ -35,13 +41,17 @@ abstract class AbstractFullCalendar extends WebComponent {
 	@Override
 	public void renderHead(IHeaderResponse response) {
 
-		response.renderCSSReference(CSS);
+		response.render(JavaScriptHeaderItem.forReference(WicketAjaxJQueryResourceReference.get()));
+
+		response.render(CssReferenceHeaderItem.forReference(CSS));
+
 		if (getApplication().usesDeploymentConfig()) {
-			response.renderJavaScriptReference(JS_MIN);
+			response.render(JavaScriptReferenceHeaderItem.forReference(JS_MIN));
 		} else {
-			response.renderJavaScriptReference(JS);
+			response.render(JavaScriptReferenceHeaderItem.forReference(JS));
 		}
-		response.renderJavaScriptReference(JS_EXT);
+		response.render(JavaScriptReferenceHeaderItem.forReference(JS_EXT));
+
 	}
 
 	public final String toJson(Object value) {
