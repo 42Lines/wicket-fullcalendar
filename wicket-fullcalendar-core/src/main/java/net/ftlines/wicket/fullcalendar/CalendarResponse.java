@@ -37,7 +37,8 @@ public class CalendarResponse {
 
 	public CalendarResponse refetchEvent(EventSource source, Event event) {
 		// for now we have an unoptimized implementation
-		// later we can replace this by searching for the affected event in the clientside buffer
+		// later we can replace this by searching for the affected event in the
+		// clientside buffer
 		// and refetching it
 
 		return refetchEvents(source);
@@ -68,9 +69,9 @@ public class CalendarResponse {
 	private static final String q(Object o) {
 		if (o == null) {
 			return "null";
-		} else {
-			return "'" + o.toString() + "'";
 		}
+
+		return "'" + o.toString() + "'";
 	}
 
 	/**

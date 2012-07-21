@@ -23,12 +23,12 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 	private final boolean ignoreTimezone;
 
 	/**
-	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client's time zone will be ignored when determining
-	 * the selected date range, resulting in a range with the selected start and end values, but in the server's time
-	 * zone.
+	 * If <var>ignoreTimezone</var> is {@code true}, then the remote client\"s time zone will be ignored when
+	 * determining the selected date range, resulting in a range with the selected start and end values, but in the
+	 * server\"s time zone.
 	 * 
 	 * @param ignoreTimezone
-	 *            whether or not to ignore the remote client's time zone when determining the selected date range
+	 *            whether or not to ignore the remote client\"s time zone when determining the selected date range
 	 */
 	public DateRangeSelectedCallback(final boolean ignoreTimezone) {
 		this.ignoreTimezone = ignoreTimezone;
@@ -39,7 +39,7 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 		return script
 			.replace(
 				urlTail,
-				"&timezoneOffset='+startDate.getTimezoneOffset()+'&startDate='+startDate.getTime()+'&endDate='+endDate.getTime()+'&allDay='+allDay+'");
+				"&timezoneOffset=\"+startDate.getTimezoneOffset()+\"&startDate=\"+startDate.getTime()+\"&endDate=\"+endDate.getTime()+\"&allDay=\"+allDay+\"");
 	}
 
 	@Override
@@ -50,8 +50,10 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 	@Override
 	protected void respond(AjaxRequestTarget target) {
 		Request r = getCalendar().getRequest();
+
 		DateTime start = new DateTime(r.getRequestParameters().getParameterValue("startDate").toLong());
 		DateTime end = new DateTime(r.getRequestParameters().getParameterValue("endDate").toLong());
+
 		if (ignoreTimezone) {
 			// Convert to same DateTime in local time zone.
 			int remoteOffset = -r.getRequestParameters().getParameterValue("timezoneOffset").toInt();

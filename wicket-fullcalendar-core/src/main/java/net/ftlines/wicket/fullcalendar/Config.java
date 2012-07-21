@@ -154,7 +154,7 @@ public class Config implements Serializable {
 	}
 
 	/**
-	 * See <a href="http://arshaw.com/fullcalendar/docs/views/Available_Views/">http://arshaw.com/
+	 * See <a href="http://arshaw.com/fullcalendar/docs/views/Available_Views/">http ://arshaw.com/
 	 * fullcalendar/docs/views/Available_Views/</a> for the list of possible values.
 	 * 
 	 * @param defaultView
@@ -278,7 +278,7 @@ public class Config implements Serializable {
 	}
 
 	/**
-	 * See <a href="http://arshaw.com/fullcalendar/docs/display/aspectRatio/">http://arshaw.com/
+	 * See <a href="http://arshaw.com/fullcalendar/docs/display/aspectRatio/">http ://arshaw.com/
 	 * fullcalendar/docs/display/aspectRatio/</a>
 	 * 
 	 * @param aspectRatio
@@ -289,7 +289,7 @@ public class Config implements Serializable {
 	}
 
 	/**
-	 * See <a href="http://arshaw.com/fullcalendar/docs/display/aspectRatio/">http://arshaw.com/
+	 * See <a href="http://arshaw.com/fullcalendar/docs/display/aspectRatio/">http ://arshaw.com/
 	 * fullcalendar/docs/display/aspectRatio/</a>
 	 * 
 	 * @return the aspectRatio

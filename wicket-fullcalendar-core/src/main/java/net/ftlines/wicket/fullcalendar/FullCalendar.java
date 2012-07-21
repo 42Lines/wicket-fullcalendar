@@ -27,13 +27,15 @@ import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
 import net.ftlines.wicket.fullcalendar.callback.View;
 import net.ftlines.wicket.fullcalendar.callback.ViewDisplayCallback;
 
-import org.apache.wicket.markup.html.IHeaderResponse;
+import org.apache.wicket.behavior.IBehaviorListener;
+import org.apache.wicket.markup.head.IHeaderResponse;
+import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.util.collections.MicroMap;
 import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.template.TextTemplate;
 
-public class FullCalendar extends AbstractFullCalendar {
+public class FullCalendar extends AbstractFullCalendar implements IBehaviorListener {
 	private static final TextTemplate EVENTS = new PackageTextTemplate(FullCalendar.class, "FullCalendar.events.tpl");
 
 	private final Config config;
@@ -62,6 +64,7 @@ public class FullCalendar extends AbstractFullCalendar {
 	protected void onInitialize() {
 		super.onInitialize();
 		for (EventSource source : config.getEventSources()) {
+
 			String uuid = UUID.randomUUID().toString().replaceAll("[^A-Za-z0-9]", "");
 			source.setUuid(uuid);
 		}
@@ -74,10 +77,12 @@ public class FullCalendar extends AbstractFullCalendar {
 	}
 
 	private void setupCallbacks() {
-		if (getEvents == null) {
-			add(getEvents = new GetEventsCallback());
-		}
 
+		if (getEvents != null)
+			return;
+
+		getEvents = new GetEventsCallback();
+		add(getEvents);
 		for (EventSource source : config.getEventSources()) {
 			source.setEvents(EVENTS.asString(new MicroMap<String, String>("url", getEvents.getUrl(source))));
 		}
@@ -161,7 +166,8 @@ public class FullCalendar extends AbstractFullCalendar {
 		configuration += Json.toJson(config);
 		configuration += ");";
 
-		response.renderOnDomReadyJavaScript(configuration);
+		response.render(OnDomReadyHeaderItem.forScript(configuration));
+
 	}
 
 	protected boolean onEventDropped(DroppedEvent event, CalendarResponse response) {
@@ -187,4 +193,11 @@ public class FullCalendar extends AbstractFullCalendar {
 	public AjaxConcurrency getAjaxConcurrency() {
 		return AjaxConcurrency.QUEUE;
 	}
+
+	@Override
+	public void onRequest() {
+		getEvents.onRequest();
+
+	}
+
 }

@@ -22,6 +22,12 @@ import org.apache.wicket.protocol.http.WebApplication;
  */
 public class WicketApplication extends WebApplication {
 	/**
+	 * Constructor
+	 */
+	public WicketApplication() {
+	}
+
+	/**
 	 * @see org.apache.wicket.Application#getHomePage()
 	 */
 	@Override
