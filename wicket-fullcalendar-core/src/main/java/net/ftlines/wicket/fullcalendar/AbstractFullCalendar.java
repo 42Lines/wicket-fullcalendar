@@ -27,8 +27,7 @@ abstract class AbstractFullCalendar extends MarkupContainer implements IHeaderCo
 		super(id);
 	}
 
-	// TODO see if it makes sense to switch these to
-	// Css/JavaScriptResourceReference
+	// TODO see if it makes sense to switch these to Css/JavaScriptResourceReference
 	private static final ResourceReference CSS = new PackageResourceReference(AbstractFullCalendar.class,
 		"res/fullcalendar.css");
 	private static final ResourceReference JS = new PackageResourceReference(AbstractFullCalendar.class,
