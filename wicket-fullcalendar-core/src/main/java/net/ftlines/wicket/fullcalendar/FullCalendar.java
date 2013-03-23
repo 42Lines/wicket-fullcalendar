@@ -64,9 +64,10 @@ public class FullCalendar extends AbstractFullCalendar implements IBehaviorListe
 	protected void onInitialize() {
 		super.onInitialize();
 		for (EventSource source : config.getEventSources()) {
-
-			String uuid = UUID.randomUUID().toString().replaceAll("[^A-Za-z0-9]", "");
-			source.setUuid(uuid);
+			if (source.getUuid() == null) {
+				String uuid = UUID.randomUUID().toString().replaceAll("[^A-Za-z0-9]", "");
+				source.setUuid(uuid);
+			}
 		}
 	}
 
