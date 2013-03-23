@@ -35,6 +35,11 @@ public class CalendarResponse {
 		return toggleEventSource(source, true);
 	}
 
+	public CalendarResponse refetchEvents(String sourceId) {
+		toggleEventSource(sourceId, false);
+		return toggleEventSource(sourceId, true);
+	}
+
 	public CalendarResponse refetchEvent(EventSource source, Event event) {
 		// for now we have an unoptimized implementation
 		// later we can replace this by searching for the affected event in the
@@ -44,8 +49,25 @@ public class CalendarResponse {
 		return refetchEvents(source);
 	}
 
+	public CalendarResponse refetchEvent(String sourceId, String eventId) {
+		// for now we have an unoptimized implementation
+		// later we can replace this by searching for the affected event in the
+		// clientside buffer
+		// and refetching it
+
+		return refetchEvents(sourceId);
+	}
+
+	public CalendarResponse toggleEventSource(String sourceId, boolean enabled) {
+		return execute(q("toggleSource"), q(sourceId), String.valueOf(enabled));
+	}
+
 	public CalendarResponse toggleEventSource(EventSource source, boolean enabled) {
 		return execute(q("toggleSource"), q(source.getUuid()), String.valueOf(enabled));
+	}
+
+	public CalendarResponse removeEvent(String id) {
+		return execute(q("removeEvents"), q(id));
 	}
 
 	public CalendarResponse removeEvent(Event event) {
