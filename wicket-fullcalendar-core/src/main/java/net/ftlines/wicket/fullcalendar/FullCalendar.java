@@ -31,7 +31,6 @@ import org.apache.wicket.behavior.IBehaviorListener;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.util.collections.MicroMap;
-import org.apache.wicket.util.string.Strings;
 import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.template.TextTemplate;
 
@@ -77,18 +76,23 @@ public class FullCalendar extends AbstractFullCalendar implements IBehaviorListe
 		setupCallbacks();
 	}
 
-	private void setupCallbacks() {
+	/**
+	 * Configures callback urls to be used by fullcalendar js to talk to this component. If you wish to use custom
+	 * callbacks you should override this method and set them here.
+	 * 
+	 * NOTE: This method is called every time this component is rendered to keep the urls current, so if you set them
+	 * outside this method they will most likely be overwritten by the default ones.
+	 */
+	protected void setupCallbacks() {
 
-		if (getEvents != null)
-			return;
-
-		getEvents = new GetEventsCallback();
-		add(getEvents);
+		if (getEvents == null) {
+			add(getEvents = new GetEventsCallback());
+		}
 		for (EventSource source : config.getEventSources()) {
 			source.setEvents(EVENTS.asString(new MicroMap<String, String>("url", getEvents.getUrl(source))));
 		}
 
-		if (Strings.isEmpty(config.getEventClick())) {
+		if (eventClicked == null) {
 			add(eventClicked = new EventClickedCallback() {
 				@Override
 				protected void onClicked(ClickedEvent event, CalendarResponse response) {
@@ -96,25 +100,20 @@ public class FullCalendar extends AbstractFullCalendar implements IBehaviorListe
 				}
 			});
 		}
+		config.setEventClick(eventClicked.getHandlerScript());
 
-		if (eventClicked != null) {
-			config.setEventClick(eventClicked.getHandlerScript());
-		}
-
-		if (Strings.isEmpty(config.getSelect())) {
+		if (dateRangeSelected == null) {
 			add(dateRangeSelected = new DateRangeSelectedCallback(config.isIgnoreTimezone()) {
 				@Override
 				protected void onSelect(SelectedRange range, CalendarResponse response) {
 					FullCalendar.this.onDateRangeSelected(range, response);
 				}
 			});
-		}
 
-		if (dateRangeSelected != null) {
-			config.setSelect(dateRangeSelected.getHandlerScript());
 		}
+		config.setSelect(dateRangeSelected.getHandlerScript());
 
-		if (Strings.isEmpty(config.getEventDrop())) {
+		if (eventDropped == null) {
 			add(eventDropped = new EventDroppedCallback() {
 
 				@Override
@@ -123,12 +122,9 @@ public class FullCalendar extends AbstractFullCalendar implements IBehaviorListe
 				}
 			});
 		}
+		config.setEventDrop(eventDropped.getHandlerScript());
 
-		if (eventDropped != null) {
-			config.setEventDrop(eventDropped.getHandlerScript());
-		}
-
-		if (Strings.isEmpty(config.getEventResize())) {
+		if (eventResized == null) {
 			add(eventResized = new EventResizedCallback() {
 
 				@Override
@@ -138,12 +134,9 @@ public class FullCalendar extends AbstractFullCalendar implements IBehaviorListe
 
 			});
 		}
+		config.setEventResize(eventResized.getHandlerScript());
 
-		if (eventResized != null) {
-			config.setEventResize(eventResized.getHandlerScript());
-		}
-
-		if (Strings.isEmpty(config.getViewDisplay())) {
+		if (viewDisplay == null) {
 			add(viewDisplay = new ViewDisplayCallback() {
 				@Override
 				protected void onViewDisplayed(View view, CalendarResponse response) {
@@ -151,10 +144,7 @@ public class FullCalendar extends AbstractFullCalendar implements IBehaviorListe
 				}
 			});
 		}
-
-		if (viewDisplay != null) {
-			config.setViewDisplay(viewDisplay.getHandlerScript());
-		}
+		config.setViewDisplay(viewDisplay.getHandlerScript());
 
 		getPage().dirty();
 	}

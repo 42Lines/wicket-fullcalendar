@@ -82,6 +82,13 @@ public class Config implements Serializable {
 		return eventResize;
 	}
 
+	/**
+	 * Sets callback url to be used with this event.
+	 * 
+	 * WARNING: see {@link FullCalendar#setupCallbacks()}
+	 * 
+	 * @param eventResize
+	 */
 	public void setEventResize(String eventResize) {
 		this.eventResize = eventResize;
 	}
@@ -108,6 +115,13 @@ public class Config implements Serializable {
 		return eventDrop;
 	}
 
+	/**
+	 * Sets callback url to be used with this event.
+	 * 
+	 * WARNING: see {@link FullCalendar#setupCallbacks()}
+	 * 
+	 * @param eventDrop
+	 */
 	public void setEventDrop(String eventDrop) {
 		this.eventDrop = eventDrop;
 	}
@@ -133,6 +147,13 @@ public class Config implements Serializable {
 		return select;
 	}
 
+	/**
+	 * Sets callback url to be used with this event.
+	 * 
+	 * WARNING: see {@link FullCalendar#setupCallbacks()}
+	 * 
+	 * @param select
+	 */
 	public void setSelect(String select) {
 		this.select = select;
 	}
@@ -142,6 +163,13 @@ public class Config implements Serializable {
 		return eventClick;
 	}
 
+	/**
+	 * Sets callback url to be used with this event.
+	 * 
+	 * WARNING: see {@link FullCalendar#setupCallbacks()}
+	 * 
+	 * @param eventClick
+	 */
 	public void setEventClick(String eventClick) {
 		this.eventClick = eventClick;
 	}
