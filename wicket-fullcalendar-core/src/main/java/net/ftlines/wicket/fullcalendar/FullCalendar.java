@@ -51,6 +51,11 @@ public class FullCalendar extends AbstractFullCalendar implements IBehaviorListe
 		setVersioned(false);
 	}
 
+	@Override
+	protected boolean getStatelessHint() {
+		return false;
+	}
+
 	public Config getConfig() {
 		return config;
 	}
