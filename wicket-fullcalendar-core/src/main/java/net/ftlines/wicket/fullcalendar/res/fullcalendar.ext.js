@@ -95,7 +95,7 @@ $.fn.generateId = function() {
 				
 				function _toggleSource(owner, uuid, val) {
 					var source=findSource(uuid);
-					val=val||!source.data.fcxEnabled;
+					val = (typeof(val) === "undefined") ? (!source.data.fcxEnabled) : val;
 					if (val&&!source.data.fcxEnabled) {
 						$(owner).fullCalendar('addEventSource', source);
 						source.data.fcxEnabled=true;
