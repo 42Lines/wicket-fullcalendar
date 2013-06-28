@@ -9,120 +9,51 @@
  * or implied. See the License for the specific language governing permissions and limitations under
  * the License.
  */
-
 package net.ftlines.wicket.fullcalendar.callback;
 
 import org.apache.wicket.Component;
-import org.apache.wicket.ajax.attributes.IAjaxCallListener;
-import org.apache.wicket.util.collections.MicroMap;
-import org.apache.wicket.util.string.interpolator.MapVariableInterpolator;
+import org.apache.wicket.ajax.attributes.AjaxCallListener;
 
 /**
- * Prevents multiple clicks while ajax request is executing
+ * Prevents multiple clicks while ajax request is executing. We keep a variable that is set to {@code true} while the
+ * request is running and to any other value when its done.
  * 
  * @author igor
  */
-public class BlockingDecorator implements IAjaxCallListener {
-
-	// @formatter:off
-
-	private static final String template = "if (typeof(${var})=='undefined'){${var}=true;}"
-			+ "if(${var}==false){return false;}" + "${var}=false;";
-
-	// @formatter:on
-
-	private final AbstractAjaxCallback callback;
+public class BlockingDecorator extends AjaxCallListener {
 
 	private static String clean(String str) {
 		return str != null ? str.replaceAll("[^0-9a-zA-Z]", "") : null;
 	}
 
-	public BlockingDecorator(AbstractAjaxCallback callback) {
-		this.callback = callback;
-	}
-
-	private String var() {
-		String var = null;
-		switch (callback.getCalendar().getAjaxConcurrency()) {
-		case DROP:
-			var = callback.getCalendar().getMarkupId();
-			break;
-		case DROP_PER_CALLBACK:
-			var = callback.getClass().getName();
-		}
-		var = "window.block" + clean(var);
-		return var;
-	}
-
-	public CharSequence decorateScript(Component component, CharSequence script) {
-		switch (callback.getCalendar().getAjaxConcurrency()) {
-		case QUEUE:
-			return script;
-		case DROP_PER_CALLBACK:
-		case DROP:
-			return new MapVariableInterpolator(template, new MicroMap<String, String>("var", var())).toString()
-				+ script;
-
-		default:
+	private String var(Component component) {
+		if (!component.getOutputMarkupId()) {
 			throw new IllegalStateException();
 		}
-	}
+		// Calling clean() ensures that no Javascript operators (+, -, etc) are accidentally
+		// used in the markup id, which breaks this functionality.
+		String id = clean(component.getMarkupId());
+		return "window.wicketblock" + id;
 
-	public CharSequence decorateOnSuccessScript(Component component, CharSequence script) {
-		switch (callback.getCalendar().getAjaxConcurrency()) {
-		case QUEUE:
-			return script;
-		case DROP_PER_CALLBACK:
-		case DROP:
-			return var() + "=true;";
-		default:
-			throw new IllegalStateException();
-		}
-	}
-
-	public CharSequence decorateOnFailureScript(Component component, CharSequence script) {
-		return decorateOnSuccessScript(component, script);
-	}
-
-	@Override
-	public CharSequence getSuccessHandler(Component component) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public CharSequence getFailureHandler(Component component) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public CharSequence getBeforeHandler(Component component) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public CharSequence getAfterHandler(Component component) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public CharSequence getCompleteHandler(Component component) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
 	public CharSequence getPrecondition(Component component) {
-		// TODO Auto-generated method stub
-		return null;
+		// before we allow the request we check if one is already running by checking the var
+
+		// return false if the var is set to true (request running)
+		return var(component) + "!==true;";
 	}
 
 	@Override
 	public CharSequence getBeforeSendHandler(Component component) {
-		// TODO Auto-generated method stub
-		return null;
+		// just before we start the request, we set the var to true
+		return var(component) + "=true;";
+	}
+
+	@Override
+	public CharSequence getCompleteHandler(Component component) {
+		// when the request is complete we set the var to false
+		return var(component) + "=false;";
 	}
 }
