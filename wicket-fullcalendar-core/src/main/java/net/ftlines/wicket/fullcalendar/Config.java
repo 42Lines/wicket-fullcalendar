@@ -12,18 +12,13 @@
 
 package net.ftlines.wicket.fullcalendar;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.annotate.JsonRawValue;
 import org.joda.time.LocalTime;
+
+import java.io.Serializable;
+import java.util.*;
 
 public class Config implements Serializable {
 	/** Use these to specify calendar column formats */
@@ -63,6 +58,14 @@ public class Config implements Serializable {
 	private Integer slotMinutes;
 	private Float aspectRatio;
 	private boolean ignoreTimezone = false;
+
+    private boolean weekends = true;
+    private int firstDay = 0;
+
+    private String[] monthNames;
+    private String[] monthNamesShort;
+    private String[] dayNames;
+    private String[] dayNamesShort;
 
 	public Config add(EventSource eventSource) {
 		eventSources.add(eventSource);
@@ -354,4 +357,155 @@ public class Config implements Serializable {
 		return ignoreTimezone;
 	}
 
+    /**
+     * If <var>weekends</var> is {@code false}, then it will not display weekends.
+     * The default value is {@code true}
+     * @see <a href="http://arshaw.com/fullcalendar/docs/display/weekends/">http ://arshaw.com/
+     * fullcalendar/docs/display/weekends/</a>
+     * @return whether or not the calendar shows weekends
+     */
+    public boolean isWeekends() {
+        return weekends;
+    }
+
+    /**
+     * If <var>weekends</var> is {@code false}, then it will not display weekends.
+     * The default value is {@code true}
+     * @see <a href="http://arshaw.com/fullcalendar/docs/display/weekends/">http ://arshaw.com/
+     * fullcalendar/docs/display/weekends/</a>
+     * @param weekends whether or not the calendar shows weekends
+     */
+    public void setWeekends(boolean weekends) {
+        this.weekends = weekends;
+    }
+
+    /**
+     * Get the first day of a week as an {@code int}
+     * {@code 0} represent Sunday, {@code 1} represent Monday, etc...<br/>
+     * The default value is {@code 0} <i>Sunday</i>
+     * @see <a href="http://arshaw.com/fullcalendar/docs/display/firstDay/">http://arshaw.com/
+     * fullcalendar/docs/display/firstDay/</a>
+     * @return firstDay
+     */
+    public int getFirstDay() {
+        return firstDay;
+    }
+
+    /**
+     * Set the first day of a week as an {@code int}
+     * {@code 0} represent Sunday, {@code 1} represent Monday, etc...<br/>
+     * The default value is {@code 0} <i>Sunday</i>
+     * @see <a href="http://arshaw.com/fullcalendar/docs/display/firstDay/">http://arshaw.com/
+     * fullcalendar/docs/display/firstDay/</a>
+     * @param firstDay is the first day of a week represented by an {@code int}
+     */
+    public void setFirstDay(int firstDay) {
+        this.firstDay = firstDay;
+    }
+
+    /**
+     * Override month names depending on your {@code Locale}<br/>
+     * Use {@link #setMonthNames(String[])} to override month names.
+     * @see <a href="http://arshaw.com/fullcalendar/docs/text/monthNames/">http://arshaw.com/
+     * fullcalendar/docs/text/monthNames</a>
+     * @return monthNames
+     */
+    public String[] getMonthNames() {
+        return monthNames;
+    }
+
+    /**
+     * Override month names depending on your {@code Locale}<br/>
+     * It overrides all month names, do not forget one or it will print {@code null}
+     * <ul>
+     *     <i>This is an example to set month names in French</i><br/>
+     *     setMonthNames(new String[]{"Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août",
+     *     "Septembre", "Octobre", "Novembre", "Décembre"});
+     * </ul>
+     * @see <a href="http://arshaw.com/fullcalendar/docs/text/monthNames/">http://arshaw.com/
+     * fullcalendar/docs/text/monthNames</a>
+     * @param monthNames month names to override
+     */
+    public void setMonthNames(String[] monthNames) {
+        this.monthNames = monthNames;
+    }
+
+    /**
+     * Override month short names depending on your {@code Locale}<br/>
+     * Use {@link #setMonthNamesShort(String[])} to override month short names.
+     * @see <a href="http://arshaw.com/fullcalendar/docs/text/monthNamesShort/">http://arshaw.com/
+     * fullcalendar/docs/text/monthNamesShort</a>
+     * @return monthNamesShort
+     */
+    public String[] getMonthNamesShort() {
+        return monthNamesShort;
+    }
+
+    /**
+     * Override month short names depending on your {@code Locale}<br/>
+     * It overrides all month short names, do not forget one or it will print {@code null}
+     * <ul>
+     *     <i>This is an example to set month short names in French</i><br/>
+     *     setMonthNamesShort(new String[]{"Janv.", "Fév.", "Mars", "Avr.", "Mai", "Juin", "Juil.", "Août", "Sept.",
+     *     "Oct.", "Nov.", "Déc."});
+     * </ul>
+     * @see <a href="http://arshaw.com/fullcalendar/docs/text/monthNamesShort/">http://arshaw.com/
+     * fullcalendar/docs/text/monthNamesShort</a>
+     * @param monthNamesShort month short names to override
+     */
+    public void setMonthNamesShort(String[] monthNamesShort) {
+        this.monthNamesShort = monthNamesShort;
+    }
+
+    /**
+     * Override day names depending on your {@code Locale}<br/>
+     * Use {@link #setDayNames(String[])} to override day names.
+     * @see <a href="http://arshaw.com/fullcalendar/docs/text/dayNames/">http://arshaw.com/
+     * fullcalendar/docs/text/dayNames</a>
+     * @return dayNames
+     */
+    public String[] getDayNames() {
+        return dayNames;
+    }
+
+    /**
+     * Override day names depending on your {@code Locale}<br/>
+     * It overrides all day names, do not forget one or it will print {@code null}
+     * <ul>
+     *     <i>This is an example to set day names in French</i><br/>
+     *     setDayNames(new String[]{"Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi"});
+     * </ul>
+     * @see <a href="http://arshaw.com/fullcalendar/docs/text/dayNames/">http://arshaw.com/
+     * fullcalendar/docs/text/dayNames</a>
+     * @param dayNames day names to override
+     */
+    public void setDayNames(String[] dayNames) {
+        this.dayNames = dayNames;
+    }
+
+    /**
+     * Override day short names depending on your {@code Locale}<br/>
+     * Use {@link #setDayNamesShort(String[])} to override day short names.
+     * @see <a href="http://arshaw.com/fullcalendar/docs/text/dayNamesShort/">http://arshaw.com/
+     * fullcalendar/docs/text/dayNamesShort</a>
+     * @return dayNamesShort
+     */
+    public String[] getDayNamesShort() {
+        return dayNamesShort;
+    }
+
+    /**
+     * Override day short names depending on your {@code Locale}<br/>
+     * It overrides all day short names, do not forget one or it will print {@code null}
+     * <ul>
+     *     <i>This is an example to set day short names in French</i><br/>
+     *     setDayNamesShort(new String[]{"Dim", "Lun", "Mar", "Mer", "Jeu", "ven", "Sam"});
+     * </ul>
+     * @see <a href="http://arshaw.com/fullcalendar/docs/text/dayNamesShort/">http://arshaw.com/
+     * fullcalendar/docs/text/dayNamesShort</a>
+     * @param dayNamesShort day short names to override
+     */
+    public void setDayNamesShort(String[] dayNamesShort) {
+        this.dayNamesShort = dayNamesShort;
+    }
 }
