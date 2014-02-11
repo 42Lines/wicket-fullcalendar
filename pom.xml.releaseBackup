@@ -130,28 +130,15 @@
 			</testResource>
 		</testResources>
 		<plugins>
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-release-plugin</artifactId>
-                                <version>2.4.2</version>
-                                <configuration>
-                                        <goals>deploy</goals>
-                                        <autoVersionSubmodules>true</autoVersionSubmodules>
-                                        <tagNameFormat>@{project.version}</tagNameFormat>
-                                </configuration>
-                                <dependencies>
-                                        <dependency>
-                                                <groupId>org.apache.maven.scm</groupId>
-                                                <artifactId>maven-scm-api</artifactId>
-                                                <version>1.9</version>
-                                        </dependency>
-                                        <dependency>
-                                                <groupId>org.apache.maven.scm</groupId>
-                                                <artifactId>maven-scm-provider-gitexe</artifactId>
-                                                <version>1.9</version>
-                                        </dependency>
-                                </dependencies>
-                        </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<version>2.3</version>
+				<configuration>
+						<goals>deploy</goals>
+						<autoVersionSubmodules>true</autoVersionSubmodules>
+				</configuration>
+			</plugin>
 			<plugin>
 				<inherited>true</inherited>
 				<groupId>org.apache.maven.plugins</groupId>
