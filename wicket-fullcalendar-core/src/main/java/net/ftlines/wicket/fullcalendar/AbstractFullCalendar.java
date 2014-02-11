@@ -28,13 +28,13 @@ abstract class AbstractFullCalendar extends MarkupContainer implements IHeaderCo
 	}
 
 	// TODO see if it makes sense to switch these to Css/JavaScriptResourceReference
-	private static final ResourceReference CSS = new PackageResourceReference(AbstractFullCalendar.class,
+	protected static final ResourceReference CSS = new PackageResourceReference(AbstractFullCalendar.class,
 		"res/fullcalendar.css");
-	private static final ResourceReference JS = new PackageResourceReference(AbstractFullCalendar.class,
+	protected static final ResourceReference JS = new PackageResourceReference(AbstractFullCalendar.class,
 		"res/fullcalendar.js");
-	private static final ResourceReference JS_EXT = new PackageResourceReference(AbstractFullCalendar.class,
+	protected static final ResourceReference JS_EXT = new PackageResourceReference(AbstractFullCalendar.class,
 		"res/fullcalendar.ext.js");
-	private static final ResourceReference JS_MIN = new PackageResourceReference(AbstractFullCalendar.class,
+	protected static final ResourceReference JS_MIN = new PackageResourceReference(AbstractFullCalendar.class,
 		"res/fullcalendar.min.js");
 
 	@Override
@@ -42,15 +42,23 @@ abstract class AbstractFullCalendar extends MarkupContainer implements IHeaderCo
 
 		response.render(JavaScriptHeaderItem.forReference(WicketAjaxJQueryResourceReference.get()));
 
-		response.render(CssReferenceHeaderItem.forReference(CSS));
+		renderCssResources(response);
 
+		renderJavaScriptResources(response);
+		response.render(JavaScriptReferenceHeaderItem.forReference(JS_EXT));
+
+	}
+
+	protected void renderJavaScriptResources(IHeaderResponse response) {
 		if (getApplication().usesDeploymentConfig()) {
 			response.render(JavaScriptReferenceHeaderItem.forReference(JS_MIN));
 		} else {
 			response.render(JavaScriptReferenceHeaderItem.forReference(JS));
 		}
-		response.render(JavaScriptReferenceHeaderItem.forReference(JS_EXT));
+	}
 
+	protected void renderCssResources(IHeaderResponse response) {
+		response.render(CssReferenceHeaderItem.forReference(CSS));
 	}
 
 	public final String toJson(Object value) {
