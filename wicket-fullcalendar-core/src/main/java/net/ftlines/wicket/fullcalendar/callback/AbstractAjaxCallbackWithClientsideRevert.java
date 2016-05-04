@@ -15,6 +15,7 @@ package net.ftlines.wicket.fullcalendar.callback;
 import java.util.UUID;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.attributes.AjaxRequestAttributes;
 
 abstract class AbstractAjaxCallbackWithClientsideRevert extends AbstractAjaxCallback {
 
@@ -26,6 +27,11 @@ abstract class AbstractAjaxCallbackWithClientsideRevert extends AbstractAjaxCall
 
 	private String getRevertScriptBlock() {
 		return "{" + getRevertScript() + ";}";
+	}
+
+	@Override
+	protected void updateAjaxAttributes(AjaxRequestAttributes attributes) {
+		super.updateAjaxAttributes(attributes);
 	}
 
 	@Override

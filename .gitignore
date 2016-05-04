@@ -2,9 +2,12 @@ target
 .metadata
 .project
 .classpath
+.settings
 .idea/workspace.xml
 *.~
 *~
 *.orig
 test-output
 *.log
+/wicket-fullcalendar-core/.settings
+/wicket-fullcalendar-examples/.settings
