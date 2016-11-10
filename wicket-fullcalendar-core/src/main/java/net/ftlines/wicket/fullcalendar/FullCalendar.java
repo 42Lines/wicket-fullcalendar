@@ -12,29 +12,17 @@
 
 package net.ftlines.wicket.fullcalendar;
 
-import java.util.UUID;
-
-import net.ftlines.wicket.fullcalendar.callback.AjaxConcurrency;
-import net.ftlines.wicket.fullcalendar.callback.ClickedEvent;
-import net.ftlines.wicket.fullcalendar.callback.DateRangeSelectedCallback;
-import net.ftlines.wicket.fullcalendar.callback.DroppedEvent;
-import net.ftlines.wicket.fullcalendar.callback.EventClickedCallback;
-import net.ftlines.wicket.fullcalendar.callback.EventDroppedCallback;
-import net.ftlines.wicket.fullcalendar.callback.EventResizedCallback;
-import net.ftlines.wicket.fullcalendar.callback.GetEventsCallback;
-import net.ftlines.wicket.fullcalendar.callback.ResizedEvent;
-import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
-import net.ftlines.wicket.fullcalendar.callback.View;
-import net.ftlines.wicket.fullcalendar.callback.ViewDisplayCallback;
-
-import org.apache.wicket.behavior.IBehaviorListener;
+import net.ftlines.wicket.fullcalendar.callback.*;
+import org.apache.wicket.IRequestListener;
 import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.OnDomReadyHeaderItem;
 import org.apache.wicket.util.collections.MicroMap;
 import org.apache.wicket.util.template.PackageTextTemplate;
 import org.apache.wicket.util.template.TextTemplate;
 
-public class FullCalendar extends AbstractFullCalendar implements IBehaviorListener {
+import java.util.UUID;
+
+public class FullCalendar extends AbstractFullCalendar implements IRequestListener {
 	private static final TextTemplate EVENTS = new PackageTextTemplate(FullCalendar.class, "FullCalendar.events.tpl");
 
 	private final Config config;

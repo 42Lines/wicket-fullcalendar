@@ -12,9 +12,9 @@
 
 package net.ftlines.wicket.fullcalendar.callback;
 
-import java.util.UUID;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
+
+import java.util.UUID;
 
 abstract class AbstractAjaxCallbackWithClientsideRevert extends AbstractAjaxCallback {
 
@@ -33,16 +33,4 @@ abstract class AbstractAjaxCallbackWithClientsideRevert extends AbstractAjaxCall
 		boolean result = onEvent(target);
 		target.prependJavaScript(String.format("$.data(document, '%s', %s);", uuid, String.valueOf(result)));
 	}
-
-	@Override
-	protected final CharSequence getFailureScript() {
-		return getRevertScriptBlock();
-	}
-
-	@Override
-	protected final CharSequence getSuccessScript() {
-		return String.format("if (false===$.data(document, '%s')) %s $.removeData(document, '%s');", uuid,
-			getRevertScriptBlock(), uuid);
-	}
-
 }
