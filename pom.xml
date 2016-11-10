@@ -29,13 +29,14 @@
 		<module>wicket-fullcalendar-examples</module>
 	</modules>
 	<properties>
-		<wicket.version>6.3.0</wicket.version>
+		<wicket.version>8.0.0-M2</wicket.version>
 		<joda.version>1.6.2</joda.version>
 		<jackson.version>1.7.5</jackson.version>
 		<junit.version>4.8.1</junit.version>
 		<jetty.version>6.1.25</jetty.version>
 		<slf4j.version>1.6.4</slf4j.version>
 		<log4j.version>1.2.16</log4j.version>
+		<main.basedir>${basedir}</main.basedir>
 	</properties>
 	<dependencyManagement>
 		<dependencies>
@@ -193,9 +194,11 @@
 						<exclude>**/fullcalendar.print.css</exclude>
 						<exclude>**/src/main/webapp/**</exclude>
 						<exclude>eclipse-formatter.xml</exclude>
-						<exclude>build-number.txt</exclude>
+						<exclude>readme.md</exclude>
+						<exclude>../FullCalendar.events.tpl</exclude>
+						<exclude>.idea/**</exclude>
 					</excludes>
-					<header>license-header.txt</header>
+					<header>${main.basedir}/license-header.txt</header>
 				</configuration>
 				<executions>
 					<execution>
