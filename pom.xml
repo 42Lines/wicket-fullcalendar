@@ -196,6 +196,7 @@
 						<exclude>eclipse-formatter.xml</exclude>
 						<exclude>readme.md</exclude>
 						<exclude>../FullCalendar.events.tpl</exclude>
+						<exclude>.idea/**</exclude>
 					</excludes>
 					<header>${main.basedir}/license-header.txt</header>
 				</configuration>
