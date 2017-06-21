@@ -16,10 +16,10 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
-
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.codehaus.jackson.annotate.JsonRawValue;
+
+import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
 
 public class EventSource implements Serializable {
 
@@ -173,7 +173,7 @@ public class EventSource implements Serializable {
 	 * {@link EventSourceSelector} to begin with, will be enabled. If {@code false} then the check box will not be
 	 * enabled. Default is {@code true}.
 	 * 
-	 * @param includeInSelector
+	 * @param enableInSelector
 	 *            if {@code true} then the check box for this EventSource will be enabled, otherwise it won't
 	 */
 	public void setEnableInSelector(final boolean enableInSelector) {
