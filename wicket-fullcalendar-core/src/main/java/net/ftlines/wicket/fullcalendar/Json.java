@@ -12,55 +12,36 @@
 
 package net.ftlines.wicket.fullcalendar;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.io.Serializable;
-import java.io.Writer;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 
-import org.codehaus.jackson.JsonEncoding;
-import org.codehaus.jackson.JsonGenerator;
-import org.codehaus.jackson.JsonProcessingException;
-import org.codehaus.jackson.Version;
-import org.codehaus.jackson.map.JsonSerializer;
-import org.codehaus.jackson.map.MappingJsonFactory;
-import org.codehaus.jackson.map.ObjectMapper;
-import org.codehaus.jackson.map.SerializerProvider;
-import org.codehaus.jackson.map.annotate.JsonSerialize.Inclusion;
-import org.codehaus.jackson.map.module.SimpleModule;
-import org.joda.time.DateTime;
-import org.joda.time.LocalTime;
-import org.joda.time.format.ISODateTimeFormat;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonInclude.Include;
+import com.fasterxml.jackson.core.JsonGenerator;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.Version;
+import com.fasterxml.jackson.databind.JsonSerializer;
+import com.fasterxml.jackson.databind.MappingJsonFactory;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializerProvider;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.module.SimpleModule;
 
+@JsonSerialize
+@JsonInclude(value = Include.NON_NULL)
 class Json {
 	private Json() {
 
 	}
 
-	private static class MyJsonFactory extends MappingJsonFactory {
-		@Override
-		public JsonGenerator createJsonGenerator(Writer out) throws IOException {
-			return super.createJsonGenerator(out).useDefaultPrettyPrinter();
-		}
-
-		@Override
-		public JsonGenerator createJsonGenerator(File f, JsonEncoding enc) throws IOException {
-			return super.createJsonGenerator(f, enc).useDefaultPrettyPrinter();
-		}
-
-		@Override
-		public JsonGenerator createJsonGenerator(OutputStream out, JsonEncoding enc) throws IOException {
-			return super.createJsonGenerator(out, enc).useDefaultPrettyPrinter();
-		}
-	}
-
 	public static String toJson(Object object) {
-		ObjectMapper mapper = new ObjectMapper(new MyJsonFactory());
-		SimpleModule module = new SimpleModule("fullcalendar", new Version(1, 0, 0, null));
+		ObjectMapper mapper = new ObjectMapper(new MappingJsonFactory());
+		SimpleModule module = new SimpleModule("fullcalendar", new Version(1, 0, 0, null, null, null));
 		module.addSerializer(new DateTimeSerializer());
 		module.addSerializer(new LocalTimeSerializer());
 		mapper.registerModule(module);
-		mapper.getSerializationConfig().setSerializationInclusion(Inclusion.NON_NULL);
 
 		String json = null;
 		try {
@@ -71,25 +52,25 @@ class Json {
 		return json;
 	}
 
-	public static class DateTimeSerializer extends JsonSerializer<DateTime> {
+	public static class DateTimeSerializer extends JsonSerializer<LocalDateTime> {
 		@Override
-		public void serialize(DateTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
-			JsonProcessingException {
-			jgen.writeString(ISODateTimeFormat.dateTime().print(value));
+		public void serialize(LocalDateTime value, JsonGenerator jgen, SerializerProvider provider)
+			throws IOException, JsonProcessingException {
+			jgen.writeString(value.toString());
 		}
 
 		@Override
-		public Class<DateTime> handledType() {
-			return DateTime.class;
+		public Class<LocalDateTime> handledType() {
+			return LocalDateTime.class;
 		}
 
 	}
 
 	public static class LocalTimeSerializer extends JsonSerializer<LocalTime> {
 		@Override
-		public void serialize(LocalTime value, JsonGenerator jgen, SerializerProvider provider) throws IOException,
-			JsonProcessingException {
-			jgen.writeString(value.toString("h:mmaa"));
+		public void serialize(LocalTime value, JsonGenerator jgen, SerializerProvider provider)
+			throws IOException, JsonProcessingException {
+			jgen.writeString(value.toString());
 		}
 
 		@Override

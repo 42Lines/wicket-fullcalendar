@@ -12,18 +12,19 @@
 
 package net.ftlines.wicket.fullcalendar.callback;
 
-import net.ftlines.wicket.fullcalendar.ViewType;
+import java.time.LocalDateTime;
 
-import org.joda.time.DateMidnight;
+import net.ftlines.wicket.fullcalendar.ViewType;
 
 public class View {
 	private ViewType type;
-	private DateMidnight start;
-	private DateMidnight end;
-	private DateMidnight visibleStart;
-	private DateMidnight visibleEnd;
+	private LocalDateTime start;
+	private LocalDateTime end;
+	private LocalDateTime visibleStart;
+	private LocalDateTime visibleEnd;
 
-	public View(ViewType type, DateMidnight start, DateMidnight end, DateMidnight visibleStart, DateMidnight visibleEnd) {
+	public View(ViewType type, LocalDateTime start, LocalDateTime end, LocalDateTime visibleStart,
+		LocalDateTime visibleEnd) {
 		this.type = type;
 		this.start = start;
 		this.end = end;
@@ -35,19 +36,19 @@ public class View {
 		return type;
 	}
 
-	public DateMidnight getStart() {
+	public LocalDateTime getStart() {
 		return start;
 	}
 
-	public DateMidnight getEnd() {
+	public LocalDateTime getEnd() {
 		return end;
 	}
 
-	public DateMidnight getVisibleStart() {
+	public LocalDateTime getVisibleStart() {
 		return visibleStart;
 	}
 
-	public DateMidnight getVisibleEnd() {
+	public LocalDateTime getVisibleEnd() {
 		return visibleEnd;
 	}
 

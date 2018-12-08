@@ -19,8 +19,10 @@ import org.apache.wicket.markup.head.IHeaderResponse;
 import org.apache.wicket.markup.head.JavaScriptHeaderItem;
 import org.apache.wicket.markup.head.JavaScriptReferenceHeaderItem;
 import org.apache.wicket.markup.html.IHeaderContributor;
+import org.apache.wicket.request.Url;
 import org.apache.wicket.request.resource.PackageResourceReference;
 import org.apache.wicket.request.resource.ResourceReference;
+import org.apache.wicket.request.resource.UrlResourceReference;
 
 abstract class AbstractFullCalendar extends MarkupContainer implements IHeaderContributor {
 	public AbstractFullCalendar(String id) {
@@ -36,6 +38,8 @@ abstract class AbstractFullCalendar extends MarkupContainer implements IHeaderCo
 		"res/fullcalendar.ext.js");
 	protected static final ResourceReference JS_MIN = new PackageResourceReference(AbstractFullCalendar.class,
 		"res/fullcalendar.min.js");
+	protected static final UrlResourceReference LOADASH = new UrlResourceReference(
+		Url.parse("https://cdn.jsdelivr.net/npm/lodash@4.17.11/lodash.min.js"));
 
 	@Override
 	public void renderHead(IHeaderResponse response) {
@@ -50,8 +54,9 @@ abstract class AbstractFullCalendar extends MarkupContainer implements IHeaderCo
 	}
 
 	protected void renderJavaScriptResources(IHeaderResponse response) {
+		response.render(JavaScriptReferenceHeaderItem.forReference(LOADASH));
 		if (getApplication().usesDeploymentConfig()) {
-			response.render(JavaScriptReferenceHeaderItem.forReference(JS_MIN));
+			response.render(JavaScriptReferenceHeaderItem.forReference(JS));
 		} else {
 			response.render(JavaScriptReferenceHeaderItem.forReference(JS));
 		}

@@ -13,6 +13,7 @@
 package net.ftlines.wicket.fullcalendar;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -20,10 +21,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.annotate.JsonRawValue;
-import org.joda.time.LocalTime;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 
 public class Config implements Serializable {
 	/** Use these to specify calendar column formats */
@@ -49,8 +49,8 @@ public class Config implements Serializable {
 	@JsonProperty
 	private Map<ColumnFormat, String> columnFormat = new HashMap<Config.ColumnFormat, String>();
 
-	private LocalTime minTime;
-	private LocalTime maxTime;
+	private LocalDateTime minTime;
+	private LocalDateTime maxTime;
 	private Integer firstHour;
 	private Boolean allDaySlot;
 
@@ -231,19 +231,19 @@ public class Config implements Serializable {
 		return buttonText;
 	}
 
-	public LocalTime getMinTime() {
+	public LocalDateTime getMinTime() {
 		return minTime;
 	}
 
-	public void setMinTime(LocalTime minTime) {
+	public void setMinTime(LocalDateTime minTime) {
 		this.minTime = minTime;
 	}
 
-	public LocalTime getMaxTime() {
+	public LocalDateTime getMaxTime() {
 		return maxTime;
 	}
 
-	public void setMaxTime(LocalTime maxTime) {
+	public void setMaxTime(LocalDateTime maxTime) {
 		this.maxTime = maxTime;
 	}
 

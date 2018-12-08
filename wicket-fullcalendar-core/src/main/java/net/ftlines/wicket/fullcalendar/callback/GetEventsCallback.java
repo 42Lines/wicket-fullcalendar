@@ -12,14 +12,15 @@
 
 package net.ftlines.wicket.fullcalendar.callback;
 
-import net.ftlines.wicket.fullcalendar.EventProvider;
-import net.ftlines.wicket.fullcalendar.EventSource;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
 
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.handler.TextRequestHandler;
 import org.apache.wicket.util.collections.MicroMap;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+
+import net.ftlines.wicket.fullcalendar.EventProvider;
+import net.ftlines.wicket.fullcalendar.EventSource;
 
 public class GetEventsCallback extends AbstractCallback {
 	private static final String SOURCE_ID = "sid";
@@ -31,15 +32,16 @@ public class GetEventsCallback extends AbstractCallback {
 	@Override
 	protected void respond() {
 		Request r = getCalendar().getRequest();
-
 		String sid = r.getRequestParameters().getParameterValue(SOURCE_ID).toString();
-		DateTime start = new DateTime(r.getRequestParameters().getParameterValue("start").toLong());
-		DateTime end = new DateTime(r.getRequestParameters().getParameterValue("end").toLong());
+		LocalDateTime start = LocalDateTime
+			.parse(r.getRequestParameters().getParameterValue("startDate").toOptionalString());
+		LocalDateTime end = LocalDateTime
+			.parse(r.getRequestParameters().getParameterValue("endDate").toOptionalString());
 
 		if (getCalendar().getConfig().isIgnoreTimezone()) {
 			// Convert to same DateTime in local time zone.
 			int remoteOffset = -r.getRequestParameters().getParameterValue("timezoneOffset").toInt();
-			int localOffset = DateTimeZone.getDefault().getOffset(null) / 60000;
+			int localOffset = OffsetDateTime.now().getOffset().getTotalSeconds() / 60000;
 			int minutesAdjustment = remoteOffset - localOffset;
 			start = start.plusMinutes(minutesAdjustment);
 			end = end.plusMinutes(minutesAdjustment);
@@ -48,8 +50,8 @@ public class GetEventsCallback extends AbstractCallback {
 		EventProvider provider = source.getEventProvider();
 		String response = getCalendar().toJson(provider.getEvents(start, end));
 
-		getCalendar().getRequestCycle().scheduleRequestHandlerAfterCurrent(
-			new TextRequestHandler("application/json", "UTF-8", response));
+		getCalendar().getRequestCycle()
+			.scheduleRequestHandlerAfterCurrent(new TextRequestHandler("application/json", "UTF-8", response));
 
 	}
 }

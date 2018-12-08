@@ -12,12 +12,15 @@
 
 package net.ftlines.wicket.fullcalendar.callback;
 
-import net.ftlines.wicket.fullcalendar.CalendarResponse;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.OffsetDateTime;
+import java.time.ZoneId;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.request.Request;
-import org.joda.time.DateTime;
-import org.joda.time.DateTimeZone;
+
+import net.ftlines.wicket.fullcalendar.CalendarResponse;
 
 public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback implements CallbackWithHandler {
 	private final boolean ignoreTimezone;
@@ -36,10 +39,8 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 
 	@Override
 	protected String configureCallbackScript(String script, String urlTail) {
-		return script
-			.replace(
-				urlTail,
-				"&timezoneOffset=\"+startDate.getTimezoneOffset()+\"&startDate=\"+startDate.getTime()+\"&endDate=\"+endDate.getTime()+\"&allDay=\"+allDay+\"");
+		return script.replace(urlTail,
+			"&timezoneOffset=\"+startDate.getTimezoneOffset()+\"&startDate=\"+startDate.getTime()+\"&endDate=\"+endDate.getTime()+\"&allDay=\"+allDay+\"");
 	}
 
 	@Override
@@ -50,14 +51,21 @@ public abstract class DateRangeSelectedCallback extends AbstractAjaxCallback imp
 	@Override
 	protected void respond(AjaxRequestTarget target) {
 		Request r = getCalendar().getRequest();
-
-		DateTime start = new DateTime(r.getRequestParameters().getParameterValue("startDate").toLong());
-		DateTime end = new DateTime(r.getRequestParameters().getParameterValue("endDate").toLong());
+		LocalDateTime start = LocalDateTime.ofInstant(
+			Instant.ofEpochMilli(
+				Long.parseLong(r.getRequestParameters().getParameterValue("startDate").toOptionalString())),
+			ZoneId.systemDefault());
+		// LocalDateTime.parse(r.getRequestParameters().getParameterValue("startDate").toOptionalString(), fmt);
+		LocalDateTime end = LocalDateTime.ofInstant(
+			Instant
+				.ofEpochMilli(Long.parseLong(r.getRequestParameters().getParameterValue("endDate").toOptionalString())),
+			ZoneId.systemDefault());
+		// LocalDateTime.parse(r.getRequestParameters().getParameterValue("endDate").toOptionalString(), fmt);
 
 		if (ignoreTimezone) {
 			// Convert to same DateTime in local time zone.
 			int remoteOffset = -r.getRequestParameters().getParameterValue("timezoneOffset").toInt();
-			int localOffset = DateTimeZone.getDefault().getOffset(null) / 60000;
+			int localOffset = OffsetDateTime.now().getOffset().getTotalSeconds() / 60000;
 			int minutesAdjustment = remoteOffset - localOffset;
 			start = start.plusMinutes(minutesAdjustment);
 			end = end.plusMinutes(minutesAdjustment);

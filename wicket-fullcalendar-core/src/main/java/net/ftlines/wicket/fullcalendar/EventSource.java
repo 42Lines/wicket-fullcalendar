@@ -16,8 +16,8 @@ import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.annotate.JsonRawValue;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonRawValue;
 
 import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
 
