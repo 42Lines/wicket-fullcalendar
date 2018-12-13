@@ -14,14 +14,14 @@ package net.ftlines.wicket.fullcalendar.callback;
 
 import java.util.Map;
 
-import net.ftlines.wicket.fullcalendar.FullCalendar;
-
 import org.apache.wicket.Component;
+import org.apache.wicket.IRequestListener;
 import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.behavior.IBehaviorListener;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
-abstract class AbstractCallback extends Behavior implements IBehaviorListener {
+import net.ftlines.wicket.fullcalendar.FullCalendar;
+
+abstract class AbstractCallback extends Behavior implements IRequestListener {
 	private FullCalendar calendar;
 
 	@Override
@@ -32,7 +32,7 @@ abstract class AbstractCallback extends Behavior implements IBehaviorListener {
 
 	protected final String getUrl(Map<String, Object> parameters) {
 		PageParameters params = new PageParameters();
-		String url = calendar.urlFor(IBehaviorListener.INTERFACE, params).toString();
+		String url = calendar.urlForListener(this, params).toString();
 
 		if (parameters != null) {
 			for (Map.Entry<String, Object> parameter : parameters.entrySet()) {
@@ -55,6 +55,11 @@ abstract class AbstractCallback extends Behavior implements IBehaviorListener {
 
 	@Override
 	public boolean getStatelessHint(Component component) {
+		return false;
+	}
+
+	@Override
+	public boolean rendersPage() {
 		return false;
 	}
 }
