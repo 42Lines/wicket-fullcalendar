@@ -172,6 +172,7 @@
 					<failIfMissing>true</failIfMissing>
 					<aggregate>true</aggregate>
 					<excludes>
+						<exclude>.idea/**</exclude>
 						<exclude>license-header.txt</exclude>
 						<exclude>**/src/test/resources/**</exclude>
 						<exclude>**/fullcalendar.css</exclude>
