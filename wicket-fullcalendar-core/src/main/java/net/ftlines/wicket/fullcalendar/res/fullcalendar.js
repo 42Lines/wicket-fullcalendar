@@ -14,7 +14,13 @@
  * Date: Tue Sep 4 23:38:33 2012 -0700
  *
  */
- 
+
+/**
+ * MODIFICATIONS:
+ * changed button spans into anchors so they are tabbable
+ */
+
+
 (function($, undefined) {
 
 
@@ -746,7 +752,7 @@ function Header(calendar, options) {
 							var icon = options.theme ? smartProperty(options.buttonIcons, buttonName) : null; // why are we using smartProperty here?
 							var text = smartProperty(options.buttonText, buttonName); // why are we using smartProperty here?
 							var button = $(
-								"<span class='fc-button fc-button-" + buttonName + " " + tm + "-state-default'>" +
+								"<a class='fc-button fc-button-" + buttonName + " " + tm + "-state-default' href='#'>" +
 									"<span class='fc-button-inner'>" +
 										"<span class='fc-button-content'>" +
 											(icon ?
@@ -758,7 +764,7 @@ function Header(calendar, options) {
 										"</span>" +
 										"<span class='fc-button-effect'><span></span></span>" +
 									"</span>" +
-								"</span>"
+								"</a>"
 							);
 							if (button) {
 								button
