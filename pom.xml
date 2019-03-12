@@ -8,7 +8,7 @@
 	<groupId>net.ftlines.wicket-fullcalendar</groupId>
 	<artifactId>wicket-fullcalendar-parent</artifactId>
 	<packaging>pom</packaging>
-	<version>4.2</version>
+	<version>4.3-SNAPSHOT</version>
 	<name>Wicket-FullCalendar Parent</name>
 	<description>Provides a Wicket frontend to the FullCalendar JavaScript library</description>
 	<licenses>
