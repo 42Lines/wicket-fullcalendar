@@ -1709,7 +1709,7 @@ function stackSegs(segs) {
 
 
 function lazySegBind(container, segs, bindHandlers) {
-	container.unbind('mouseover').mouseover(function(ev) {
+	container.unbind('mouseover focusin').on("mouseover focusin", function(ev) {
 		var parent=ev.target, e,
 			i, seg;
 		while (parent != this) {
@@ -3902,7 +3902,7 @@ function AgendaEventRenderer() {
 		if (url) {
 			html += "a href='" + htmlEscape(event.url) + "'";
 		}else{
-			html += "div";
+			html += "a href='#'";
 		}
 		html +=
 			" class='" + classes.join(' ') + "'" +
@@ -3925,8 +3925,7 @@ function AgendaEventRenderer() {
 			html +=
 				"<div class='ui-resizable-handle ui-resizable-s'>=</div>";
 		}
-		html +=
-			"</" + (url ? "a" : "div") + ">";
+		html += "</a>";
 		return html;
 	}
 	
@@ -4647,7 +4646,7 @@ function DayEventRenderer() {
 			if (url) {
 				html += "<a href='" + htmlEscape(url) + "'";
 			}else{
-				html += "<div";
+				html += "<a href='#'";
 			}
 			html +=
 				" class='" + classes.join(' ') + "'" +
@@ -4673,7 +4672,7 @@ function DayEventRenderer() {
 					"</div>";
 			}
 			html +=
-				"</" + (url ? "a" : "div" ) + ">";
+				"</a>";
 			seg.left = left;
 			seg.outerWidth = right - left;
 			seg.startCol = leftCol;
