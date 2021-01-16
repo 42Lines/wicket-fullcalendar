@@ -155,12 +155,15 @@ $.fn.fullCalendar = function(options) {
 		delete options.events;
 	}
 	
-
+	
 	options = $.extend(true, {},
-		defaults,
-		(options.isRTL || options.isRTL===undefined && defaults.isRTL) ? rtlDefaults : {},
-		options
+			defaults,
+			// FIXME ñapa (options.isRTL || options.isRTL===undefined && defaults.isRTL) ? rtlDefaults : {},
+					options
 	);
+	options.buttonText = undefined;// FIXME ñapa 
+	options = _.mergeWith({}, options, defaults, (o, s) => (_.isNull(o) || _.isUndefined(o)) ? s : o)
+	
 	
 	
 	this.each(function(i, _element) {
@@ -206,8 +209,8 @@ function Calendar(element, options, eventSources) {
 	t.today = today;
 	t.gotoDate = gotoDate;
 	t.incrementDate = incrementDate;
-	t.formatDate = function(format, date) { return formatDate(format, date, options) };
-	t.formatDates = function(format, date1, date2) { return formatDates(format, date1, date2, options) };
+	t.formatDate = function(date, format) { return formatDate(date, format, options) };
+	t.formatDates = function(date1, date2, format) { return formatDates(date1, date2, format, options) };
 	t.getDate = getDate;
 	t.getView = getView;
 	t.option = option;
@@ -1467,17 +1470,9 @@ function parseTime(s) { // returns minutes since start of day
 	}
 }
 
-
-
-/* Date Formatting
------------------------------------------------------------------------------*/
-// TODO: use same function formatDate(date, [date2], format, [options])
-
-
 function formatDate(date, format, options) {
 	return formatDates(date, null, format, options);
 }
-
 
 function formatDates(date1, date2, format, options) {
 	options = options || defaults;

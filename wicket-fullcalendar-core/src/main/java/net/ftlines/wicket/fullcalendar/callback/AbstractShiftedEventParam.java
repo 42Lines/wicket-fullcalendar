@@ -12,11 +12,12 @@
 
 package net.ftlines.wicket.fullcalendar.callback;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.Period;
+
 import net.ftlines.wicket.fullcalendar.Event;
 import net.ftlines.wicket.fullcalendar.EventSource;
-
-import org.joda.time.DateTime;
-import org.joda.time.Period;
 
 class AbstractShiftedEventParam extends AbstractEventParam {
 	private final int daysDelta;
@@ -36,19 +37,19 @@ class AbstractShiftedEventParam extends AbstractEventParam {
 		return minutesDelta;
 	}
 
-	public DateTime getNewStartTime() {
+	public LocalDateTime getNewStartTime() {
 		return shift(getEvent().getStart());
 	}
 
-	public DateTime getNewEndTime() {
+	public LocalDateTime getNewEndTime() {
 		return shift(getEvent().getEnd());
 	}
 
 	public Period getDelta() {
-		return Period.days(daysDelta).plusMinutes(minutesDelta);
+		return Period.ofDays(daysDelta).plus(Duration.ofMinutes(minutesDelta));
 	}
 
-	private DateTime shift(DateTime start) {
+	private LocalDateTime shift(LocalDateTime start) {
 		return start.plusDays(daysDelta).plusMinutes(minutesDelta);
 	}
 

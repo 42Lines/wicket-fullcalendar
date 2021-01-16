@@ -13,10 +13,22 @@
 package net.ftlines.wicket.fullcalendar;
 
 import java.io.Serializable;
-
-import org.joda.time.DateTime;
+import java.time.LocalDateTime;
 
 public class Event implements Serializable {
+
+	@Override
+	public String toString() {
+		return "Event [id=" + id + ", title=" + title + ", allDay=" + allDay + ", start=" + start + ", end=" + end
+			+ ", url=" + url + ", className=" + className + ", editable=" + editable + ", color=" + color
+			+ ", backgroundColor=" + backgroundColor + ", borderColor=" + borderColor + ", textColor=" + textColor
+			+ ", payload=" + payload + ", getId()=" + getId() + ", getTitle()=" + getTitle() + ", isAllDay()="
+			+ isAllDay() + ", getStart()=" + getStart() + ", getEnd()=" + getEnd() + ", getUrl()=" + getUrl()
+			+ ", getClassName()=" + getClassName() + ", isEditable()=" + isEditable() + ", getColor()=" + getColor()
+			+ ", getBackgroundColor()=" + getBackgroundColor() + ", getBorderColor()=" + getBorderColor()
+			+ ", getTextColor()=" + getTextColor() + ", getPayload()=" + getPayload() + ", getClass()=" + getClass()
+			+ ", hashCode()=" + hashCode() + ", toString()=" + super.toString() + "]";
+	}
 
 	private String id;
 
@@ -24,9 +36,9 @@ public class Event implements Serializable {
 
 	private boolean allDay = false;
 
-	private DateTime start;
+	private LocalDateTime start;
 
-	private DateTime end;
+	private LocalDateTime end;
 
 	private String url;
 
@@ -70,20 +82,20 @@ public class Event implements Serializable {
 		return this;
 	}
 
-	public DateTime getStart() {
+	public LocalDateTime getStart() {
 		return start;
 	}
 
-	public Event setStart(DateTime start) {
+	public Event setStart(LocalDateTime start) {
 		this.start = start;
 		return this;
 	}
 
-	public DateTime getEnd() {
+	public LocalDateTime getEnd() {
 		return end;
 	}
 
-	public Event setEnd(DateTime end) {
+	public Event setEnd(LocalDateTime end) {
 		this.end = end;
 		return this;
 	}

@@ -12,11 +12,10 @@
 
 package net.ftlines.wicket.fullcalendar;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
- * Dummy test to make bamboo happy because its fails if it doesnt find any test
- * artifacts
+ * Dummy test to make bamboo happy because its fails if it doesnt find any test artifacts
  * 
  * @author igor
  * 

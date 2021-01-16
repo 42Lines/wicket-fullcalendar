@@ -12,12 +12,13 @@
 
 package net.ftlines.wicket.fullcalendar;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.util.string.Strings;
 
-public class CalendarResponse {
+public class CalendarResponse implements Serializable {
 	private final FullCalendar calendar;
 	private final AjaxRequestTarget target;
 

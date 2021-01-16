@@ -13,9 +13,15 @@
 package net.ftlines.wicket.fullcalendar;
 
 import java.security.SecureRandom;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.markup.html.panel.FeedbackPanel;
 
 import net.ftlines.wicket.fullcalendar.callback.ClickedEvent;
 import net.ftlines.wicket.fullcalendar.callback.DroppedEvent;
@@ -23,12 +29,6 @@ import net.ftlines.wicket.fullcalendar.callback.ResizedEvent;
 import net.ftlines.wicket.fullcalendar.callback.SelectedRange;
 import net.ftlines.wicket.fullcalendar.callback.View;
 import net.ftlines.wicket.fullcalendar.selector.EventSourceSelector;
-
-import org.apache.wicket.markup.html.WebPage;
-import org.apache.wicket.markup.html.panel.FeedbackPanel;
-import org.apache.wicket.util.time.Duration;
-import org.joda.time.DateTime;
-import org.joda.time.LocalTime;
 
 public class HomePage extends WebPage {
 
@@ -44,8 +44,7 @@ public class HomePage extends WebPage {
 
 		EventSource reservations = new EventSource();
 		reservations.setTitle("Reservations");
-		reservations
-				.setEventsProvider(new RandomEventsProvider("Reservation "));
+		reservations.setEventsProvider(new RandomEventsProvider("Reservation "));
 		reservations.setEditable(true);
 		reservations.setBackgroundColor("#63BA68");
 		reservations.setBorderColor("#63BA68");
@@ -73,33 +72,28 @@ public class HomePage extends WebPage {
 
 		config.setLoading("function(bool) { if (bool) $(\"#loading\").show(); else $(\"#loading\").hide(); }");
 
-		config.setMinTime(new LocalTime(6, 30));
-		config.setMaxTime(new LocalTime(17, 30));
+		config.setMinTime(LocalDateTime.now().withHour(6).withMinute(30));
+		config.setMaxTime(LocalDateTime.now().withHour(17).withMinute(30));
 		config.setAllDaySlot(false);
 		FullCalendar calendar = new FullCalendar("cal", config) {
 			@Override
 
-			protected void onDateRangeSelected(SelectedRange range,
-					CalendarResponse response) {
-				info("Selected region: " + range.getStart() + " - "
-						+ range.getEnd() + " / allDay: " + range.isAllDay());
+			protected void onDateRangeSelected(SelectedRange range, CalendarResponse response) {
+				info(
+					"Selected region: " + range.getStart() + " - " + range.getEnd() + " / allDay: " + range.isAllDay());
 
 				response.getTarget().add(feedback);
 			}
 
 			@Override
 
-			protected boolean onEventDropped(DroppedEvent event,
-					CalendarResponse response) {
-				info("Event drop. eventId: " + event.getEvent().getId()
-						+ " sourceId: " + event.getSource().getUuid()
-						+ " dayDelta: " + event.getDaysDelta()
-						+ " minuteDelta: " + event.getMinutesDelta()
-						+ " allDay: " + event.isAllDay());
-				info("Original start time: " + event.getEvent().getStart()
-						+ ", original end time: " + event.getEvent().getEnd());
-				info("New start time: " + event.getNewStartTime()
-						+ ", new end time: " + event.getNewEndTime());
+			protected boolean onEventDropped(DroppedEvent event, CalendarResponse response) {
+				info("Event drop. eventId: " + event.getEvent().getId() + " sourceId: " + event.getSource().getUuid()
+					+ " dayDelta: " + event.getDaysDelta() + " minuteDelta: " + event.getMinutesDelta() + " allDay: "
+					+ event.isAllDay());
+				info("Original start time: " + event.getEvent().getStart() + ", original end time: "
+					+ event.getEvent().getEnd());
+				info("New start time: " + event.getNewStartTime() + ", new end time: " + event.getNewEndTime());
 
 				response.getTarget().add(feedback);
 				return false;
@@ -107,22 +101,18 @@ public class HomePage extends WebPage {
 
 			@Override
 
-			protected boolean onEventResized(ResizedEvent event,
-					CalendarResponse response) {
-				info("Event resized. eventId: " + event.getEvent().getId()
-						+ " sourceId: " + event.getSource().getUuid()
-						+ " dayDelta: " + event.getDaysDelta()
-						+ " minuteDelta: " + event.getMinutesDelta());
+			protected boolean onEventResized(ResizedEvent event, CalendarResponse response) {
+				info("Event resized. eventId: " + event.getEvent().getId() + " sourceId: " + event.getSource().getUuid()
+					+ " dayDelta: " + event.getDaysDelta() + " minuteDelta: " + event.getMinutesDelta());
 				response.getTarget().add(feedback);
 				return false;
 			}
 
 			@Override
 
-			protected void onEventClicked(ClickedEvent event,
-					CalendarResponse response) {
-				info("Event clicked. eventId: " + event.getEvent().getId()
-						+ ", sourceId: " + event.getSource().getUuid());
+			protected void onEventClicked(ClickedEvent event, CalendarResponse response) {
+				info("Event clicked. eventId: " + event.getEvent().getId() + ", sourceId: "
+					+ event.getSource().getUuid());
 				response.refetchEvents();
 				response.getTarget().add(feedback);
 			}
@@ -130,9 +120,8 @@ public class HomePage extends WebPage {
 			@Override
 			protected void onViewDisplayed(View view, CalendarResponse response) {
 
-				info("View displayed. viewType: " + view.getType().name()
-						+ ", start: " + view.getStart() + ", end: "
-						+ view.getEnd());
+				info("View displayed. viewType: " + view.getType().name() + ", start: " + view.getStart() + ", end: "
+					+ view.getEnd());
 				response.getTarget().add(feedback);
 			}
 		};
@@ -151,21 +140,20 @@ public class HomePage extends WebPage {
 		}
 
 		@Override
-		public Collection<Event> getEvents(DateTime start, DateTime end) {
+		public Collection<Event> getEvents(LocalDateTime start, LocalDateTime end) {
 			events.clear();
 			SecureRandom random = new SecureRandom();
 
-			Duration duration = Duration.valueOf(end.getMillis()
-					- start.getMillis());
+			Duration duration = Duration.ofMillis(end.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli()
+				- start.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
 
 			for (int j = 0; j < 1; j++) {
-				for (int i = 0; i < duration.days() + 1; i++) {
-					DateTime calendar = start;
-					calendar = calendar.plusDays(i).withHourOfDay(
-							6 + random.nextInt(10));
+				for (int i = 0; i < duration.toDays() + 1; i++) {
+					LocalDateTime calendar = start;
+					calendar = calendar.plusDays(i).withHour(6 + random.nextInt(10));
 
 					Event event = new Event();
-					int id = (int) (j * duration.days() + i);
+					int id = (int) (j * duration.toDays() + i);
 					event.setId("" + id);
 					event.setTitle(title + (1 + i));
 					event.setStart(calendar);
@@ -185,8 +173,7 @@ public class HomePage extends WebPage {
 			if (event != null) {
 				return event;
 			}
-			throw new EventNotFoundException("Event with id: " + id
-					+ " not found");
+			throw new EventNotFoundException("Event with id: " + id + " not found");
 		}
 
 	}
